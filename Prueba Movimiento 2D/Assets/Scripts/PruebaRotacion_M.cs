@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PruebaRotacion : MonoBehaviour
+public class PruebaRotacion_M : MonoBehaviour
 {
     public GameObject BaseTorre;
 

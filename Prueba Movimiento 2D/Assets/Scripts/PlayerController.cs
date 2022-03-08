@@ -13,7 +13,6 @@ public class PlayerController: MonoBehaviour
 
     public CharacterController controller;
 
-    public GameObject BaseTorre;
 
     private void Start()
     {
@@ -41,16 +40,5 @@ public class PlayerController: MonoBehaviour
         PlayerInput.y = jumpforce;
     }
 
-    private void OnTriggerEnter(Collider obj)
-    {
-        if (obj.tag == "TriggerGiro")
-        {
-            Debug.Log("Colision");
-
-            //Revisar
-            BaseTorre.transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0f, transform.rotation.y + 90f, 0f), Time.deltaTime*0.01f);
-            
-        }
-    }
 }
     
