@@ -4,47 +4,25 @@ using UnityEngine;
 
 public class PruebaRotacion : MonoBehaviour
 {
-    /* public GameObject BaseTorre;
-
-     public Quaternion newAngle;
-
-
-
-     private void Update()
-     {
-         //targetAngle = Quaternion.Euler(0,currentAngle.eulerAngles.y+90,0);
-
-
-         //yield return null;
-     }
-
-     private void OnTriggerEnter(Collider other)
-     {
-         if (other.tag == "Player")
-         {
-             newAngle = Quaternion.Euler(0, transform.rotation.eulerAngles.y + 90f, 0);
-             Debug.Log("Colision");
-             //transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0f, transform.rotation.y + 90f, 0f), Time.deltaTime*0.01f);
-
-             //BaseTorre.transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, transform.rotation.y + 90, 0),0.2f+Time.deltaTime);
-             //yield return null;
-             for (float t = 0; t <= 1.0; t += Time.deltaTime)
-             {
-                 BaseTorre.transform.rotation = Quaternion.Slerp(transform.rotation,newAngle , t);
-             }
-
-         }
-     } */
+   
 
     public GameObject BaseTorre;
+    public GameObject Jugador;
+    public GameObject TransiAnim;
     public bool hasEnter;
+    public bool left;
    
     
     private void Update()
     {
-        if (hasEnter==true)
+        if (hasEnter==true&&left==false)
         {
             StartCoroutine(Rotate(90f));
+            hasEnter = false;
+        }
+        if (hasEnter == true && left == true)
+        {
+            StartCoroutine(Rotate(-90f));
             hasEnter = false;
         }
     }
