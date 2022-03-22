@@ -17,7 +17,7 @@ public class CharacterController : MonoBehaviour
 	private Rigidbody m_Rigidbody;
 	private bool m_FacingRight = true;  // For determining which way the player is currently facing.
 	private Vector3 velocity = Vector3.zero;
-	private float limitFallSpeed = 25f; // Limit fall speed
+	private float limitFallSpeed = 30000f; // Limit fall speed
 
 	public bool canDoubleJump = true; //If player can double jump
 	[SerializeField] private float m_DashForce = 25f;
@@ -148,7 +148,7 @@ public class CharacterController : MonoBehaviour
 			else if (m_Grounded || m_AirControl)
 			{
 				if (m_Rigidbody.velocity.y < -limitFallSpeed)
-					m_Rigidbody.velocity = new Vector2(m_Rigidbody.velocity.x, -limitFallSpeed);
+					m_Rigidbody.velocity = new Vector2(m_Rigidbody.velocity.x, -limitFallSpeed*100);
 				// Move the character by finding the target velocity
 				Vector3 targetVelocity = new Vector2(move * 10f, m_Rigidbody.velocity.y);
 				// And then smoothing it out and applying it to the character
