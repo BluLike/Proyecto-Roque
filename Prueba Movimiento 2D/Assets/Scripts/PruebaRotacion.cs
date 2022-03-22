@@ -5,12 +5,16 @@ using UnityEngine;
 public class PruebaRotacion : MonoBehaviour
 {
    
-
+    //Necesitamos el GameObject padre que representa el centro de giro de la torre, el GO del jugador y los GO de las posiciones de salida de la animación (que marcan el lugar 
+    //donde el jugador vuelve a tener control.
     public GameObject BaseTorre;
     public GameObject Jugador;
     public GameObject StartRight;
     public GameObject StartLeft;
-    public bool hasEnter;
+
+
+    private bool hasEnter;
+    //El Booleano "left" es para marcar si se quiere que se haga un giro a la izquierda, en vez de la derecha, por defecto.
     public bool left;
     private Animator playerAnimaator;
 
@@ -38,14 +42,18 @@ public class PruebaRotacion : MonoBehaviour
 
     private IEnumerator Rotate(float rotateAmount)
     {
+        //Esta es la rutina que hace que gire. Está dividida en dos partes: La rotacion de la torre y la traslación de la cámara (mediante el jugador oculto).
         Jugador.SetActive(false);
         var oldRotation = BaseTorre.transform.rotation;
         BaseTorre.transform.Rotate(0, rotateAmount, 0);
         var newRotation = BaseTorre.transform.rotation;
 
         var oldTransformPlayer=Jugador.transform.position;
-        
         var newTransformPlayer = StartLeft.transform.position;
+        if (left == true)
+        {
+            newTransformPlayer = StartRight.transform.position;
+        }
         
 
         for (float t = 0; t <= 1.0; t += Time.deltaTime)
