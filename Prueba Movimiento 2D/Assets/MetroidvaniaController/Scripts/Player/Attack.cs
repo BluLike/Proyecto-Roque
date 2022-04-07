@@ -30,12 +30,11 @@ public class Attack : MonoBehaviour
     {
 		if (Input.GetKeyDown(KeyCode.J)||(Input.GetMouseButtonDown(0)) && canAttack)
 		{
-			canAttack = false;
 			animator.SetBool("IsAttacking", true);
 			StartCoroutine(AttackCooldown());
 		}
 
-		if (Input.GetKeyDown(KeyCode.V))
+		if (Input.GetKeyDown(KeyCode.V)||Input.GetKeyDown(KeyCode.K))
 		{
 			GameObject throwableWeapon = Instantiate(throwableObject, transform.position + new Vector3(transform.localScale.x * 0.5f,-0.2f), Quaternion.identity) as GameObject; 
 			Vector2 direction = new Vector2(transform.localScale.x, 0);
@@ -46,6 +45,7 @@ public class Attack : MonoBehaviour
 
 	IEnumerator AttackCooldown()
 	{
+		canAttack=false;
 		yield return new WaitForSeconds(0.25f);
 		canAttack = true;
 	}
