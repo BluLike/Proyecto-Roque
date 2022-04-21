@@ -95,14 +95,16 @@ public class Enemy : MonoBehaviour {
 			damage = Mathf.Abs(damage);
 			transform.GetComponent<Animator>().SetBool("Hit", true);
 			spriteRenderer.color = Color.red;
+			CameraShake.Shake(0.25f, 4f);
 			life -= damage;
 			rb.velocity = Vector2.zero;
 			rb.AddForce(new Vector2(direction * 500f, 100f));
 			StartCoroutine(HitTime());
+
 		}
 	}
 
-	void OnCollisionStay2D(Collision2D collision)
+	void OnCollisionStay(Collision collision)
 	{
 		if (collision.gameObject.tag == "Player" && life > 0)
 		{
