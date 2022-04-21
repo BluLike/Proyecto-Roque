@@ -221,7 +221,7 @@ public class CharacterController : MonoBehaviour
 					}
 				}
 
-				if (jump && isWallSliding)
+				/*if (jump && isWallSliding)
 				{
 					animator.SetBool("IsJumping", true);
 					animator.SetBool("JumpUp", true); 
@@ -235,7 +235,7 @@ public class CharacterController : MonoBehaviour
 					oldWallSlidding = false;
 					m_WallCheck.localPosition = new Vector3(Mathf.Abs(m_WallCheck.localPosition.x), m_WallCheck.localPosition.y, 0);
 					canMove = false;
-				}
+				}*/
 				else if (dash && canDash)
 				{
 					isWallSliding = false;

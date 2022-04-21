@@ -30,7 +30,7 @@ public class Attack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		if (Input.GetKeyDown(KeyCode.J)||(Input.GetMouseButtonDown(0)) && canAttack)
+		if (Input.GetKeyDown (KeyCode.J) && canAttack ||(Input.GetMouseButtonDown(0) && canAttack))
 		{
 			animator.SetBool("IsAttacking", true);
 			StartCoroutine(AttackCooldown());
@@ -45,7 +45,7 @@ public class Attack : MonoBehaviour
 	IEnumerator AttackCooldown()
 	{
 		canAttack=false;
-		yield return new WaitForSeconds(1f);
+		yield return new WaitForSeconds(0.35f);
 		canAttack = true;
 	}
 
