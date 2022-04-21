@@ -9,10 +9,17 @@ public class Enemy : MonoBehaviour {
 	private Transform fallCheck;
 	private Transform wallCheck;
 	public LayerMask turnLayerMask;
-	private Rigidbody2D rb;
+	public LayerMask groundLayerMask;
+	public SpriteRenderer spriteRenderer;
+	const float k_GroundedRadius = .2f;
+	private Rigidbody rb;
+	public BoxCollider boxCollider;
+	[SerializeField] private Transform m_GroundCheck;
+	[SerializeField] private LayerMask m_WhatIsGround;
 
 	private bool facingRight = true;
-	
+	private bool m_Grounded;
+
 	public float speed = 5f;
 
 	public bool isInvincible = false;
@@ -21,31 +28,50 @@ public class Enemy : MonoBehaviour {
 	void Awake () {
 		fallCheck = transform.Find("FallCheck");
 		wallCheck = transform.Find("WallCheck");
-		rb = GetComponent<Rigidbody2D>();
+		rb = GetComponent<Rigidbody>();
+		boxCollider = GetComponent<BoxCollider>();
 	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
+		spriteRenderer = GetComponent<SpriteRenderer>();
+		groundLayerMask = LayerMask.GetMask("Ground");
 
 		if (life <= 0) {
 			transform.GetComponent<Animator>().SetBool("IsDead", true);
 			StartCoroutine(DestroyEnemy());
 		}
+		bool wasGrounded = m_Grounded;
+		m_Grounded = false;
+		
 
-		isPlat = Physics2D.OverlapCircle(fallCheck.position, .2f, 1 << LayerMask.NameToLayer("Default"));
+		// The player is grounded if a circlecast to the groundcheck position hits anything designated as ground
+		// This can be done using layers instead but Sample Assets will not overwrite your project settings.
+		Collider[] colliders = Physics.OverlapSphere(m_GroundCheck.position, k_GroundedRadius, m_WhatIsGround);
+		for (int i = 0; i < colliders.Length; i++)
+		{
+			if (colliders[i].gameObject != gameObject)
+				m_Grounded = true;
+			if (!wasGrounded)
+			{
+			}
+
+		}
+
+		isPlat = Physics2D.OverlapCircle(fallCheck.position, .2f, 1 << groundLayerMask);
 		isObstacle = Physics2D.OverlapCircle(wallCheck.position, .2f, turnLayerMask);
 
 		if (!isHitted && life > 0 && Mathf.Abs(rb.velocity.y) < 0.5f)
 		{
-			if (isPlat && !isObstacle && !isHitted)
+			if (m_Grounded && !isObstacle && !isHitted)
 			{
 				if (facingRight)
 				{
-					rb.velocity = new Vector2(-speed, rb.velocity.y);
+					//rb.velocity = new Vector2(-speed, rb.velocity.y);
 				}
 				else
 				{
-					rb.velocity = new Vector2(speed, rb.velocity.y);
+					//rb.velocity = new Vector2(speed, rb.velocity.y);
 				}
 			}
 			else
@@ -55,14 +81,11 @@ public class Enemy : MonoBehaviour {
 		}
 	}
 
-	void Flip (){
+	public void Flip (){
 		// Switch the way the player is labelled as facing.
 		facingRight = !facingRight;
-		
 		// Multiply the player's x local scale by -1.
-		Vector3 theScale = transform.localScale;
-		theScale.x *= -1;
-		transform.localScale = theScale;
+		spriteRenderer.flipX = !spriteRenderer.flipX;
 	}
 
 	public void ApplyDamage(float damage) {
@@ -71,6 +94,7 @@ public class Enemy : MonoBehaviour {
 			float direction = damage / Mathf.Abs(damage);
 			damage = Mathf.Abs(damage);
 			transform.GetComponent<Animator>().SetBool("Hit", true);
+			spriteRenderer.color = Color.red;
 			life -= damage;
 			rb.velocity = Vector2.zero;
 			rb.AddForce(new Vector2(direction * 500f, 100f));
@@ -93,17 +117,19 @@ public class Enemy : MonoBehaviour {
 		yield return new WaitForSeconds(0.1f);
 		isHitted = false;
 		isInvincible = false;
+		spriteRenderer.color = Color.white;
+
 	}
 
 	IEnumerator DestroyEnemy()
 	{
-		CapsuleCollider2D capsule = GetComponent<CapsuleCollider2D>();
-		capsule.size = new Vector2(1f, 0.25f);
-		capsule.offset = new Vector2(0f, -0.8f);
-		capsule.direction = CapsuleDirection2D.Horizontal;
+		CapsuleCollider capsule = GetComponent<CapsuleCollider>();
+		
+		//capsule.direction = CapsuleDirection.Horizontal;
 		yield return new WaitForSeconds(0.25f);
 		rb.velocity = new Vector2(0, rb.velocity.y);
 		yield return new WaitForSeconds(3f);
 		Destroy(gameObject);
 	}
+
 }

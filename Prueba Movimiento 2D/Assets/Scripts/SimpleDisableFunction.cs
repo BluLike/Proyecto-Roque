@@ -6,11 +6,11 @@ public class SimpleDisableFunction : MonoBehaviour
 {
     //A simple function to disable/enable objects in animation
 
-    public GameObject gameObject;
+    public GameObject GGameObject;
     public bool enable = true;
     void Update()
     {
-        if (enable == false) gameObject.SetActive(false);
-        else gameObject.SetActive(true);
+        if (enable == false) GGameObject.SetActive(false);
+        else GGameObject.SetActive(true);
     }
 }

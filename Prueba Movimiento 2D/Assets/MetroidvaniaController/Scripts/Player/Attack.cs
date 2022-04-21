@@ -7,16 +7,18 @@ public class Attack : MonoBehaviour
 	public float dmgValue = 4;
 	public GameObject throwableObject;
 	public Transform attackCheck;
-	private Rigidbody2D m_Rigidbody2D;
+	private Rigidbody m_Rigidbody2D;
 	public Animator animator;
 	public bool canAttack = true;
 	public bool isTimeToCheck = false;
+	public SpriteRenderer spriteRenderer;
 
 	public GameObject cam;
 
 	private void Awake()
 	{
-		m_Rigidbody2D = GetComponent<Rigidbody2D>();
+		spriteRenderer = GetComponent<SpriteRenderer>();
+		m_Rigidbody2D = GetComponent<Rigidbody>();
 	}
 
 	// Start is called before the first frame update
@@ -36,24 +38,21 @@ public class Attack : MonoBehaviour
 
 		if (Input.GetKeyDown(KeyCode.V)||Input.GetKeyDown(KeyCode.K))
 		{
-			GameObject throwableWeapon = Instantiate(throwableObject, transform.position + new Vector3(transform.localScale.x * 0.5f,-0.2f), Quaternion.identity) as GameObject; 
-			Vector2 direction = new Vector2(transform.localScale.x, 0);
-			throwableWeapon.GetComponent<ThrowableWeapon>().direction = direction; 
-			throwableWeapon.name = "ThrowableWeapon";
+			
 		}
 	}
 
 	IEnumerator AttackCooldown()
 	{
 		canAttack=false;
-		yield return new WaitForSeconds(0.25f);
+		yield return new WaitForSeconds(1f);
 		canAttack = true;
 	}
 
 	public void DoDashDamage()
 	{
 		dmgValue = Mathf.Abs(dmgValue);
-		Collider2D[] collidersEnemies = Physics2D.OverlapCircleAll(attackCheck.position, 0.9f);
+		Collider[] collidersEnemies = Physics.OverlapSphere(attackCheck.position, 0.9f);
 		for (int i = 0; i < collidersEnemies.Length; i++)
 		{
 			if (collidersEnemies[i].gameObject.tag == "Enemy")
@@ -63,8 +62,16 @@ public class Attack : MonoBehaviour
 					dmgValue = -dmgValue;
 				}
 				collidersEnemies[i].gameObject.SendMessage("ApplyDamage", dmgValue);
-				cam.GetComponent<CameraFollow>().ShakeCamera();
+				CameraShake.Shake(0.25f, 4f);
+				StartCoroutine(DmgIndicator());
+
 			}
 		}
 	}
+	IEnumerator DmgIndicator()
+    {
+		spriteRenderer.color = Color.red;
+		yield return new WaitForSeconds(1f);
+		spriteRenderer.color = Color.white;
+    }
 }

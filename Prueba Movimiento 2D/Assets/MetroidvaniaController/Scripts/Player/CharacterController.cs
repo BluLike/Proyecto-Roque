@@ -67,6 +67,14 @@ public class CharacterController : MonoBehaviour
 	{
 		bool wasGrounded = m_Grounded;
 		m_Grounded = false;
+		if (wasGrounded)
+        {
+			canDash = true;
+        }
+		if (!wasGrounded)
+        {
+			canDash = false;
+        }
 
 		// The player is grounded if a circlecast to the groundcheck position hits anything designated as ground
 		// This can be done using layers instead but Sample Assets will not overwrite your project settings.
