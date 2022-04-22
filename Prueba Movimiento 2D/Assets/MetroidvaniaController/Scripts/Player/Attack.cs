@@ -62,7 +62,8 @@ public class Attack : MonoBehaviour
 					dmgValue = -dmgValue;
 				}
 				collidersEnemies[i].gameObject.SendMessage("ApplyDamage", dmgValue);
-				CameraShake.Shake(0.25f, 4f);
+				CinemachineShake.Instance.ShakeCamera(1f, 0.1f);
+				//CameraShake.Shake(0.25f, 4f);
 				StartCoroutine(DmgIndicator());
 
 			}
