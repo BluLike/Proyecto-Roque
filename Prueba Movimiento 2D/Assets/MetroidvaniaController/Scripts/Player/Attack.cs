@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
 
 public class Attack : MonoBehaviour
@@ -62,7 +63,7 @@ public class Attack : MonoBehaviour
 					dmgValue = -dmgValue;
 				}
 				collidersEnemies[i].gameObject.SendMessage("ApplyDamage", dmgValue);
-				CinemachineShake.Instance.ShakeCamera(1f, 0.1f);
+				CinemachineShake.Instance.ShakeCamera(1f,0.2f);
 				//CameraShake.Shake(0.25f, 4f);
 				StartCoroutine(DmgIndicator());
 
