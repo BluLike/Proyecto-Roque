@@ -5,11 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class Door : MonoBehaviour
 {
-    void OnCollisionStay(Collision collision)
+    void OnTriggerStay(Collider collider)
     {
-        if (collision.gameObject.tag == "Player" && Input.GetKeyDown(KeyCode.E))
+        if (collider.gameObject.tag == "Player" && Input.GetKeyDown(KeyCode.E))
         {
-           
             
                 SceneManager.LoadScene("End", LoadSceneMode.Single);
             
