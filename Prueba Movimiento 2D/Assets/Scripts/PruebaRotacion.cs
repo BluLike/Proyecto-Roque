@@ -76,12 +76,12 @@ public class PruebaRotacion : MonoBehaviour
             Jugador.transform.position = Vector3.Lerp(oldTransformPlayer, newTransformPlayer, t);
             yield return null;
         }
-        characterController.canMove = false;
+        //characterController.canMove = false;
         BaseTorre.transform.rotation = newRotation;
         Jugador.transform.position = newTransformPlayer;
         Jugador.SetActive(true);
-        yield return new WaitForSeconds(0.5f);
-        characterController.canMove = true;
+        //yield return new WaitForSeconds(0.5f);
+        //characterController.canMove = true;
 
     }
 

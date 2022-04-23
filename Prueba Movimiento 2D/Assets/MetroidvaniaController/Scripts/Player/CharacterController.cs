@@ -295,7 +295,7 @@ public class CharacterController : MonoBehaviour
 			life -= damage;
 			Vector3 damageDir = Vector3.Normalize(transform.position - position) * 40f ;
 			m_Rigidbody.velocity = Vector3.zero;
-			m_Rigidbody.AddForce(damageDir * 10);
+			m_Rigidbody.AddForce(damageDir * 15);
 			if (life <= 0)
 			{
 				StartCoroutine(WaitToDead());
