@@ -12,11 +12,12 @@ public class PruebaRotacion : MonoBehaviour
     public GameObject Jugador;
     public GameObject StartRight;
     public GameObject StartLeft;
-    public CharacterController characterController;
+    //public CharacterControllerNonUnity characterController;
 
 
     private bool hasEnter;
     private bool hasEnterE;
+    public bool canMovit = true;
     //El Booleano "left" es para marcar si se quiere que se haga un giro a la izquierda, en vez de la derecha, por defecto.
     public bool left;
     private Animator playerAnimaator;
@@ -26,12 +27,12 @@ public class PruebaRotacion : MonoBehaviour
     {
          
          playerAnimaator = Jugador.GetComponent<Animator>();
+         //characterController = GameObject.Find("Character Controller Boolean").GetComponent<CharacterControllerNonUnity>();
 
     }
 
     private void Awake()
     {
-        characterController = GetComponent<CharacterController>();
     }
 
     private void Update()
@@ -76,13 +77,12 @@ public class PruebaRotacion : MonoBehaviour
             Jugador.transform.position = Vector3.Lerp(oldTransformPlayer, newTransformPlayer, t);
             yield return null;
         }
-        characterController.canMove = false;
+        //characterController.StopMoving();
         BaseTorre.transform.rotation = newRotation;
         Jugador.transform.position = newTransformPlayer;
         Jugador.SetActive(true);
         yield return new WaitForSeconds(0.5f);
-        characterController.canMove = true;
-
+        //characterController.StartMoving();
     }
 
     private void OnTriggerEnter(Collider other)
