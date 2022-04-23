@@ -16,6 +16,7 @@ public class Enemy : MonoBehaviour {
 	public BoxCollider boxCollider;
 	[SerializeField] private Transform m_GroundCheck;
 	[SerializeField] private LayerMask m_WhatIsGround;
+	[SerializeField] private float Dmg;
 
 	private bool facingRight = true;
 	private bool m_Grounded;
@@ -108,7 +109,7 @@ public class Enemy : MonoBehaviour {
 	{
 		if (collision.gameObject.tag == "Player" && life > 0)
 		{
-			collision.gameObject.GetComponent<CharacterControllerNonUnity>().ApplyDamage(2f, transform.position);
+			collision.gameObject.GetComponent<CharacterControllerNonUnity>().ApplyDamage(Dmg, transform.position);
 		}
 	}
 
@@ -125,9 +126,8 @@ public class Enemy : MonoBehaviour {
 
 	IEnumerator DestroyEnemy()
 	{
-		CapsuleCollider capsule = GetComponent<CapsuleCollider>();
 		
-		//capsule.direction = CapsuleDirection.Horizontal;
+		gameObject.layer = 10;
 		yield return new WaitForSeconds(0.25f);
 		rb.velocity = new Vector2(0, rb.velocity.y);
 		yield return new WaitForSeconds(3f);

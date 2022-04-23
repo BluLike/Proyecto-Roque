@@ -69,6 +69,7 @@ public class CharacterControllerNonUnity : MonoBehaviour
 
 	private void FixedUpdate()
 	{
+		Physics.IgnoreLayerCollision(8,10);
 		if(!isDashing)
 		{
 			Physics.IgnoreLayerCollision(8,9, false);
@@ -293,7 +294,8 @@ public class CharacterControllerNonUnity : MonoBehaviour
 		{
 			animator.SetBool("Hit", true);
 			life -= damage;
-			Vector3 damageDir = Vector3.Normalize(transform.position - position) * 40f ;
+			Vector3 knockBack = new Vector3(transform.position.x - position.x, transform.position.y - position.y, 0f);
+			Vector3 damageDir = Vector3.Normalize(knockBack) * 40f ;
 			m_Rigidbody.velocity = Vector3.zero;
 			m_Rigidbody.AddForce(damageDir * 15);
 			if (life <= 0)
@@ -304,6 +306,25 @@ public class CharacterControllerNonUnity : MonoBehaviour
 			{
 				StartCoroutine(Stun(0.25f));
 				StartCoroutine(MakeInvincible(1f));
+			}
+		}
+	}
+	
+	public void ApplyFallDamage(float damage) 
+	{
+		if (!invincible)
+		{
+			animator.SetBool("Hit", true);
+			life -= damage;
+			
+			if (life <= 0)
+			{
+				StartCoroutine(WaitToDead());
+			}
+			else
+			{
+				StartCoroutine(Stun(0.3f));
+				StartCoroutine(MakeInvincible(0.5f));
 			}
 		}
 	}
@@ -357,12 +378,13 @@ public class CharacterControllerNonUnity : MonoBehaviour
 
 	IEnumerator WaitToDead()
 	{
+		
 		animator.SetBool("IsDead", true);
 		canMove = false;
 		invincible = true;
 		GetComponent<Attack>().enabled = false;
 		yield return new WaitForSeconds(0.4f);
-		m_Rigidbody.velocity = new Vector3(0, m_Rigidbody.velocity.y,0);
+		m_Rigidbody.velocity = new Vector3(0, m_Rigidbody.velocity.y, 0);
 		yield return new WaitForSeconds(1.1f);
 		SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
 	}
