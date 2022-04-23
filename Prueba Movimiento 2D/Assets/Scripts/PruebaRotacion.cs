@@ -6,12 +6,13 @@ public class PruebaRotacion : MonoBehaviour
 {
     public Enemy Enemy;
    
-    //Necesitamos el GameObject padre que representa el centro de giro de la torre, el GO del jugador y los GO de las posiciones de salida de la animación (que marcan el lugar 
+    //Necesitamos el GameObject padre que representa el centro de giro de la torre, el GO del jugador y los GO de las posiciones de salida de la animaciï¿½n (que marcan el lugar 
     //donde el jugador vuelve a tener control.
     public GameObject BaseTorre;
     public GameObject Jugador;
     public GameObject StartRight;
     public GameObject StartLeft;
+    public CharacterController characterController;
 
 
     private bool hasEnter;
@@ -23,12 +24,18 @@ public class PruebaRotacion : MonoBehaviour
 
     private void Start()
     {
+         
          playerAnimaator = Jugador.GetComponent<Animator>();
 
     }
+
+    private void Awake()
+    {
+        characterController = GetComponent<CharacterController>();
+    }
+
     private void Update()
     {
-
         if (hasEnter==true && left==false)
         {
             
@@ -47,9 +54,9 @@ public class PruebaRotacion : MonoBehaviour
 
     }
 
-    private IEnumerator Rotate(float rotateAmount)
+    IEnumerator Rotate(float rotateAmount)
     {
-        //Esta es la rutina que hace que gire. Está dividida en dos partes: La rotacion de la torre y la traslación de la cámara (mediante el jugador oculto).
+        //Esta es la rutina que hace que gire. EstÃ¡ dividida en dos partes: La rotacion de la torre y la traslaciÃ³n de la cÃ¡mara (mediante el jugador oculto).
         Jugador.SetActive(false);
         var oldRotation = BaseTorre.transform.rotation;
         BaseTorre.transform.Rotate(0, rotateAmount, 0);
@@ -69,9 +76,13 @@ public class PruebaRotacion : MonoBehaviour
             Jugador.transform.position = Vector3.Lerp(oldTransformPlayer, newTransformPlayer, t);
             yield return null;
         }
+        characterController.canMove = false;
         BaseTorre.transform.rotation = newRotation;
         Jugador.transform.position = newTransformPlayer;
         Jugador.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        characterController.canMove = true;
+
     }
 
     private void OnTriggerEnter(Collider other)

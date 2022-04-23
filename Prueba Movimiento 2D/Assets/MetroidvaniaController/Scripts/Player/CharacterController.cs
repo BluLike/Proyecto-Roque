@@ -215,17 +215,20 @@ public class CharacterController : MonoBehaviour
 					isWallSliding = true;
 					m_WallCheck.localPosition = new Vector3(-m_WallCheck.localPosition.x, m_WallCheck.localPosition.y, 0);
 					Flip();
+					spriteRenderer.flipX = true;
 					StartCoroutine(WaitToCheck(0.1f));
 					canDoubleJump = true;
 					animator.SetBool("IsWallSliding", true);
 				}
 				isDashing = false;
+				
 
 				if (isWallSliding)
 				{
 					if (move * transform.localScale.x > 0.1f)
 					{
 						StartCoroutine(WaitToEndSliding());
+						spriteRenderer.flipX = false;
 					}
 					else 
 					{
@@ -257,6 +260,7 @@ public class CharacterController : MonoBehaviour
 					m_WallCheck.localPosition = new Vector3(Mathf.Abs(m_WallCheck.localPosition.x), m_WallCheck.localPosition.y, 0);
 					canDoubleJump = true;
 					StartCoroutine(DashCooldown());
+					spriteRenderer.flipX = false;
 				}
 			}
 			else if (isWallSliding && !m_IsWall && canCheck) 
@@ -266,6 +270,7 @@ public class CharacterController : MonoBehaviour
 				oldWallSlidding = false;
 				m_WallCheck.localPosition = new Vector3(Mathf.Abs(m_WallCheck.localPosition.x), m_WallCheck.localPosition.y, 0);
 				canDoubleJump = true;
+				spriteRenderer.flipX = false;
 			}
 		}
 	}
