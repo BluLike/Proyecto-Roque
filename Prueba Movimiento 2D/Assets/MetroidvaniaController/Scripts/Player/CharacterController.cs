@@ -31,7 +31,7 @@ public class CharacterController : MonoBehaviour
 
 	public float life = 10f; //Life of the player
 	public bool invincible = false; //If player can die
-	private bool canMove = true; //If player can move
+	public bool canMove = true; //If player can move
 
 	private Animator animator;
 	public ParticleSystem particleJumpUp; //Trail particles
@@ -40,6 +40,9 @@ public class CharacterController : MonoBehaviour
 	private float jumpWallStartX = 0;
 	private float jumpWallDistX = 0; //Distance between player and wall
 	private bool limitVelOnWallJump = false; //For limit wall jump distance with low fps
+
+	public SpriteRenderer spriteRenderer;
+	public Color mColor;
 
 	[Header("Events")]
 	[Space]
@@ -54,6 +57,7 @@ public class CharacterController : MonoBehaviour
 	{
 		m_Rigidbody = GetComponent<Rigidbody>();
 		animator = GetComponent<Animator>();
+		spriteRenderer = GetComponent<SpriteRenderer>();
 
 		if (OnFallEvent == null)
 			OnFallEvent = new UnityEvent();
@@ -65,6 +69,12 @@ public class CharacterController : MonoBehaviour
 
 	private void FixedUpdate()
 	{
+		if(!isDashing)
+		{
+			Physics.IgnoreLayerCollision(8,9, false);
+			Color mColor = new Color(1, 1, 1, 1);
+			spriteRenderer.color = mColor;
+		}
 		bool wasGrounded = m_Grounded;
 		m_Grounded = false;
 		if (wasGrounded)
@@ -151,6 +161,9 @@ public class CharacterController : MonoBehaviour
 			if (isDashing)
 			{
 				m_Rigidbody.velocity = new Vector2(transform.localScale.x * m_DashForce, 0);
+				Physics.IgnoreLayerCollision(8,9, true);
+				Color mColor = new Color(1, 1, 1, 0.3f);
+				spriteRenderer.color = mColor;
 			}
 			//only control the player if grounded or airControl is turned on
 			else if (m_Grounded || m_AirControl)
@@ -295,9 +308,9 @@ public class CharacterController : MonoBehaviour
 		animator.SetBool("IsDashing", true);
 		isDashing = true;
 		canDash = false;
-		yield return new WaitForSeconds(0.1f);
+		yield return new WaitForSeconds(0.2f);
 		isDashing = false;
-		yield return new WaitForSeconds(0.5f);
+		yield return new WaitForSeconds(0.6f);
 		canDash = true;
 	}
 

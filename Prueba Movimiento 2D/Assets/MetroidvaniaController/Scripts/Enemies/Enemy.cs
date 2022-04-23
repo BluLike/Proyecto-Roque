@@ -95,11 +95,10 @@ public class Enemy : MonoBehaviour {
 			damage = Mathf.Abs(damage);
 			transform.GetComponent<Animator>().SetBool("Hit", true);
 			spriteRenderer.color = Color.red;
-			CinemachineShake.Instance.ShakeCamera(1f, 0.2f);
 			//CameraShake.Shake(0.25f, 4f);
 			life -= damage;
 			rb.velocity = Vector2.zero;
-			rb.AddForce(new Vector2(direction * 500f, 100f));
+			rb.AddForce(new Vector2(direction * 400f, 100f));
 			StartCoroutine(HitTime());
 
 		}
