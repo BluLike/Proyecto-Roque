@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class Fall : MonoBehaviour
 {
-    public CharacterControllerNonUnity characterController;
+    public CharacterController characterController;
 
     private void Awake()
     {
-        characterController = GetComponent<CharacterControllerNonUnity>();
+        characterController = GetComponent<CharacterController>();
     }
     void OnCollisionStay(Collision collision)
     {
         if (collision.gameObject.tag == "Player")
         {
-            collision.gameObject.GetComponent<CharacterControllerNonUnity>().ApplyDamage(10f, transform.position);
+            collision.gameObject.GetComponent<CharacterController>().ApplyDamage(10f, transform.position);
         }
     }
 }

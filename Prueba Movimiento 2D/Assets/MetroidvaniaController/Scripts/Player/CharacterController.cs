@@ -3,7 +3,7 @@ using UnityEngine.Events;
 using System.Collections;
 using UnityEngine.SceneManagement;
 
-public class CharacterControllerNonUnity : MonoBehaviour
+public class CharacterController : MonoBehaviour
 {
 	[SerializeField] private float m_JumpForce = 400f;							// Amount of force added when the player jumps.
 	[Range(0, .3f)] [SerializeField] private float m_MovementSmoothing = .05f;	// How much to smooth out the movement
@@ -36,7 +36,6 @@ public class CharacterControllerNonUnity : MonoBehaviour
 	private Animator animator;
 	public ParticleSystem particleJumpUp; //Trail particles
 	public ParticleSystem particleJumpDown; //Explosion particles
-	public PruebaRotacion pruebaRotacion;
 
 	private float jumpWallStartX = 0;
 	private float jumpWallDistX = 0; //Distance between player and wall
@@ -287,15 +286,6 @@ public class CharacterControllerNonUnity : MonoBehaviour
 		theScale.x *= -1;
 		transform.localScale = theScale;
 	}
-	public void StopMoving()
-    {
-		canMove = false;
-    }
-
-	public void StartMoving()
-    {
-		canMove = true;
-    }
 
 	public void ApplyDamage(float damage, Vector3 position) 
 	{

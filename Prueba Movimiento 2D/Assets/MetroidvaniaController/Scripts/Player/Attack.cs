@@ -18,7 +18,7 @@ public class Attack : MonoBehaviour
 	public bool canAttack = true;
 	public bool isTimeToCheck = false;
 	public SpriteRenderer spriteRenderer;
-	public CharacterControllerNonUnity characterController;
+	public CharacterController characterController;
 	public float dynFriction;
 	public Collider coll;
 
@@ -26,7 +26,7 @@ public class Attack : MonoBehaviour
 
 	private void Awake()
 	{
-		characterController=GetComponent<CharacterControllerNonUnity>();
+		characterController=GetComponent<CharacterController>();
 		spriteRenderer = GetComponent<SpriteRenderer>();
 		m_Rigidbody2D = GetComponent<Rigidbody>();
 		coll = GetComponent<Collider>();
