@@ -93,16 +93,21 @@ public class CharacterControllerNonUnity : MonoBehaviour
 		for (int i = 0; i < colliders.Length; i++)
 		{
 			if (colliders[i].gameObject != gameObject)
+			{
 				m_Grounded = true;
-				if (!wasGrounded )
-				{
-					OnLandEvent.Invoke();
-					if (!m_IsWall && !isDashing) 
-						particleJumpDown.Play();
-					canDoubleJump = true;
-					if (m_Rigidbody.velocity.y < 0f)
-						limitVelOnWallJump = false;
-				}
+				Physics.gravity = new Vector3(0, -28, 0);
+			}
+				
+			
+			if (!wasGrounded )
+			{
+				OnLandEvent.Invoke();
+				if (!m_IsWall && !isDashing) 
+					particleJumpDown.Play();
+				canDoubleJump = true;
+				if (m_Rigidbody.velocity.y < 0f)
+					limitVelOnWallJump = false;
+			}
 		}
 
 		m_IsWall = false;
@@ -196,18 +201,16 @@ public class CharacterControllerNonUnity : MonoBehaviour
 				animator.SetBool("IsJumping", true);
 				animator.SetBool("JumpUp", true);
 				m_Grounded = false;
-				//m_Rigidbody.mass = 2;
+				
+				//m_Rigidbody.AddForce(new Vector3(0f, m_JumpForce,0f));
 				m_Rigidbody.AddForce(new Vector3(0f, m_JumpForce,0f));
 				
-				//if (Input.GetKeyDown("space"))
-				//{
-					
-				//}
-
-				//if (!Input.GetKeyUp("space"))
-				//{
-					//m_Rigidbody.mass = m_Rigidbody.mass * 2;
-				//}
+				
+				
+				if (!Input.GetKey("space"))
+				{
+					m_Rigidbody.AddForce(new Vector3(0f,-(m_JumpForce/2),0));
+				}
 				canDoubleJump = true;
 				particleJumpDown.Play();
 				particleJumpUp.Play();
