@@ -21,7 +21,7 @@ public class CharacterControllerNonUnity : MonoBehaviour
 
 	public bool canDoubleJump = true; //If player can double jump
 	[SerializeField] private float m_DashForce = 25f;
-	[SerializeField] private float m_GrappleForce = 20f;
+	[SerializeField] private float m_GrappleForce = 2000000f;
 	private bool canDash = true;
 	private bool isDashing = false; //If player is dashing
 	private bool m_IsWall = false; //If there is a wall in front of the player
@@ -87,6 +87,7 @@ public class CharacterControllerNonUnity : MonoBehaviour
         {
 			canDash = false;
         }
+
 
 		// The player is grounded if a circlecast to the groundcheck position hits anything designated as ground
 		// This can be done using layers instead but Sample Assets will not overwrite your project settings.
@@ -159,6 +160,7 @@ public class CharacterControllerNonUnity : MonoBehaviour
 	public void Move(float move, bool jump, bool dash)
 	{
 		if (canMove) {
+			
 			if (dash && canDash && !isWallSliding)
 			{
 				//m_Rigidbody2D.AddForce(new Vector2(transform.localScale.x * m_DashForce, 0f));
@@ -343,10 +345,10 @@ public class CharacterControllerNonUnity : MonoBehaviour
 			}
 		}
 	}
-
+	
 	public void ApplyGrapleForce()
 	{
-		m_Rigidbody.AddForce(new Vector3(transform.localScale.x * m_DashForce,0f,0f));
+		m_Rigidbody.AddForce(new Vector3(m_GrappleForce, (m_JumpForce*0.5f), 0f));
 	}
 
 	IEnumerator DashCooldown()

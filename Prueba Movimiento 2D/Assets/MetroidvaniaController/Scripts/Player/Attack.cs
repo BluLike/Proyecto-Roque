@@ -23,6 +23,7 @@ public class Attack : MonoBehaviour
 	public CharacterControllerNonUnity characterController;
 	public float dynFriction;
 	public Collider coll;
+	public GameObject grappling;
 
 	public GameObject cam;
 
@@ -38,12 +39,13 @@ public class Attack : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
     {
-        
-    }
+
+	}
 
     // Update is called once per frame
     void Update()
     {
+		
 	    coll.material.dynamicFriction = dynFriction;
 	    
 		if (Input.GetKeyDown (KeyCode.J) && canAttack ||(Input.GetMouseButtonDown(0) && canAttack))
@@ -56,12 +58,12 @@ public class Attack : MonoBehaviour
 
 		if (Input.GetKeyDown(KeyCode.V) && canGrapple||Input.GetKeyDown(KeyCode.K) && canGrapple)
 		{
-			GameObject grappling = Instantiate(grapplingHook, transform.position + new Vector3(transform.localScale.x * 0.5f,-0.2f,0), Quaternion.identity) as GameObject;
+			grappling = Instantiate(grapplingHook, transform.position + new Vector3(transform.localScale.x * 0.5f,-0.2f,0), Quaternion.identity) as GameObject;
 			Vector3 direction = new Vector3(transform.localScale.x, 0, 0);
             grappling.GetComponent<Grapple>().direction = direction; 
             grappling.name = "grapplingHook";
-            StartCoroutine(GrappleCooldown());
-            
+			StartCoroutine(GrappleCooldown());
+
 
 		}
 	}
@@ -79,8 +81,9 @@ public class Attack : MonoBehaviour
 	{
 		canGrapple=false;
 		characterController.canMove = false;
-		yield return new WaitUntil( () => grapplingHook == null);
+		yield return new WaitUntil( () => grappling == null);
 		canGrapple = true;
+		m_Rigidbody.constraints = ~RigidbodyConstraints.FreezePositionX & ~RigidbodyConstraints.FreezePositionY & ~RigidbodyConstraints.FreezePositionZ; ;
 		characterController.canMove = true;
 
 
