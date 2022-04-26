@@ -13,10 +13,10 @@ public class ThrowableProjectile : MonoBehaviour
     void FixedUpdate()
     {
 		if ( !hasHit)
-		GetComponent<Rigidbody2D>().velocity = direction * speed;
+			GetComponent<Rigidbody>().velocity = direction * speed;
 	}
 
-	void OnCollisionEnter2D(Collision2D collision)
+	void OnCollisionEnter(Collision collision)
 	{
 		if (collision.gameObject.tag == "Player")
 		{

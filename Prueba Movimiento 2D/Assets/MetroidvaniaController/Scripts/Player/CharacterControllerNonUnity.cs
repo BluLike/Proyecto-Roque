@@ -21,6 +21,7 @@ public class CharacterControllerNonUnity : MonoBehaviour
 
 	public bool canDoubleJump = true; //If player can double jump
 	[SerializeField] private float m_DashForce = 25f;
+	[SerializeField] private float m_GrappleForce = 20f;
 	private bool canDash = true;
 	private bool isDashing = false; //If player is dashing
 	private bool m_IsWall = false; //If there is a wall in front of the player
@@ -341,6 +342,11 @@ public class CharacterControllerNonUnity : MonoBehaviour
 				StartCoroutine(MakeInvincible(0.5f));
 			}
 		}
+	}
+
+	public void ApplyGrapleForce()
+	{
+		m_Rigidbody.AddForce(new Vector3(transform.localScale.x * m_DashForce,0f,0f));
 	}
 
 	IEnumerator DashCooldown()

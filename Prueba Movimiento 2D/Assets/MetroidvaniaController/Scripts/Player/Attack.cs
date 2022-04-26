@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using Cinemachine;
 using UnityEngine;
 
@@ -11,11 +12,12 @@ using UnityEngine;
 public class Attack : MonoBehaviour
 {
 	public float dmgValue = 4;
-	public GameObject throwableObject;
+	public GameObject grapplingHook;
 	public Transform attackCheck;
-	private Rigidbody m_Rigidbody2D;
+	private Rigidbody m_Rigidbody;
 	public Animator animator;
 	public bool canAttack = true;
+	public bool canGrapple = true;
 	public bool isTimeToCheck = false;
 	public SpriteRenderer spriteRenderer;
 	public CharacterControllerNonUnity characterController;
@@ -28,7 +30,7 @@ public class Attack : MonoBehaviour
 	{
 		characterController=GetComponent<CharacterControllerNonUnity>();
 		spriteRenderer = GetComponent<SpriteRenderer>();
-		m_Rigidbody2D = GetComponent<Rigidbody>();
+		m_Rigidbody = GetComponent<Rigidbody>();
 		coll = GetComponent<Collider>();
 		
 	}
@@ -52,9 +54,15 @@ public class Attack : MonoBehaviour
 			StartCoroutine(AttackCooldown());
 		}
 
-		if (Input.GetKeyDown(KeyCode.V)||Input.GetKeyDown(KeyCode.K))
+		if (Input.GetKeyDown(KeyCode.V) && canGrapple||Input.GetKeyDown(KeyCode.K) && canGrapple)
 		{
-			
+			GameObject grappling = Instantiate(grapplingHook, transform.position + new Vector3(transform.localScale.x * 0.5f,-0.2f,0), Quaternion.identity) as GameObject;
+			Vector3 direction = new Vector3(transform.localScale.x, 0, 0);
+            grappling.GetComponent<Grapple>().direction = direction; 
+            grappling.name = "grapplingHook";
+            StartCoroutine(GrappleCooldown());
+            
+
 		}
 	}
 
@@ -66,6 +74,17 @@ public class Attack : MonoBehaviour
 		canAttack = true;
 		characterController.canMove = true;
 		dynFriction = 0.6f;
+	}
+	IEnumerator GrappleCooldown()
+	{
+		canGrapple=false;
+		characterController.canMove = false;
+		yield return new WaitUntil( () => grapplingHook == null);
+		canGrapple = true;
+		characterController.canMove = true;
+
+
+
 	}
 	
 	public void DoDashDamage()

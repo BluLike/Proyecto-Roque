@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class ThrowableWeapon : MonoBehaviour
 {
-	public Vector2 direction;
+	public Vector3 direction;
 	public bool hasHit = false;
 	public float speed = 10f;
+	
 
     // Start is called before the first frame update
     void Start()
@@ -18,17 +19,17 @@ public class ThrowableWeapon : MonoBehaviour
     void FixedUpdate()
     {
 		if ( !hasHit)
-		GetComponent<Rigidbody2D>().velocity = direction * speed;
+			GetComponent<Rigidbody>().velocity = direction * speed;
 	}
 
-	void OnCollisionEnter2D(Collision2D collision)
+	void OnCollisionEnter(Collision collision)
 	{
 		if (collision.gameObject.tag == "Enemy")
 		{
 			collision.gameObject.SendMessage("ApplyDamage", Mathf.Sign(direction.x) * 2f);
 			Destroy(gameObject);
 		}
-		else if (collision.gameObject.tag != "Player")
+		else if (collision.gameObject.layer == 3 )
 		{
 			Destroy(gameObject);
 		}
