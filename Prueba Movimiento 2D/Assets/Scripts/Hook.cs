@@ -9,17 +9,16 @@ public class Hook : MonoBehaviour
     Grapple grapple;
     Rigidbody m_rigidbody;
     LineRenderer lineRenderer;
-    private Vector3 m_VectorCharacterPosition;
+    
     
     // Start is called before the first frame update
     public void Initialize(Grapple grapple, Transform shootTransform)
     {
-        m_VectorCharacterPosition.x = transform.position.x;
-        transform.right = shootTransform.right;
+        transform.forward = shootTransform.forward;
         this.grapple = grapple;
         m_rigidbody = GetComponent<Rigidbody>();
         lineRenderer = GetComponent<LineRenderer>();
-        m_rigidbody.AddForce(m_VectorCharacterPosition+(transform.right*hookForce), ForceMode.Impulse);
+        m_rigidbody.AddForce(transform.forward*hookForce, ForceMode.Impulse);
     }
 
     // Update is called once per frame
