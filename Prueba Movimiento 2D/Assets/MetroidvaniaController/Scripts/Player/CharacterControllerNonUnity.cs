@@ -348,7 +348,7 @@ public class CharacterControllerNonUnity : MonoBehaviour
 	
 	public void ApplyGrapleForce()
 	{
-		m_Rigidbody.AddForce(new Vector3(m_GrappleForce, (m_JumpForce*0.5f), 0f));
+		m_Rigidbody.AddForce(new Vector3(transform.localScale.x*m_GrappleForce, 1f, 0f), ForceMode.Impulse);
 	}
 
 	IEnumerator DashCooldown()

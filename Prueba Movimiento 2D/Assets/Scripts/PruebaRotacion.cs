@@ -63,10 +63,10 @@ public class PruebaRotacion : MonoBehaviour
         var newRotation = BaseTorre.transform.rotation;
 
         var oldTransformPlayer=Jugador.transform.position;
-        var newTransformPlayer = StartLeft.transform.position;
+        var newTransformPlayer = new Vector3 (StartLeft.transform.position.x,Jugador.transform.position.y,StartLeft.transform.position.z);
         if (left == true)
         {
-            newTransformPlayer = StartRight.transform.position;
+            newTransformPlayer = new Vector3 (StartRight.transform.position.x,Jugador.transform.position.y,StartRight.transform.position.z) ;
         }
         
 
