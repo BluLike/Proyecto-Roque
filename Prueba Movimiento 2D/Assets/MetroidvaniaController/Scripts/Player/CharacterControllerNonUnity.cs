@@ -11,6 +11,7 @@ public class CharacterControllerNonUnity : MonoBehaviour
 	[SerializeField] private LayerMask m_WhatIsGround;							// A mask determining what is ground to the character
 	[SerializeField] private Transform m_GroundCheck;							// A position marking where to check if the player is grounded.
 	[SerializeField] private Transform m_WallCheck;								//Posicion que controla si el personaje toca una pared
+	[SerializeField] private Transform m_WallCheckFoot;								
 
 	const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
 	private bool m_Grounded;            // Whether or not the player is grounded.
@@ -124,6 +125,7 @@ public class CharacterControllerNonUnity : MonoBehaviour
 				{
 					isDashing = false;
 					m_IsWall = true;
+					m_Grounded = false;
 				}
 			}
 			prevVelocityX = m_Rigidbody.velocity.x;
