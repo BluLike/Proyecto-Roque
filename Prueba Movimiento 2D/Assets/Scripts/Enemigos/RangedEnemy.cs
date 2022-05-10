@@ -89,7 +89,6 @@ public class RangedEnemy : MonoBehaviour {
 		{
 			if (!facingRight && transform.localScale.x == -1)
 			{
-				facingRight = true;
 				Flip();
 			}
 		}
@@ -97,6 +96,7 @@ public class RangedEnemy : MonoBehaviour {
 
 	private void Flip()
 	{
+		facingRight = !facingRight;
 		// Multiply the player's x local scale by -1.
 		Vector3 theScale = transform.localScale;
 		theScale.x *= -1;

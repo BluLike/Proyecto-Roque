@@ -13,9 +13,6 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/../../../Entornos de desarrollo 3D/Practica-1/Assets/MetroidvaniaController/Scripts/Player/ThrowableWeapon.cs" root0="FORCE_HIGHLIGHTING" />
-  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -101,6 +98,7 @@
       <workItem from="1651765583679" duration="3285000" />
       <workItem from="1652100120242" duration="666000" />
       <workItem from="1652177721082" duration="3245000" />
+      <workItem from="1652192359762" duration="884000" />
     </task>
     <servers />
   </component>
