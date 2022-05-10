@@ -34,7 +34,7 @@ public class Grapple : MonoBehaviour
 
 	void OnCollisionEnter(Collision collision)
 	{
-		if (collision.gameObject.layer != 11)
+		if (collision.gameObject.layer == 3)
 		{
 			Destroy(gameObject);
 		}
