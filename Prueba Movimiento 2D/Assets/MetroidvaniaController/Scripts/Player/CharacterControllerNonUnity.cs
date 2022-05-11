@@ -118,7 +118,7 @@ public class CharacterControllerNonUnity : MonoBehaviour
 		if (!m_Grounded)
 		{
 			OnFallEvent.Invoke();
-			Collider[] collidersWall = Physics.OverlapSphere(m_WallCheck.position, k_GroundedRadius, m_WhatIsGround);
+			Collider[] collidersWall = Physics.OverlapSphere(m_WallCheck.position, k_GroundedRadius*3, m_WhatIsGround);
 			for (int i = 0; i < collidersWall.Length; i++)
 			{
 				if (collidersWall[i].gameObject != null)
