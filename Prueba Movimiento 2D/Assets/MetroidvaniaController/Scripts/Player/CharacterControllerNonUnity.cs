@@ -14,9 +14,10 @@ public class CharacterControllerNonUnity : MonoBehaviour
 	[SerializeField] private Transform m_WallCheckFoot;								
 
 	const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
+	float k_wallCheckRadius = k_GroundedRadius * 2.5f;
 	private bool m_Grounded;            // Whether or not the player is grounded.
 	private Rigidbody m_Rigidbody;
-	private bool m_FacingRight = true;  // For determining which way the player is currently facing.
+	public bool m_FacingRight = true;  // For determining which way the player is currently facing.
 	private Vector3 velocity = Vector3.zero;
 	private float limitFallSpeed = 90000f; // Limit fall speed
 
@@ -118,7 +119,8 @@ public class CharacterControllerNonUnity : MonoBehaviour
 		if (!m_Grounded)
 		{
 			OnFallEvent.Invoke();
-			Collider[] collidersWall = Physics.OverlapSphere(m_WallCheck.position, k_GroundedRadius*3, m_WhatIsGround);
+			
+			Collider[] collidersWall = Physics.OverlapSphere(m_WallCheck.position,k_wallCheckRadius , m_WhatIsGround);
 			for (int i = 0; i < collidersWall.Length; i++)
 			{
 				if (collidersWall[i].gameObject != null)
@@ -350,7 +352,41 @@ public class CharacterControllerNonUnity : MonoBehaviour
 	
 	public void ApplyGrapleForce()
 	{
+		StartCoroutine(GrapplePull());
+
+	}
+
+	public float secs = 0.015f;
+	IEnumerator GrapplePull()
+	{
 		m_Rigidbody.AddForce(new Vector3(transform.localScale.x*m_GrappleForce, 1f, 0f), ForceMode.Impulse);
+		yield return new WaitForSeconds(secs);
+		
+		m_Rigidbody.AddForce(new Vector3(transform.localScale.x*m_GrappleForce, 1f, 0f), ForceMode.Impulse);
+		yield return new WaitForSeconds(secs);
+		
+		m_Rigidbody.AddForce(new Vector3(transform.localScale.x*m_GrappleForce, 1f, 0f), ForceMode.Impulse);
+		yield return new WaitForSeconds(secs);
+		
+		m_Rigidbody.AddForce(new Vector3(transform.localScale.x*m_GrappleForce, 1f, 0f), ForceMode.Impulse);
+		yield return new WaitForSeconds(secs);
+		
+		m_Rigidbody.AddForce(new Vector3(transform.localScale.x*m_GrappleForce, 1f, 0f), ForceMode.Impulse);
+		yield return new WaitForSeconds(secs);
+		
+		m_Rigidbody.AddForce(new Vector3(transform.localScale.x*m_GrappleForce, 1f, 0f), ForceMode.Impulse);
+		yield return new WaitForSeconds(secs);
+		
+		m_Rigidbody.AddForce(new Vector3(transform.localScale.x*m_GrappleForce, 1f, 0f), ForceMode.Impulse);
+		yield return new WaitForSeconds(secs);
+		
+		m_Rigidbody.AddForce(new Vector3(transform.localScale.x*m_GrappleForce, 1f, 0f), ForceMode.Impulse);
+		yield return new WaitForSeconds(secs);
+		
+		
+		
+		
+		
 	}
 
 	IEnumerator DashCooldown()

@@ -9,11 +9,14 @@ public class Grapple : MonoBehaviour
 	public bool hasHit = false;
 	public float speed = 20f;
 	public CharacterControllerNonUnity characterController;
+	private bool m_FacingRight;
+	
 
 	// Start is called before the first frame update
 	void Start()
 	{
 		characterController = GameObject.Find("DrawCharacter").GetComponent<CharacterControllerNonUnity>();
+		
 	}
 
 	// Update is called once per frame
@@ -21,6 +24,20 @@ public class Grapple : MonoBehaviour
 	{
 		if (!hasHit) GetComponent<Rigidbody>().velocity = direction * speed;
 
+		if (characterController.transform.localScale.x < 0 &&(!m_FacingRight))
+		{
+			Flip();
+		}
+
+	}
+
+	private void Flip()
+	{
+		m_FacingRight = !m_FacingRight;
+		// Multiply the player's x local scale by -1.
+		Vector3 theScale = transform.localScale;
+		theScale.x *= -1;
+		transform.localScale = theScale;
 	}
 
 	void OnTriggerEnter(Collider collider)
@@ -31,6 +48,7 @@ public class Grapple : MonoBehaviour
 			Destroy(gameObject);
 		}
 	}
+	
 
 	void OnCollisionEnter(Collision collision)
 	{
@@ -38,5 +56,16 @@ public class Grapple : MonoBehaviour
 		{
 			Destroy(gameObject);
 		}
+	}
+
+	public void DestroyGrapple()
+	{
+		StartCoroutine(GrappleLimitDistance());
+	}
+
+	IEnumerator GrappleLimitDistance()
+	{
+		yield return new WaitForSeconds(0.25f);
+		Destroy(gameObject);
 	}
 }
