@@ -23,9 +23,21 @@ public class GrappleWave : MonoBehaviour
     
     void Draw()
     {
-        float xStart = characterController.transform.position.x+0.2f;
+        float xStart=0;
+        float xFinish=0;
+        if (transform.localScale.x > 0)
+        {
+            xStart = characterController.transform.position.x+0.2f;
+            xFinish =transform.position.x-0.8f;
+        }
+        else if (transform.localScale.x < 0)
+        {
+           xStart = characterController.transform.position.x-0.2f;
+           xFinish =transform.position.x+0.8f;
+        }
+        
         float Tau = 2* Mathf.PI;
-        float xFinish =transform.position.x-0.8f;
+        
 
         myLineRenderer.positionCount = points;
         for(int currentPoint = 0; currentPoint<points;currentPoint++)
