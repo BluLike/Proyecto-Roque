@@ -84,17 +84,17 @@ public class RangedEnemy : MonoBehaviour {
 
 		if (transform.position.x>playerTransform.position.x)
 		{
-			if (!facingRight)
+			if (facingRight)
 			{
-				FlipR();
+				FlipL();
 			}
 		}
 		
 		if (transform.position.x<playerTransform.position.x)
 		{
-			if (facingRight)
+			if (!facingRight)
 			{
-				FlipL();
+				FlipR();
 			}
 		}
 	}
@@ -104,7 +104,7 @@ public class RangedEnemy : MonoBehaviour {
 		facingRight = true;
 		// Multiply the player's x local scale by -1.
 		Vector3 theScale = transform.localScale;
-		theScale.x = 1;
+		theScale.x = -1;
 		transform.localScale = theScale;
 	}
 	private void FlipL()
@@ -112,7 +112,7 @@ public class RangedEnemy : MonoBehaviour {
 		facingRight = false;
 		// Multiply the player's x local scale by -1.
 		Vector3 theScale = transform.localScale;
-		theScale.x = -1;
+		theScale.x = 1;
 		transform.localScale = theScale;
 	}
 
