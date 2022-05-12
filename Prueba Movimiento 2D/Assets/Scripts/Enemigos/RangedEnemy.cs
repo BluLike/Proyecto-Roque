@@ -20,7 +20,7 @@ public class RangedEnemy : MonoBehaviour {
 	[SerializeField] private float Dmg;
 	
 
-	private bool facingRight = true;
+	private bool facingRight = false;
 	private bool m_Grounded;
 
 	public float speed = 5f;
@@ -79,27 +79,40 @@ public class RangedEnemy : MonoBehaviour {
 					//rb.velocity = new Vector2(speed, rb.velocity.y);
 				}
 			}
-			else
-			{
-				Flip();
-			}
+			
 		}
 
 		if (transform.position.x>playerTransform.position.x)
 		{
-			if (!facingRight && transform.localScale.x == -1)
+			if (!facingRight)
 			{
-				Flip();
+				FlipR();
+			}
+		}
+		
+		if (transform.position.x<playerTransform.position.x)
+		{
+			if (facingRight)
+			{
+				FlipL();
 			}
 		}
 	}
 
-	private void Flip()
+	private void FlipR()
 	{
-		facingRight = !facingRight;
+		facingRight = true;
 		// Multiply the player's x local scale by -1.
 		Vector3 theScale = transform.localScale;
-		theScale.x *= -1;
+		theScale.x = 1;
+		transform.localScale = theScale;
+	}
+	private void FlipL()
+	{
+		facingRight = false;
+		// Multiply the player's x local scale by -1.
+		Vector3 theScale = transform.localScale;
+		theScale.x = -1;
 		transform.localScale = theScale;
 	}
 

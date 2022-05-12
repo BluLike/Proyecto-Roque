@@ -14,7 +14,7 @@ public class CharacterControllerNonUnity : MonoBehaviour
 	[SerializeField] private Transform m_WallCheckFoot;								
 
 	const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
-	float k_wallCheckRadius = k_GroundedRadius * 2.5f;
+	float k_wallCheckRadius = k_GroundedRadius * 2.3f;
 	private bool m_Grounded;            // Whether or not the player is grounded.
 	private Rigidbody m_Rigidbody;
 	public bool m_FacingRight = true;  // For determining which way the player is currently facing.
@@ -382,11 +382,12 @@ public class CharacterControllerNonUnity : MonoBehaviour
 		
 		m_Rigidbody.AddForce(new Vector3(transform.localScale.x*m_GrappleForce, 1f, 0f), ForceMode.Impulse);
 		yield return new WaitForSeconds(secs);
-		
-		
-		
-		
-		
+		canDoubleJump = true;
+
+
+
+
+
 	}
 
 	IEnumerator DashCooldown()
