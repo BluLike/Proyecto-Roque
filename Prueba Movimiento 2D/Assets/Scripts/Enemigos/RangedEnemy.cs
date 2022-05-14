@@ -1,9 +1,11 @@
+using System;
 using UnityEngine;
 using System.Collections;
 
 public class RangedEnemy : MonoBehaviour {
 
-	public float life = 10;
+	public float life = 75;
+	public GameObject FireBall;
 	private bool isPlat;
 	private bool isObstacle;
 	private Transform fallCheck;
@@ -18,6 +20,10 @@ public class RangedEnemy : MonoBehaviour {
 	[SerializeField] private Transform m_GroundCheck;
 	[SerializeField] private LayerMask m_WhatIsGround;
 	[SerializeField] private float Dmg;
+	public bool canShoot = true;
+	
+	public GameObject proyectile;
+	public ThrowableWeapon Weapon;
 	
 
 	private bool facingRight = false;
@@ -104,7 +110,7 @@ public class RangedEnemy : MonoBehaviour {
 		facingRight = true;
 		// Multiply the player's x local scale by -1.
 		Vector3 theScale = transform.localScale;
-		theScale.x = -1;
+		theScale.x = 1;
 		transform.localScale = theScale;
 	}
 	private void FlipL()
@@ -112,7 +118,7 @@ public class RangedEnemy : MonoBehaviour {
 		facingRight = false;
 		// Multiply the player's x local scale by -1.
 		Vector3 theScale = transform.localScale;
-		theScale.x = 1;
+		theScale.x = -1;
 		transform.localScale = theScale;
 	}
 
@@ -140,6 +146,23 @@ public class RangedEnemy : MonoBehaviour {
 		}
 	}
 
+	private void OnTriggerStay(Collider other)
+	{
+		if (other.gameObject.tag == "Player" && life > 0)
+		{
+			if (canShoot)
+			{
+				proyectile = Instantiate(FireBall, transform.position + new Vector3(transform.localScale.x * 0.5f,0,0), Quaternion.identity) as GameObject;
+				Vector3 direction = new Vector3(transform.localScale.x, 0, 0);
+				proyectile.GetComponent<ThrowableWeapon>().direction = direction; 
+				proyectile.name = "FireBall";
+				Weapon = GameObject.Find("FireBall").GetComponent<ThrowableWeapon>();
+				Weapon.DestroyProyectile();
+				StartCoroutine(FireBallCooldown());
+			}
+		}
+	}
+
 	IEnumerator HitTime()
 	{
 		isHitted = true;
@@ -160,5 +183,13 @@ public class RangedEnemy : MonoBehaviour {
 		yield return new WaitForSeconds(3f);
 		Destroy(gameObject);
 	}
+
+	IEnumerator FireBallCooldown()
+	{
+		canShoot = false;
+		yield return new WaitForSeconds(0.9f);
+		canShoot = true;
+	}
+	
 
 }

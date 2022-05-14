@@ -11,7 +11,7 @@ using UnityEngine;
 	
 public class Attack : MonoBehaviour
 {
-	public float dmgValue = 4;
+	public float dmgValue = 20;
 	public GameObject grapplingHook;
 	public Transform attackCheck;
 	private Rigidbody m_Rigidbody;
