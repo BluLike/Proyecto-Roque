@@ -5,47 +5,44 @@ using UnityEngine;
 public class HealthBar : MonoBehaviour
 {
     public Renderer shader;
-    //public float oldHealth;
+    public float health;
+    public float amogus = 0.001f;
     //public float newHealth;
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
         var characterControllerNonUnity = GameObject.Find("DrawCharacter").GetComponent<CharacterControllerNonUnity>();
         shader = GetComponent<Renderer>();
-        //oldHealth = characterControllerNonUnity.life;
-        //newHealth = oldHealth;
+        health = characterControllerNonUnity.life;
     }
 
     // Update is called once per frame
     void Update()
     {
         var characterControllerNonUnity = GameObject.Find("DrawCharacter").GetComponent<CharacterControllerNonUnity>();
-        //if (oldHealth > characterControllerNonUnity.life)
+
+        //while (health > characterControllerNonUnity.life)
         //{
-        //    LoopDecrease();
+            //tartCoroutine(Decrease());
         //}
-        //if (oldHealth < characterControllerNonUnity.life)
+
+        //while (health < characterControllerNonUnity.life)
         //{
-        //    LoopIncrease();
+            //StartCoroutine(Increase());
         //}
-        shader.sharedMaterial.SetFloat("_Progress", (characterControllerNonUnity.life / 100));
+        shader.sharedMaterial.SetFloat("_Progress", (characterControllerNonUnity.life / 100f));
     }
-    //void LoopDecrease()
-   // {
-   //     var characterControllerNonUnity = GameObject.Find("DrawCharacter").GetComponent<CharacterControllerNonUnity>();
-   //     for (float i = 0; oldHealth > characterControllerNonUnity.life; i++)
-   //     {
-   //         newHealth = Mathf.Lerp(oldHealth, characterControllerNonUnity.life, i / 10);
-   //     }
-   //     oldHealth = newHealth;
-   // }
-   // void LoopIncrease()
-   // {
-   //     var characterControllerNonUnity = GameObject.Find("DrawCharacter").GetComponent<CharacterControllerNonUnity>();
-   //     for (float i = 0; oldHealth < characterControllerNonUnity.life; i++)
-   //     {
-   //         newHealth = Mathf.Lerp(oldHealth, characterControllerNonUnity.life, i/10);
-   //     }
-   //     oldHealth = newHealth;
-   // }
+    IEnumerator Decrease()
+    {
+        yield return new WaitForSeconds(0.5f);
+        float a = health - 1f;
+        health = a;
+    }
+    IEnumerator Increase()
+    {
+        yield return new WaitForSeconds(0.5f);
+        float b = health + 1f;
+        health = b;
+    }
 }
+    
