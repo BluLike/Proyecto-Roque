@@ -46,6 +46,7 @@ public class CharacterControllerNonUnity : MonoBehaviour
 
 	public SpriteRenderer spriteRenderer;
 	public Color mColor;
+	private HealthBar_smooth healthbar;
 
 	[Header("Events")]
 	[Space]
@@ -61,12 +62,14 @@ public class CharacterControllerNonUnity : MonoBehaviour
 		m_Rigidbody = GetComponent<Rigidbody>();
 		animator = GetComponent<Animator>();
 		spriteRenderer = GetComponent<SpriteRenderer>();
+		healthbar = GetComponent<HealthBar_smooth>();
 
 		if (OnFallEvent == null)
 			OnFallEvent = new UnityEvent();
 
 		if (OnLandEvent == null)
 			OnLandEvent = new UnityEvent();
+		
 	}
 
 
@@ -319,6 +322,7 @@ public class CharacterControllerNonUnity : MonoBehaviour
 			Vector3 damageDir = Vector3.Normalize(knockBack) * 40f ;
 			m_Rigidbody.velocity = Vector3.zero;
 			m_Rigidbody.AddForce(damageDir * 15);
+			healthbar.loseHP(damage);
 			if (life <= 0)
 			{
 				StartCoroutine(WaitToDead());
@@ -337,6 +341,7 @@ public class CharacterControllerNonUnity : MonoBehaviour
 		{
 			animator.SetBool("Hit", true);
 			life -= damage;
+			healthbar.loseHP(damage);
 			
 			if (life <= 0)
 			{

@@ -29,7 +29,7 @@ public class RangedEnemy : MonoBehaviour {
 	private bool facingRight = false;
 	private bool m_Grounded;
 
-	public float speed = 5f;
+	
 
 	public bool isInvincible = false;
 	private bool isHitted = false;
@@ -187,7 +187,7 @@ public class RangedEnemy : MonoBehaviour {
 	IEnumerator FireBallCooldown()
 	{
 		canShoot = false;
-		yield return new WaitForSeconds(0.9f);
+		yield return new WaitForSeconds(1.1f);
 		canShoot = true;
 	}
 	

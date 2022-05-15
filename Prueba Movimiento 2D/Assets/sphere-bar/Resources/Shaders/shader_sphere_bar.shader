@@ -10,7 +10,7 @@
         
         _BackWaveSpeed("Back Wave Speed", Range(-1,1)) = 0
         
-		_Progress("Progress", Range(0,1)) = 0.5
+		_Progress("Progress", Range(0,1)) = 0.1
 		
     }
     SubShader

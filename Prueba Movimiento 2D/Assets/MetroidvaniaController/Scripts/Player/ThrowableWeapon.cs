@@ -6,7 +6,7 @@ public class ThrowableWeapon : MonoBehaviour
 {
 	public Vector3 direction;
 	public bool hasHit = false;
-	public float speed = 2f;
+	public float speed = 1.5f;
 	public float Dmg = 35;
 	
 	
