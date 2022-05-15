@@ -10,12 +10,16 @@ public class CharacterControllerNonUnity : MonoBehaviour
 	[SerializeField] private bool m_AirControl = false;							// Whether or not a player can steer while jumping;
 	[SerializeField] private LayerMask m_WhatIsGround;							// A mask determining what is ground to the character
 	[SerializeField] private Transform m_GroundCheck;							// A position marking where to check if the player is grounded.
+	[SerializeField] public Transform m_TpGroundCheckFront;					
+	[SerializeField] public Transform m_TpGroundCheckBack;						
 	[SerializeField] private Transform m_WallCheck;								//Posicion que controla si el personaje toca una pared
-	[SerializeField] private Transform m_WallCheckFoot;								
+								
 
 	const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
 	float k_wallCheckRadius = k_GroundedRadius * 2.3f;
-	private bool m_Grounded;            // Whether or not the player is grounded.
+	public bool m_Grounded;            // Whether or not the player is grounded.
+	public bool m_TpGroundedFront;            // Whether or not the player is grounded.
+	public bool m_TpGroundedBack;            // Whether or not the player is grounded.
 	private Rigidbody m_Rigidbody;
 	public bool m_FacingRight = true;  // For determining which way the player is currently facing.
 	private Vector3 velocity = Vector3.zero;
@@ -84,6 +88,8 @@ public class CharacterControllerNonUnity : MonoBehaviour
 		}
 		bool wasGrounded = m_Grounded;
 		m_Grounded = false;
+		m_TpGroundedBack = false;
+		m_TpGroundedFront = false;
 		if (wasGrounded)
         {
 			canDash = true;
@@ -114,6 +120,23 @@ public class CharacterControllerNonUnity : MonoBehaviour
 				canDoubleJump = true;
 				if (m_Rigidbody.velocity.y < 0f)
 					limitVelOnWallJump = false;
+			}
+		}
+		
+		Collider[] TpFrontColliders = Physics.OverlapSphere(m_TpGroundCheckFront.position, k_GroundedRadius, m_WhatIsGround);
+		for (int i = 0; i < TpFrontColliders.Length; i++)
+		{
+			if (TpFrontColliders[i].gameObject != gameObject)
+			{
+				m_TpGroundedFront = true;
+			}
+		}
+		Collider[] TpBackColliders = Physics.OverlapSphere(m_TpGroundCheckBack.position, k_GroundedRadius, m_WhatIsGround);
+		for (int i = 0; i < TpBackColliders.Length; i++)
+		{
+			if (TpBackColliders[i].gameObject != gameObject)
+			{
+				m_TpGroundedBack = true;
 			}
 		}
 

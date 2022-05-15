@@ -1,11 +1,11 @@
 using System;
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
-public class RangedEnemy : MonoBehaviour {
+public class AssassinEnemy : MonoBehaviour {
 
 	public float life = 75;
-	public GameObject FireBall;
 	private bool isPlat;
 	private bool isObstacle;
 	private Transform fallCheck;
@@ -20,10 +20,10 @@ public class RangedEnemy : MonoBehaviour {
 	[SerializeField] private Transform m_GroundCheck;
 	[SerializeField] private LayerMask m_WhatIsGround;
 	[SerializeField] private float Dmg;
-	public bool canShoot = true;
 	
-	public GameObject proyectile;
-	public ThrowableWeapon Weapon;
+	
+	
+	
 	
 
 	private bool facingRight = false;
@@ -144,22 +144,16 @@ public class RangedEnemy : MonoBehaviour {
 		}
 	}
 
-	private void OnTriggerStay(Collider other)
+	private void OnTriggerExit(Collider other)
 	{
 		if (other.gameObject.tag == "Player" && life > 0)
 		{
-			if (canShoot)
-			{
-				proyectile = Instantiate(FireBall, transform.position + new Vector3(transform.localScale.x * 0.5f,0,0), Quaternion.identity) as GameObject;
-				Vector3 direction = new Vector3(transform.localScale.x, 0, 0);
-				proyectile.GetComponent<ThrowableWeapon>().direction = direction; 
-				proyectile.name = "FireBall";
-				Weapon = GameObject.Find("FireBall").GetComponent<ThrowableWeapon>();
-				Weapon.DestroyProyectile();
-				StartCoroutine(FireBallCooldown());
-			}
+			StartCoroutine(AssassinTp(other));
 		}
+		
 	}
+
+	
 
 	IEnumerator HitTime()
 	{
@@ -182,12 +176,38 @@ public class RangedEnemy : MonoBehaviour {
 		Destroy(gameObject);
 	}
 
-	IEnumerator FireBallCooldown()
+	IEnumerator AssassinTp(Collider other)
 	{
-		canShoot = false;
-		yield return new WaitForSeconds(1.1f);
-		canShoot = true;
+		yield return new WaitUntil( () => other.gameObject.GetComponent<CharacterControllerNonUnity>().m_Grounded == true);
+		
+		if (other.gameObject.tag == "Player" && life > 0)
+		{
+			if (other.gameObject.GetComponent<CharacterControllerNonUnity>().m_TpGroundedBack == true && other.gameObject.GetComponent<CharacterControllerNonUnity>().m_TpGroundedFront == false)
+			{
+				transform.position = new Vector3(other.gameObject.GetComponent<CharacterControllerNonUnity>().m_TpGroundCheckBack.transform.position.x, playerTransform.position.y, playerTransform.position.z);
+			}
+			
+			if (other.gameObject.GetComponent<CharacterControllerNonUnity>().m_TpGroundedBack == false && other.gameObject.GetComponent<CharacterControllerNonUnity>().m_TpGroundedFront == true)
+			{
+				transform.position = new Vector3(other.gameObject.GetComponent<CharacterControllerNonUnity>().m_TpGroundCheckFront.transform.position.x, playerTransform.position.y, playerTransform.position.z);
+			}
+			
+			else if(other.gameObject.GetComponent<CharacterControllerNonUnity>().m_TpGroundedBack == true && other.gameObject.GetComponent<CharacterControllerNonUnity>().m_TpGroundedFront == true)
+			{
+				if (transform.localScale.x ==-1)
+				{
+					transform.position = new Vector3(playerTransform.position.x-1.3f, playerTransform.position.y, playerTransform.position.z);
+				}
+				
+				if (transform.localScale.x == 1)
+				{
+					transform.position = new Vector3(playerTransform.position.x+1.3f, playerTransform.position.y, playerTransform.position.z);
+				}	
+			}
+			
+		}
+		
 	}
-	
+
 
 }
