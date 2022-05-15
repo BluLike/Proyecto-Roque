@@ -341,7 +341,16 @@ public class CharacterControllerNonUnity : MonoBehaviour
 		{
 			animator.SetBool("Hit", true);
 			life -= damage;
-			Vector3 knockBack = new Vector3(transform.position.x - position.x, transform.position.y - position.y, 0f);
+			Vector3 knockBack;
+			if (transform.position.y < position.y)
+			{
+				knockBack = new Vector3(transform.position.x - position.x, transform.position.y + position.y, 0f);
+			}
+			else
+			{
+				knockBack = new Vector3(transform.position.x - position.x, transform.position.y - position.y, 0f);
+			}
+			//Vector3 knockBack = new Vector3(transform.position.x - position.x, transform.position.y - position.y, 0f);
 			Vector3 damageDir = Vector3.Normalize(knockBack) * 40f ;
 			m_Rigidbody.velocity = Vector3.zero;
 			m_Rigidbody.AddForce(damageDir * 15);

@@ -20,7 +20,10 @@ public class AssassinEnemy : MonoBehaviour {
 	[SerializeField] private Transform m_GroundCheck;
 	[SerializeField] private LayerMask m_WhatIsGround;
 	[SerializeField] private float Dmg;
-	
+	private bool distanceCheck;
+	private float distance;
+	private float timeLeft = 3.0f;
+	private CharacterControllerNonUnity player;
 	
 	
 	
@@ -40,11 +43,15 @@ public class AssassinEnemy : MonoBehaviour {
 		rb = GetComponent<Rigidbody>();
 		boxCollider = GetComponent<BoxCollider>();
 		playerTransform = GameObject.Find("DrawCharacter").GetComponent<Transform>();
-		
+		player = GameObject.Find("DrawCharacter").GetComponent<CharacterControllerNonUnity>();
+
+
 	}
 	
 	// Update is called once per frame
-	void FixedUpdate () {
+	void FixedUpdate ()
+	{
+		distance = Vector3.Distance(playerTransform.position, transform.position);
 		spriteRenderer = GetComponent<SpriteRenderer>();
 		groundLayerMask = LayerMask.GetMask("Ground");
 
@@ -85,8 +92,18 @@ public class AssassinEnemy : MonoBehaviour {
 					//rb.velocity = new Vector2(speed, rb.velocity.y);
 				}
 			}
-			
 		}
+		
+		if (distance < 1.5f)
+		{
+			distanceCheck = true;
+			StartAtacking();
+		}
+		if (distance > 1.5f)
+		{
+			distanceCheck = false;
+		}
+
 
 		if (transform.position.x>playerTransform.position.x)
 		{
@@ -105,6 +122,24 @@ public class AssassinEnemy : MonoBehaviour {
 		}
 	}
 
+
+	private void StartAtacking()
+	{
+		timeLeft -= Time.deltaTime;
+		
+		if (timeLeft <= 0f && distanceCheck)
+		{
+			player.ApplyDamage(Dmg,transform.position);
+			timeLeft = 3;
+
+		}
+		if (timeLeft <= 0f && !distanceCheck)
+		{
+			timeLeft = 3;
+		}
+		
+
+	}
 	private void FlipR()
 	{
 		facingRight = true;

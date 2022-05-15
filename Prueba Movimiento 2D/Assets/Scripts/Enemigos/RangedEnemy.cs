@@ -150,12 +150,12 @@ public class RangedEnemy : MonoBehaviour {
 		{
 			if (canShoot)
 			{
-				proyectile = Instantiate(FireBall, transform.position + new Vector3(transform.localScale.x * 0.5f,0,0), Quaternion.identity) as GameObject;
+				proyectile = Instantiate(FireBall, transform.position + new Vector3(transform.localScale.x * 0.7f,0,0), Quaternion.identity) as GameObject;
 				Vector3 direction = new Vector3(transform.localScale.x, 0, 0);
 				proyectile.GetComponent<ThrowableWeapon>().direction = direction; 
 				proyectile.name = "FireBall";
 				Weapon = GameObject.Find("FireBall").GetComponent<ThrowableWeapon>();
-				Weapon.DestroyProyectile();
+				Weapon.EndProjectileLifetime();
 				StartCoroutine(FireBallCooldown());
 			}
 		}
