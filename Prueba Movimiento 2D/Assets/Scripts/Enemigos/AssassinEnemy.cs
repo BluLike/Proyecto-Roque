@@ -25,18 +25,39 @@ public class AssassinEnemy : MonoBehaviour {
 	private float timeLeft = 3.0f;
 	private CharacterControllerNonUnity player;
 	
-	
-	
-	
 
 	private bool facingRight = false;
 	private bool m_Grounded;
-
 	
 
 	public bool isInvincible = false;
 	private bool isHitted = false;
 
+	//Animation states
+	private const string IDLE = "Idle";
+	private const string RUN = "Run";
+	private const string ATTACK = "Attack";
+	private const string VANISH = "Vanish";
+	private const string ARISE = "Arise";
+	private const string HURT = "Hurt";
+	private const string DEATH = "Death";
+
+	
+	//Animator parameters
+	
+	private Animator animator;
+	private string currentState;
+
+	void ChangeAnimationState(string newState)
+	{
+		//evita que se quede en bucle la animación
+		if (currentState == newState) return;
+		//hace la animación 
+		animator.Play(newState);
+		//asignar nuevo valor de la animación
+		currentState = newState;
+	}
+	
 	void Awake () {
 		fallCheck = transform.Find("FallCheck");
 		wallCheck = transform.Find("WallCheck");

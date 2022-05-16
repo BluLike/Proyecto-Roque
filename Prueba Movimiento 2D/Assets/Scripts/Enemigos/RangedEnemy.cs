@@ -25,17 +25,6 @@ public class RangedEnemy : MonoBehaviour {
 	public bool isDead;
 	
 	
-	//Animation states
-	private const string IDLE = "Idle";
-	private const string SPELLCAST = "SpellCast";
-	private const string HURT = "Hurt";
-	private const string DEATH = "Death";
-	
-	//Animator parameters
-	
-	private Animator animator;
-	private string currentState;
-	
 	public GameObject proyectile;
 	public ThrowableWeapon Weapon;
 	
@@ -47,7 +36,28 @@ public class RangedEnemy : MonoBehaviour {
 
 	public bool isInvincible = false;
 	private bool isHitted = false;
+	
+	
+	//Animation states
+	private const string IDLE = "Idle";
+	private const string SPELLCAST = "SpellCast";
+	private const string HURT = "Hurt";
+	private const string DEATH = "Death";
+	
+	//Animator parameters
+	
+	private Animator animator;
+	private string currentState;
 
+	void ChangeAnimationState(string newState)
+	{
+		//evita que se quede en bucle la animación
+		if (currentState == newState) return;
+		//hace la animación 
+		animator.Play(newState);
+		//asignar nuevo valor de la animación
+		currentState = newState;
+	}
 	void Awake () {
 		fallCheck = transform.Find("FallCheck");
 		wallCheck = transform.Find("WallCheck");
@@ -131,16 +141,6 @@ public class RangedEnemy : MonoBehaviour {
 		}
 	}
 
-	void ChangeAnimationState(string newState)
-	{
-		//evita que se quede en bucle la animación
-		if (currentState == newState) return;
-		//hace la animación 
-		animator.Play(newState);
-		//asignar nuevo valor de la animación
-		currentState = newState;
-	}
-	
 	private void FlipR()
 	{
 		facingRight = true;

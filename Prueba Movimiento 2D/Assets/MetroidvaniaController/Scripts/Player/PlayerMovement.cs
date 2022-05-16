@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour {
 
 		animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
 
-		if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W))
+		if (Input.GetKeyDown(KeyCode.Space))
 		{
 			jump = true;
 		}
