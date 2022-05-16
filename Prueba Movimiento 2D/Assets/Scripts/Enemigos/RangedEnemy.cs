@@ -22,6 +22,9 @@ public class RangedEnemy : MonoBehaviour {
 	[SerializeField] private float Dmg;
 	public bool canShoot = true;
 	
+	private Animator animator;
+	private string currentState;
+	
 	public GameObject proyectile;
 	public ThrowableWeapon Weapon;
 	
@@ -40,7 +43,8 @@ public class RangedEnemy : MonoBehaviour {
 		rb = GetComponent<Rigidbody>();
 		boxCollider = GetComponent<BoxCollider>();
 		playerTransform = GameObject.Find("DrawCharacter").GetComponent<Transform>();
-		
+		animator = GetComponent<Animator>();
+
 	}
 	
 	// Update is called once per frame
@@ -105,6 +109,16 @@ public class RangedEnemy : MonoBehaviour {
 		}
 	}
 
+	void ChangeAnimationState(string newState)
+	{
+		//evita que se quede en bucle la animación
+		if (currentState == newState) return;
+		//hace la animación 
+		animator.Play(newState);
+		//asignar nuevo valor de la animación
+		currentState = newState;
+	}
+	
 	private void FlipR()
 	{
 		facingRight = true;
@@ -127,7 +141,7 @@ public class RangedEnemy : MonoBehaviour {
 		{
 			float direction = damage / Mathf.Abs(damage);
 			damage = Mathf.Abs(damage);
-			transform.GetComponent<Animator>().SetBool("Hit", true);
+			animator.Play("Hurt");
 			life -= damage;
 			rb.velocity = Vector2.zero;
 			rb.AddForce(new Vector2(direction * 400f, 100f));
@@ -148,6 +162,7 @@ public class RangedEnemy : MonoBehaviour {
 	{
 		if (other.gameObject.tag == "Player" && life > 0)
 		{
+			
 			if (canShoot)
 			{
 				proyectile = Instantiate(FireBall, transform.position + new Vector3(transform.localScale.x * 0.7f,0,0), Quaternion.identity) as GameObject;
@@ -158,6 +173,7 @@ public class RangedEnemy : MonoBehaviour {
 				Weapon.EndProjectileLifetime();
 				StartCoroutine(FireBallCooldown());
 			}
+			
 		}
 	}
 
@@ -184,8 +200,9 @@ public class RangedEnemy : MonoBehaviour {
 
 	IEnumerator FireBallCooldown()
 	{
+		
 		canShoot = false;
-		yield return new WaitForSeconds(1.1f);
+		yield return new WaitForSeconds(1f);
 		canShoot = true;
 	}
 	
