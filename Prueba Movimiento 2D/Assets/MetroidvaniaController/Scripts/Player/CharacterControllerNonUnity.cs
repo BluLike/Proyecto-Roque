@@ -83,6 +83,7 @@ public class CharacterControllerNonUnity : MonoBehaviour
 		if(!isDashing)
 		{
 			Physics.IgnoreLayerCollision(8,9, false);
+			Physics.IgnoreLayerCollision(8,12, false);
 			Color mColor = new Color(1, 1, 1, 1);
 			spriteRenderer.color = mColor;
 		}
@@ -201,6 +202,7 @@ public class CharacterControllerNonUnity : MonoBehaviour
 			{
 				m_Rigidbody.velocity = new Vector2(transform.localScale.x * m_DashForce, 0);
 				Physics.IgnoreLayerCollision(8,9, true);
+				Physics.IgnoreLayerCollision(8,12, true);
 				Color mColor = new Color(1, 1, 1, 0.3f);
 				spriteRenderer.color = mColor;
 			}

@@ -25,6 +25,7 @@ public class ThrowableWeapon : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+	    Physics.IgnoreLayerCollision(12,9);
 		if ( !hasHit)
 			GetComponent<Rigidbody>().velocity = direction * speed;
 		

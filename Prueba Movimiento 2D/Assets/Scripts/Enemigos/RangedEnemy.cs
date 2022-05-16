@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class RangedEnemy : MonoBehaviour {
 
@@ -21,6 +22,16 @@ public class RangedEnemy : MonoBehaviour {
 	[SerializeField] private LayerMask m_WhatIsGround;
 	[SerializeField] private float Dmg;
 	public bool canShoot = true;
+	public bool isDead;
+	
+	
+	//Animation states
+	private const string IDLE = "Idle";
+	private const string SPELLCAST = "SpellCast";
+	private const string HURT = "Hurt";
+	private const string DEATH = "Death";
+	
+	//Animator parameters
 	
 	private Animator animator;
 	private string currentState;
@@ -44,6 +55,7 @@ public class RangedEnemy : MonoBehaviour {
 		boxCollider = GetComponent<BoxCollider>();
 		playerTransform = GameObject.Find("DrawCharacter").GetComponent<Transform>();
 		animator = GetComponent<Animator>();
+		isDead = false;
 
 	}
 	
@@ -52,12 +64,17 @@ public class RangedEnemy : MonoBehaviour {
 		spriteRenderer = GetComponent<SpriteRenderer>();
 		groundLayerMask = LayerMask.GetMask("Ground");
 
-		if (life <= 0) {
-			transform.GetComponent<Animator>().SetBool("IsDead", true);
+		if (life <= 0 && !isDead) 
+		{
+			isDead = true;
+			ChangeAnimationState(DEATH);
 			StartCoroutine(DestroyEnemy());
+			
 		}
 		bool wasGrounded = m_Grounded;
 		m_Grounded = false;
+		
+ 
 		
 
 		// The player is grounded if a circlecast to the groundcheck position hits anything designated as ground
@@ -107,6 +124,11 @@ public class RangedEnemy : MonoBehaviour {
 				FlipR();
 			}
 		}
+		
+		if (isHitted)
+		{
+			
+		}
 	}
 
 	void ChangeAnimationState(string newState)
@@ -137,11 +159,11 @@ public class RangedEnemy : MonoBehaviour {
 	}
 
 	public void ApplyDamage(float damage) {
-		if (!isInvincible) 
+		if (!isInvincible && life > 0) 
 		{
+			ChangeAnimationState(HURT);
 			float direction = damage / Mathf.Abs(damage);
 			damage = Mathf.Abs(damage);
-			animator.Play("Hurt");
 			life -= damage;
 			rb.velocity = Vector2.zero;
 			rb.AddForce(new Vector2(direction * 400f, 100f));
@@ -158,22 +180,30 @@ public class RangedEnemy : MonoBehaviour {
 		}
 	}
 
+	private void OnTriggerExit(Collider other)
+	{
+		if(other.gameObject.tag=="Player" && life > 0)
+		{
+			
+			if (!isHitted && !isDead)
+			{
+				ChangeAnimationState(IDLE);
+			}
+		}
+		
+	}
+
 	private void OnTriggerStay(Collider other)
 	{
 		if (other.gameObject.tag == "Player" && life > 0)
 		{
 			
-			if (canShoot)
+			if (canShoot && !isHitted)
 			{
-				proyectile = Instantiate(FireBall, transform.position + new Vector3(transform.localScale.x * 0.7f,0,0), Quaternion.identity) as GameObject;
-				Vector3 direction = new Vector3(transform.localScale.x, 0, 0);
-				proyectile.GetComponent<ThrowableWeapon>().direction = direction; 
-				proyectile.name = "FireBall";
-				Weapon = GameObject.Find("FireBall").GetComponent<ThrowableWeapon>();
-				Weapon.EndProjectileLifetime();
+				ChangeAnimationState(SPELLCAST);
+				StartCoroutine(SpellCast());
 				StartCoroutine(FireBallCooldown());
 			}
-			
 		}
 	}
 
@@ -181,29 +211,52 @@ public class RangedEnemy : MonoBehaviour {
 	{
 		isHitted = true;
 		isInvincible = true;
-		yield return new WaitForSeconds(0.1f);
+		yield return new WaitForSeconds(0.3f);
 		isHitted = false;
 		isInvincible = false;
-		spriteRenderer.color = Color.white;
+		if (!isDead)
+			ChangeAnimationState(IDLE);
+
 
 	}
 
 	IEnumerator DestroyEnemy()
 	{
-		
 		gameObject.layer = 10;
 		yield return new WaitForSeconds(0.25f);
 		rb.velocity = new Vector2(0, rb.velocity.y);
 		yield return new WaitForSeconds(3f);
 		Destroy(gameObject);
 	}
+	
+	IEnumerator SpellCast()
+	{
+		Vector3 position;
+		yield return new WaitForSeconds(0.4f);
+		if (transform.localScale.x < 0)
+		{
+			position = transform.position + new Vector3(transform.localScale.x-0.5f * 0.7f, 0, 0);
+		}
+		else
+		{
+			position = transform.position + new Vector3(transform.localScale.x+0.5f * 0.7f, 0, 0);
+		}
+		proyectile = Instantiate(FireBall, position, Quaternion.identity) as GameObject;
+		Vector3 direction = new Vector3(transform.localScale.x, 0, 0);
+		proyectile.GetComponent<ThrowableWeapon>().direction = direction; 
+		proyectile.name = "FireBall";
+		Weapon = GameObject.Find("FireBall").GetComponent<ThrowableWeapon>();
+		Weapon.EndProjectileLifetime();
+		
+	}
 
 	IEnumerator FireBallCooldown()
 	{
-		
 		canShoot = false;
 		yield return new WaitForSeconds(1f);
 		canShoot = true;
+		if(!isDead)
+			ChangeAnimationState(IDLE);
 	}
 	
 
