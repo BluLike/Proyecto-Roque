@@ -135,10 +135,6 @@ public class RangedEnemy : MonoBehaviour {
 			}
 		}
 		
-		if (isHitted)
-		{
-			
-		}
 	}
 
 	private void FlipR()

@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
 public class CharacterControllerNonUnity : MonoBehaviour
@@ -9,7 +10,7 @@ public class CharacterControllerNonUnity : MonoBehaviour
 	[Range(0, .3f)] [SerializeField] private float m_MovementSmoothing = .05f;	// How much to smooth out the movement
 	[SerializeField] private bool m_AirControl = false;							// Whether or not a player can steer while jumping;
 	[SerializeField] private LayerMask m_WhatIsGround;							// A mask determining what is ground to the character
-	[SerializeField] private Transform m_GroundCheck;							// A position marking where to check if the player is grounded.
+	[SerializeField] public Transform m_GroundCheck;							// A position marking where to check if the player is grounded.
 	[SerializeField] public Transform m_TpGroundCheckFront;					
 	[SerializeField] public Transform m_TpGroundCheckBack;						
 	[SerializeField] private Transform m_WallCheck;								//Posicion que controla si el personaje toca una pared
@@ -286,22 +287,7 @@ public class CharacterControllerNonUnity : MonoBehaviour
 						m_Rigidbody.velocity = new Vector3(-transform.localScale.x * 2, -5,0);
 					}
 				}
-
-				/*if (jump && isWallSliding)
-				{
-					animator.SetBool("IsJumping", true);
-					animator.SetBool("JumpUp", true); 
-					m_Rigidbody.velocity = new Vector3(0f, 0f,0f);
-					m_Rigidbody.AddForce(new Vector3(transform.localScale.x * m_JumpForce *1.2f, m_JumpForce,0));
-					jumpWallStartX = transform.position.x;
-					limitVelOnWallJump = true;
-					canDoubleJump = true;
-					isWallSliding = false;
-					animator.SetBool("IsWallSliding", false);
-					oldWallSlidding = false;
-					m_WallCheck.localPosition = new Vector3(Mathf.Abs(m_WallCheck.localPosition.x), m_WallCheck.localPosition.y, 0);
-					canMove = false;
-				}*/
+				
 				else if (dash && canDash)
 				{
 					isWallSliding = false;
@@ -337,27 +323,9 @@ public class CharacterControllerNonUnity : MonoBehaviour
 		transform.localScale = theScale;
 	}
 
-	public void ApplyDamage(float damage, Vector3 position) 
+	public void ApplyDamage(float damage, Vector3 position)
 	{
-		if (!invincible)
-		{
-			animator.SetBool("Hit", true);
-			life -= damage;
-			Vector3 knockBack = new Vector3(transform.position.x * 0.5f, transform.position.y*0.5f, 0f);
-			Vector3 damageDir = Vector3.Normalize(knockBack) * 40f ;
-			m_Rigidbody.velocity = Vector3.zero;
-			m_Rigidbody.AddForce(damageDir * 15);
-			healthbar.loseHP(damage);
-			if (life <= 0)
-			{
-				StartCoroutine(WaitToDead());
-			}
-			else
-			{
-				StartCoroutine(Stun(0.25f));
-				StartCoroutine(MakeInvincible(1f));
-			}
-		}
+		StartCoroutine(DamagePlayer(damage, position));
 	}
 	
 	public void ApplyFallDamage(float damage) 
@@ -420,6 +388,29 @@ public class CharacterControllerNonUnity : MonoBehaviour
 
 	}
 
+	IEnumerator DamagePlayer(float damage, Vector3 position)
+	{
+		yield return new WaitForSeconds(0f);
+		if (!invincible)
+		{
+			animator.SetBool("Hit", true);
+			life -= damage;
+			Vector3 knockBack = new Vector3(transform.position.x - position.x, transform.position.y - position.y, 0f);
+			Vector3 damageDir = Vector3.Normalize(knockBack) * 40f ;
+			m_Rigidbody.velocity = Vector3.zero;
+			m_Rigidbody.AddForce(damageDir * 15);
+			healthbar.loseHP(damage);
+			if (life <= 0)
+			{
+				StartCoroutine(WaitToDead());
+			}
+			else
+			{
+				StartCoroutine(Stun(0.25f));
+				StartCoroutine(MakeInvincible(1f));
+			}
+		}
+	}
 	IEnumerator DashCooldown()
 	{
 		animator.SetBool("IsDashing", true);

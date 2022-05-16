@@ -22,12 +22,14 @@ public class AssassinEnemy : MonoBehaviour {
 	[SerializeField] private float Dmg;
 	private bool distanceCheck;
 	private float distance;
-	private float timeLeft = 3.0f;
 	private CharacterControllerNonUnity player;
 	
 
 	private bool facingRight = false;
 	private bool m_Grounded;
+	public bool isDead = false;
+	public bool isAttacking = false;
+	public bool isVanished = false;
 	
 
 	public bool isInvincible = false;
@@ -65,6 +67,7 @@ public class AssassinEnemy : MonoBehaviour {
 		boxCollider = GetComponent<BoxCollider>();
 		playerTransform = GameObject.Find("DrawCharacter").GetComponent<Transform>();
 		player = GameObject.Find("DrawCharacter").GetComponent<CharacterControllerNonUnity>();
+		animator = GetComponent<Animator>();
 
 
 	}
@@ -76,9 +79,11 @@ public class AssassinEnemy : MonoBehaviour {
 		spriteRenderer = GetComponent<SpriteRenderer>();
 		groundLayerMask = LayerMask.GetMask("Ground");
 
-		if (life <= 0) {
+		if (life <= 0 && !isDead) {
+			ChangeAnimationState(DEATH);
 			transform.GetComponent<Animator>().SetBool("IsDead", true);
 			StartCoroutine(DestroyEnemy());
+			isDead = true;
 		}
 		bool wasGrounded = m_Grounded;
 		m_Grounded = false;
@@ -114,17 +119,23 @@ public class AssassinEnemy : MonoBehaviour {
 				}
 			}
 		}
+
 		
+
 		if (distance < 1.5f)
 		{
 			distanceCheck = true;
-			StartAtacking();
 		}
 		if (distance > 1.5f)
 		{
 			distanceCheck = false;
 		}
-
+		
+		
+		if (distanceCheck && isAttacking == false && isVanished == false)
+		{
+			StartCoroutine(StartAtacking());
+		}
 
 		if (transform.position.x>playerTransform.position.x)
 		{
@@ -143,24 +154,7 @@ public class AssassinEnemy : MonoBehaviour {
 		}
 	}
 
-
-	private void StartAtacking()
-	{
-		timeLeft -= Time.deltaTime;
-		
-		if (timeLeft <= 0f && distanceCheck)
-		{
-			player.ApplyDamage(Dmg,transform.position);
-			timeLeft = 3;
-
-		}
-		if (timeLeft <= 0f && !distanceCheck)
-		{
-			timeLeft = 3;
-		}
-		
-
-	}
+	
 	private void FlipR()
 	{
 		facingRight = true;
@@ -179,8 +173,10 @@ public class AssassinEnemy : MonoBehaviour {
 	}
 
 	public void ApplyDamage(float damage) {
-		if (!isInvincible) 
+		if (!isInvincible && life > 0) 
 		{
+			
+			ChangeAnimationState(HURT);
 			float direction = damage / Mathf.Abs(damage);
 			damage = Mathf.Abs(damage);
 			transform.GetComponent<Animator>().SetBool("Hit", true);
@@ -209,7 +205,27 @@ public class AssassinEnemy : MonoBehaviour {
 		
 	}
 
-	
+	IEnumerator StartAtacking()
+	{
+		isAttacking = true;
+		
+		ChangeAnimationState(ATTACK);
+		
+		yield return new WaitForSeconds(0.65f);
+		
+		if (distanceCheck)
+		{
+			player.ApplyDamage(Dmg,transform.position);
+			
+		}
+
+		yield return new WaitForSeconds(0.55f);
+		if (!isDead)
+			ChangeAnimationState(IDLE);
+		isAttacking = false;
+
+
+	}
 
 	IEnumerator HitTime()
 	{
@@ -218,7 +234,8 @@ public class AssassinEnemy : MonoBehaviour {
 		yield return new WaitForSeconds(0.1f);
 		isHitted = false;
 		isInvincible = false;
-		spriteRenderer.color = Color.white;
+		if (!isDead)
+			ChangeAnimationState(IDLE);
 
 	}
 
@@ -232,37 +249,47 @@ public class AssassinEnemy : MonoBehaviour {
 		Destroy(gameObject);
 	}
 
+	
 	IEnumerator AssassinTp(Collider other)
 	{
+		isVanished = true;
+		yield return new WaitUntil( () => isAttacking == false);
 		yield return new WaitUntil( () => other.gameObject.GetComponent<CharacterControllerNonUnity>().m_Grounded == true);
-		
+		ChangeAnimationState(VANISH);
+		yield return new WaitForSeconds(0.8f);
 		if (other.gameObject.tag == "Player" && life > 0)
 		{
 			if (other.gameObject.GetComponent<CharacterControllerNonUnity>().m_TpGroundedBack == true && other.gameObject.GetComponent<CharacterControllerNonUnity>().m_TpGroundedFront == false)
 			{
-				transform.position = new Vector3(other.gameObject.GetComponent<CharacterControllerNonUnity>().m_TpGroundCheckBack.transform.position.x, playerTransform.position.y, playerTransform.position.z);
+				transform.position = new Vector3(other.gameObject.GetComponent<CharacterControllerNonUnity>().m_GroundCheck.transform.position.x - 1f, playerTransform.position.y, playerTransform.position.z);
 			}
 			
 			if (other.gameObject.GetComponent<CharacterControllerNonUnity>().m_TpGroundedBack == false && other.gameObject.GetComponent<CharacterControllerNonUnity>().m_TpGroundedFront == true)
 			{
-				transform.position = new Vector3(other.gameObject.GetComponent<CharacterControllerNonUnity>().m_TpGroundCheckFront.transform.position.x, playerTransform.position.y, playerTransform.position.z);
+				transform.position = new Vector3(other.gameObject.GetComponent<CharacterControllerNonUnity>().m_GroundCheck.transform.position.x + 1f, playerTransform.position.y, playerTransform.position.z);
 			}
 			
 			else if(other.gameObject.GetComponent<CharacterControllerNonUnity>().m_TpGroundedBack == true && other.gameObject.GetComponent<CharacterControllerNonUnity>().m_TpGroundedFront == true)
 			{
 				if (transform.localScale.x ==-1)
 				{
-					transform.position = new Vector3(playerTransform.position.x-1.3f, playerTransform.position.y, playerTransform.position.z);
+					transform.position = new Vector3(other.gameObject.GetComponent<CharacterControllerNonUnity>().m_GroundCheck.transform.position.x-1f, playerTransform.position.y, playerTransform.position.z);
 				}
 				
 				if (transform.localScale.x == 1)
 				{
-					transform.position = new Vector3(playerTransform.position.x+1.3f, playerTransform.position.y, playerTransform.position.z);
+					transform.position = new Vector3(other.gameObject.GetComponent<CharacterControllerNonUnity>().m_GroundCheck.transform.position.x+1f, playerTransform.position.y, playerTransform.position.z);
 				}	
 			}
 			
 		}
-		
+		yield return new WaitForSeconds(0.2f);
+		ChangeAnimationState(ARISE);
+		yield return new WaitForSeconds(0.6f);
+		if (!isDead)
+			ChangeAnimationState(IDLE);
+		isVanished = false;
+
 	}
 
 
