@@ -81,6 +81,7 @@ public class CharacterControllerNonUnity : MonoBehaviour
 	private void FixedUpdate()
 	{
 		Physics.IgnoreLayerCollision(8,10);
+		Physics.IgnoreLayerCollision(8, 13);
 		if(!isDashing)
 		{
 			Physics.IgnoreLayerCollision(8,9, false);
