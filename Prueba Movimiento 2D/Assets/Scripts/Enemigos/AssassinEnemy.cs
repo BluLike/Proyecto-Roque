@@ -132,12 +132,12 @@ public class AssassinEnemy : MonoBehaviour {
 		}
 		
 		
-		if (distanceCheck && isAttacking == false && isVanished == false)
+		if (distanceCheck && isAttacking == false && isVanished == false && !isDead)
 		{
 			StartCoroutine(StartAtacking());
 		}
 
-		if (transform.position.x>playerTransform.position.x)
+		if (transform.position.x>playerTransform.position.x && !isDead)
 		{
 			if (facingRight)
 			{
@@ -145,7 +145,7 @@ public class AssassinEnemy : MonoBehaviour {
 			}
 		}
 		
-		if (transform.position.x<playerTransform.position.x)
+		if (transform.position.x<playerTransform.position.x && !isDead)
 		{
 			if (!facingRight)
 			{
