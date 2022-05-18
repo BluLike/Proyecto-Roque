@@ -20,6 +20,7 @@ public class TankEnemy : MonoBehaviour {
 	[SerializeField] private Transform m_GroundCheck;
 	[SerializeField] private LayerMask m_WhatIsGround;
 	[SerializeField] private float Dmg;
+	[SerializeField] private float speed;
 	private bool distanceCheck;
 	private float distance;
 	private CharacterControllerNonUnity player;
@@ -27,6 +28,8 @@ public class TankEnemy : MonoBehaviour {
 
 	private bool facingRight = false;
 	private bool m_Grounded;
+	public bool m_GroundedFront;
+	public bool trigger; 
 	public bool isDead = false;
 	public bool isAttacking = false;
 	
@@ -106,23 +109,6 @@ public class TankEnemy : MonoBehaviour {
 		isPlat = Physics2D.OverlapCircle(fallCheck.position, .2f, 1 << groundLayerMask);
 		isObstacle = Physics2D.OverlapCircle(wallCheck.position, .2f, turnLayerMask);
 
-		if (!isHitted && life > 0 && Mathf.Abs(rb.velocity.y) < 0.5f)
-		{
-			if (m_Grounded && !isObstacle && !isHitted)
-			{
-				if (facingRight)
-				{
-					//rb.velocity = new Vector2(-speed, rb.velocity.y);
-				}
-				else
-				{
-					//rb.velocity = new Vector2(speed, rb.velocity.y);
-				}
-			}
-		}
-
-		
-
 		if (distance <= 2.3f)
 		{
 			distanceCheck = true;
@@ -158,6 +144,14 @@ public class TankEnemy : MonoBehaviour {
 				FlipR();
 			}
 		}
+		
+		if (m_GroundedFront == true && trigger == true && isAttacking == false && distanceCheck == false && isHitted == false)
+		{
+			ChangeAnimationState(RUN);
+			transform.position = Vector3.MoveTowards (transform.position, new Vector3(player.transform.position.x, transform.position.y,player.transform.position.z), speed * Time.deltaTime);
+		}
+		else if (m_GroundedFront == false && trigger == true && isAttacking == false && distanceCheck == false && isDead == false && isHitted == false)
+			ChangeAnimationState(IDLE);
 	}
 
 	
@@ -202,12 +196,11 @@ public class TankEnemy : MonoBehaviour {
 		}
 	}
 
-	private void OnTriggerExit(Collider other)
+	private void OnTriggerStay(Collider other)
 	{
 		if (other.gameObject.tag == "Player" && life > 0)
-		{
-			
-		}
+			trigger = true;
+		
 		
 	}
 

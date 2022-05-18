@@ -2,6 +2,8 @@ using System;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.Common;
+using UnityEngine.UIElements;
 
 public class AssassinEnemy : MonoBehaviour {
 
@@ -18,18 +20,22 @@ public class AssassinEnemy : MonoBehaviour {
 	private Transform playerTransform;
 	public BoxCollider boxCollider;
 	[SerializeField] private Transform m_GroundCheck;
+	[SerializeField] private Transform m_GroundCheckFrontEnemy;
 	[SerializeField] private LayerMask m_WhatIsGround;
 	[SerializeField] private float Dmg;
+	[SerializeField] private float speed = 50;
+	public bool m_GroundedFront;
 	private bool distanceCheck;
 	private float distance;
 	private CharacterControllerNonUnity player;
-	
+												            
 
 	private bool facingRight = false;
 	private bool m_Grounded;
 	public bool isDead = false;
 	public bool isAttacking = false;
 	public bool isVanished = false;
+	public bool trigger = false ;
 	
 
 	public bool isInvincible = false;
@@ -88,6 +94,7 @@ public class AssassinEnemy : MonoBehaviour {
 		}
 		bool wasGrounded = m_Grounded;
 		m_Grounded = false;
+		m_GroundedFront = false;
 		
 
 		// The player is grounded if a circlecast to the groundcheck position hits anything designated as ground
@@ -106,24 +113,18 @@ public class AssassinEnemy : MonoBehaviour {
 		isPlat = Physics2D.OverlapCircle(fallCheck.position, .2f, 1 << groundLayerMask);
 		isObstacle = Physics2D.OverlapCircle(wallCheck.position, .2f, turnLayerMask);
 
-		if (!isHitted && life > 0 && Mathf.Abs(rb.velocity.y) < 0.5f)
+		
+
+		Collider[] FrontColliders = Physics.OverlapSphere(m_GroundCheckFrontEnemy.position, k_GroundedRadius, m_WhatIsGround);
+		for (int i = 0; i < FrontColliders.Length; i++)
 		{
-			if (m_Grounded && !isObstacle && !isHitted)
+			if (FrontColliders[i].gameObject != gameObject)
 			{
-				if (facingRight)
-				{
-					//rb.velocity = new Vector2(-speed, rb.velocity.y);
-				}
-				else
-				{
-					//rb.velocity = new Vector2(speed, rb.velocity.y);
-				}
+				m_GroundedFront = true;
 			}
 		}
 
-		
-
-		if (distance < 1.5f)
+		if (distance <= 1.5f)
 		{
 			distanceCheck = true;
 		}
@@ -133,7 +134,12 @@ public class AssassinEnemy : MonoBehaviour {
 		}
 		
 		
-		if (distanceCheck && isAttacking == false && isVanished == false && !isDead)
+		if (distanceCheck && isAttacking == false && !isDead && transform.position.x<playerTransform.position.x && facingRight)
+		{
+			StartCoroutine(StartAtacking());
+		}
+		
+		if (distanceCheck && isAttacking == false && !isDead && transform.position.x>playerTransform.position.x && !facingRight)
 		{
 			StartCoroutine(StartAtacking());
 		}
@@ -153,6 +159,17 @@ public class AssassinEnemy : MonoBehaviour {
 				FlipR();
 			}
 		}
+
+		if (m_GroundedFront == true && trigger == true && isAttacking == false && distanceCheck == false && isHitted == false)
+		{
+			ChangeAnimationState(RUN);
+			transform.position = Vector3.MoveTowards (transform.position, new Vector3(player.transform.position.x, transform.position.y,player.transform.position.z), speed * Time.deltaTime);
+		}
+		else if (m_GroundedFront == false && trigger == true && isAttacking == false && distanceCheck == false && isVanished == false && isDead == false && isHitted == false)
+			ChangeAnimationState(IDLE);
+		
+			
+		
 	}
 
 	
@@ -197,10 +214,18 @@ public class AssassinEnemy : MonoBehaviour {
 		}
 	}
 
+	private void OnTriggerStay(Collider other)
+	{
+		if (other.gameObject.tag == "Player" && life > 0)
+			trigger = true;
+
+	}
+
 	private void OnTriggerExit(Collider other)
 	{
 		if (other.gameObject.tag == "Player" && life > 0)
 		{
+			trigger = false;
 			StartCoroutine(AssassinTp(other));
 		}
 		
@@ -214,10 +239,16 @@ public class AssassinEnemy : MonoBehaviour {
 		
 		yield return new WaitForSeconds(0.65f);
 		
-		if (distanceCheck)
+		if (distanceCheck && transform.position.x<playerTransform.position.x && facingRight)
+		{
+			player.ApplyDamage(Dmg,transform.position/2);
+
+		}
+		
+		if (distanceCheck && transform.position.x>playerTransform.position.x && !facingRight)
 		{
 			player.ApplyDamage(Dmg,transform.position);
-			
+
 		}
 
 		yield return new WaitForSeconds(0.55f);

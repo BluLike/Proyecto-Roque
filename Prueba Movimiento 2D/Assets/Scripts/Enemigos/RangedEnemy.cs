@@ -104,22 +104,6 @@ public class RangedEnemy : MonoBehaviour {
 		isPlat = Physics2D.OverlapCircle(fallCheck.position, .2f, 1 << groundLayerMask);
 		isObstacle = Physics2D.OverlapCircle(wallCheck.position, .2f, turnLayerMask);
 
-		if (!isHitted && life > 0 && Mathf.Abs(rb.velocity.y) < 0.5f)
-		{
-			if (m_Grounded && !isObstacle && !isHitted)
-			{
-				if (facingRight)
-				{
-					//rb.velocity = new Vector2(-speed, rb.velocity.y);
-				}
-				else
-				{
-					//rb.velocity = new Vector2(speed, rb.velocity.y);
-				}
-			}
-			
-		}
-
 		if (transform.position.x>playerTransform.position.x)
 		{
 			if (facingRight)
@@ -135,6 +119,8 @@ public class RangedEnemy : MonoBehaviour {
 				FlipR();
 			}
 		}
+		
+
 		
 	}
 
