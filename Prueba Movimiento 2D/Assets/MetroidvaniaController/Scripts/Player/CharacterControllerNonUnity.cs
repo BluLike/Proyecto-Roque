@@ -81,7 +81,7 @@ public class CharacterControllerNonUnity : MonoBehaviour
 	private void FixedUpdate()
 	{
 		Physics.IgnoreLayerCollision(8,10);
-		Physics.IgnoreLayerCollision(8, 13);
+		
 		if(!isDashing)
 		{
 			Physics.IgnoreLayerCollision(8,9, false);
@@ -111,7 +111,7 @@ public class CharacterControllerNonUnity : MonoBehaviour
 			if (colliders[i].gameObject != gameObject)
 			{
 				m_Grounded = true;
-				Physics.gravity = new Vector3(0, -28, 0);
+				Physics.gravity = new Vector3(0, -28f, 0);
 			}
 				
 			
@@ -202,6 +202,7 @@ public class CharacterControllerNonUnity : MonoBehaviour
 			// If crouching, check to see if the character can stand up
 			if (isDashing)
 			{
+				StartCoroutine(MakeInvincible(0.2f));
 				m_Rigidbody.velocity = new Vector2(transform.localScale.x * m_DashForce, 0);
 				Physics.IgnoreLayerCollision(8,9, true);
 				Physics.IgnoreLayerCollision(8,12, true);
@@ -397,7 +398,7 @@ public class CharacterControllerNonUnity : MonoBehaviour
 			animator.SetBool("Hit", true);
 			life -= damage;
 			Vector3 knockBack = new Vector3(transform.position.x - position.x, transform.position.y - position.y, 0f);
-			Vector3 damageDir = Vector3.Normalize(knockBack) * 40f ;
+			Vector3 damageDir = Vector3.Normalize(knockBack) * 20f ;
 			m_Rigidbody.velocity = Vector3.zero;
 			m_Rigidbody.AddForce(damageDir * 15);
 			healthbar.loseHP(damage);
@@ -408,7 +409,7 @@ public class CharacterControllerNonUnity : MonoBehaviour
 			else
 			{
 				StartCoroutine(Stun(0.25f));
-				StartCoroutine(MakeInvincible(1f));
+				StartCoroutine(MakeInvincible(0.5f));
 			}
 		}
 	}

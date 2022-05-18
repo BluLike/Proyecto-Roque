@@ -71,6 +71,7 @@ public class RangedEnemy : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
+		Physics.IgnoreLayerCollision(9, 14, true);
 		spriteRenderer = GetComponent<SpriteRenderer>();
 		groundLayerMask = LayerMask.GetMask("Ground");
 
