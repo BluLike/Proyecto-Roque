@@ -38,6 +38,8 @@ public class PauseMenu : MonoBehaviour
     }
     public void Exit()
     {
+        Time.timeScale = 1;
+        GameIsPaused = false;
         SceneManager.LoadScene("Menu");
     }
 }

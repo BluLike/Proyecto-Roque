@@ -58,7 +58,7 @@ public class Attack : MonoBehaviour
 			StartCoroutine(AttackCooldown());
 		}
 
-		if (Input.GetKeyDown(KeyCode.V) && canGrapple||Input.GetKeyDown(KeyCode.K) && canGrapple)
+		if (Input.GetMouseButtonDown(1) && canGrapple||Input.GetKeyDown(KeyCode.K) && canGrapple)
 		{
 			grappling = Instantiate(grapplingHook, transform.position + new Vector3(transform.localScale.x * 0.5f,0,0), Quaternion.identity) as GameObject;
 			Vector3 direction = new Vector3(transform.localScale.x, 0, 0);

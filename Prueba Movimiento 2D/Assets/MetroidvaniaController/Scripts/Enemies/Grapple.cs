@@ -21,6 +21,9 @@ public class Grapple : MonoBehaviour
 	// Update is called once per frame
 	void FixedUpdate()
 	{
+		Physics.IgnoreLayerCollision(15,9);
+		Physics.IgnoreLayerCollision(9,15);
+		
 		if (!hasHit) GetComponent<Rigidbody>().velocity = direction * speed;
 
 		Vector3 theScale = characterController.transform.localScale;
