@@ -64,6 +64,11 @@ public class ThrowableWeapon : MonoBehaviour
 			StartCoroutine(ProjectileImpact());
 		}
 	}
+
+	public void ApplyDamage()
+	{
+		StartCoroutine(ProjectileImpact());
+	}
 	public void EndProjectileLifetime()
 	{
 		StartCoroutine(ProjectileLimitDistance());

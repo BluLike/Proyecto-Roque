@@ -247,13 +247,13 @@ public class AssassinEnemy : MonoBehaviour
 		
 		yield return new WaitForSeconds(0.65f);
 		
-		if (distanceCheck && transform.position.x<playerTransform.position.x && facingRight)
+		if (distanceCheck && transform.position.x<playerTransform.position.x && facingRight && !isHitted)
 		{
 			player.ApplyDamage(Dmg,transform.position/2);
 
 		}
 		
-		if (distanceCheck && transform.position.x>playerTransform.position.x && !facingRight)
+		if (distanceCheck && transform.position.x>playerTransform.position.x && !facingRight && !isHitted)
 		{
 			player.ApplyDamage(Dmg,transform.position);
 
@@ -301,12 +301,12 @@ public class AssassinEnemy : MonoBehaviour
 		{
 			if (other.gameObject.GetComponent<CharacterControllerNonUnity>().m_TpGroundedBack == true && other.gameObject.GetComponent<CharacterControllerNonUnity>().m_TpGroundedFront == false)
 			{
-				transform.position = new Vector3(other.gameObject.GetComponent<CharacterControllerNonUnity>().m_GroundCheck.transform.position.x - 1f, playerTransform.position.y, playerTransform.position.z);
+				transform.position = new Vector3(other.gameObject.GetComponent<CharacterControllerNonUnity>().m_TpGroundCheckBack.transform.position.x - 0.3f, playerTransform.position.y, playerTransform.position.z);
 			}
 			
 			if (other.gameObject.GetComponent<CharacterControllerNonUnity>().m_TpGroundedBack == false && other.gameObject.GetComponent<CharacterControllerNonUnity>().m_TpGroundedFront == true)
 			{
-				transform.position = new Vector3(other.gameObject.GetComponent<CharacterControllerNonUnity>().m_GroundCheck.transform.position.x + 1f, playerTransform.position.y, playerTransform.position.z);
+				transform.position = new Vector3(other.gameObject.GetComponent<CharacterControllerNonUnity>().m_TpGroundCheckFront.transform.position.x + 0.3f, playerTransform.position.y, playerTransform.position.z);
 			}
 			
 			else if(other.gameObject.GetComponent<CharacterControllerNonUnity>().m_TpGroundedBack == true && other.gameObject.GetComponent<CharacterControllerNonUnity>().m_TpGroundedFront == true)
