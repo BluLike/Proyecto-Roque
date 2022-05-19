@@ -12,7 +12,7 @@ public class Door : MonoBehaviour
         if (collider.gameObject.tag == "Player" && Input.GetKeyDown(KeyCode.E))
         {
             
-                SceneManager.LoadScene("End", LoadSceneMode.Single);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
             
         }
     }

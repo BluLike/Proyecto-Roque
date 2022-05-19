@@ -5,8 +5,12 @@ using System.Collections.Generic;
 using System.Data.Common;
 using UnityEngine.UIElements;
 
-public class AssassinEnemy : MonoBehaviour {
-
+public class AssassinEnemy : MonoBehaviour
+{
+	[Header("Cara en la que se encuenrtra el enemigo:")]
+	[SerializeField, Range(1, 4)] int enemyFace;
+	
+	[Header("El resto de cosas XD")]
 	public float life = 75;
 	private bool isPlat;
 	private bool isObstacle;
@@ -81,11 +85,12 @@ public class AssassinEnemy : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate ()
 	{
+		if (player.currentFace != enemyFace) return;
 		Physics.IgnoreLayerCollision(9, 14, true);
 		distance = Vector3.Distance(playerTransform.position, transform.position);
 		spriteRenderer = GetComponent<SpriteRenderer>();
 		groundLayerMask = LayerMask.GetMask("Ground");
-
+    
 		if (life <= 0 && !isDead) {
 			ChangeAnimationState(DEATH);
 			transform.GetComponent<Animator>().SetBool("IsDead", true);
@@ -95,8 +100,8 @@ public class AssassinEnemy : MonoBehaviour {
 		bool wasGrounded = m_Grounded;
 		m_Grounded = false;
 		m_GroundedFront = false;
-		
-
+            
+    
 		// The player is grounded if a circlecast to the groundcheck position hits anything designated as ground
 		// This can be done using layers instead but Sample Assets will not overwrite your project settings.
 		Collider[] colliders = Physics.OverlapSphere(m_GroundCheck.position, k_GroundedRadius, m_WhatIsGround);
@@ -107,14 +112,14 @@ public class AssassinEnemy : MonoBehaviour {
 			if (!wasGrounded)
 			{
 			}
-
+    
 		}
-
+    
 		isPlat = Physics2D.OverlapCircle(fallCheck.position, .2f, 1 << groundLayerMask);
 		isObstacle = Physics2D.OverlapCircle(wallCheck.position, .2f, turnLayerMask);
-
-		
-
+    
+            
+    
 		Collider[] FrontColliders = Physics.OverlapSphere(m_GroundCheckFrontEnemy.position, k_GroundedRadius, m_WhatIsGround);
 		for (int i = 0; i < FrontColliders.Length; i++)
 		{
@@ -123,7 +128,7 @@ public class AssassinEnemy : MonoBehaviour {
 				m_GroundedFront = true;
 			}
 		}
-
+    
 		if (distance <= 1.5f)
 		{
 			distanceCheck = true;
@@ -132,18 +137,18 @@ public class AssassinEnemy : MonoBehaviour {
 		{
 			distanceCheck = false;
 		}
-		
-		
+            
+            
 		if (distanceCheck && isAttacking == false && !isDead && transform.position.x<playerTransform.position.x && facingRight)
 		{
 			StartCoroutine(StartAtacking());
 		}
-		
+            
 		if (distanceCheck && isAttacking == false && !isDead && transform.position.x>playerTransform.position.x && !facingRight)
 		{
 			StartCoroutine(StartAtacking());
 		}
-
+    
 		if (transform.position.x>playerTransform.position.x && !isDead && !isAttacking)
 		{
 			if (facingRight)
@@ -151,7 +156,7 @@ public class AssassinEnemy : MonoBehaviour {
 				FlipL();
 			}
 		}
-		
+            
 		if (transform.position.x<playerTransform.position.x && !isDead && !isAttacking)
 		{
 			if (!facingRight)
@@ -159,7 +164,7 @@ public class AssassinEnemy : MonoBehaviour {
 				FlipR();
 			}
 		}
-
+    
 		if (transform.position.x!=playerTransform.position.x && m_GroundedFront == true && trigger == true && isAttacking == false && distanceCheck == false && isHitted == false && !isDead)
 		{
 			ChangeAnimationState(RUN);
@@ -167,33 +172,35 @@ public class AssassinEnemy : MonoBehaviour {
 		}
 		else if (m_GroundedFront == false && trigger == true && isAttacking == false && distanceCheck == false && isVanished == false && isDead == false && isHitted == false)
 			ChangeAnimationState(IDLE);
-		
-			
-		
 	}
 
 	
 	private void FlipR()
 	{
+		if (player.currentFace != enemyFace) return;
 		facingRight = true;
 		// Multiply the player's x local scale by -1.
 		Vector3 theScale = transform.localScale;
 		theScale.x = 1;
 		transform.localScale = theScale;
+
 	}
 	private void FlipL()
 	{
+		if (player.currentFace != enemyFace) return;
 		facingRight = false;
 		// Multiply the player's x local scale by -1.
 		Vector3 theScale = transform.localScale;
 		theScale.x = -1;
 		transform.localScale = theScale;
+
 	}
 
-	public void ApplyDamage(float damage) {
+	public void ApplyDamage(float damage)
+	{
 		if (!isInvincible && life > 0 && !isDead) 
 		{
-			
+            	
 			ChangeAnimationState(HURT);
 			float direction = damage / Mathf.Abs(damage);
 			damage = Mathf.Abs(damage);
@@ -202,8 +209,9 @@ public class AssassinEnemy : MonoBehaviour {
 			rb.velocity = Vector2.zero;
 			rb.AddForce(new Vector2(direction * 400f, 100f));
 			StartCoroutine(HitTime());
-
+    
 		}
+
 	}
 
 	void OnCollisionStay(Collision collision)

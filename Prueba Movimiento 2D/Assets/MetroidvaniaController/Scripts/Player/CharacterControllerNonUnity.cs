@@ -82,6 +82,7 @@ public class CharacterControllerNonUnity : MonoBehaviour
 
 	private void FixedUpdate()
 	{
+		Physics.IgnoreLayerCollision(8,14);
 		Physics.IgnoreLayerCollision(8,10);
 		Physics.IgnoreLayerCollision(8,13);
 		Physics.IgnoreLayerCollision(9,9);

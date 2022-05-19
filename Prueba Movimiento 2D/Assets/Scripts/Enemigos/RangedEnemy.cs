@@ -5,6 +5,9 @@ using System.Collections.Generic;
 
 public class RangedEnemy : MonoBehaviour {
 
+	[Header("Cara en la que se encuenrtra el enemigo:")]
+	[SerializeField, Range(1, 4)] int enemyFace;
+
 	public float life = 75;
 	public GameObject FireBall;
 	private bool isPlat;
@@ -23,6 +26,7 @@ public class RangedEnemy : MonoBehaviour {
 	[SerializeField] private float Dmg;
 	public bool canShoot = true;
 	public bool isDead;
+	private CharacterControllerNonUnity player;
 	
 	
 	public GameObject proyectile;
@@ -59,6 +63,7 @@ public class RangedEnemy : MonoBehaviour {
 		currentState = newState;
 	}
 	void Awake () {
+		player = GameObject.Find("DrawCharacter").GetComponent<CharacterControllerNonUnity>();
 		fallCheck = transform.Find("FallCheck");
 		wallCheck = transform.Find("WallCheck");
 		rb = GetComponent<Rigidbody>();
@@ -70,7 +75,9 @@ public class RangedEnemy : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void FixedUpdate () {
+	void FixedUpdate () 
+	{
+		if (player.currentFace != enemyFace) return;
 		Physics.IgnoreLayerCollision(9, 14, true);
 		spriteRenderer = GetComponent<SpriteRenderer>();
 		groundLayerMask = LayerMask.GetMask("Ground");
@@ -178,6 +185,7 @@ public class RangedEnemy : MonoBehaviour {
 
 	private void OnTriggerStay(Collider other)
 	{
+		if (player.currentFace != enemyFace) return;
 		if (other.gameObject.tag == "Player" && life > 0)
 		{
 			

@@ -5,6 +5,9 @@ using System.Collections.Generic;
 
 public class TankEnemy : MonoBehaviour {
 
+	[Header("Cara en la que se encuenrtra el enemigo:")]
+	[SerializeField, Range(1, 4)] int enemyFace;
+	
 	public float life = 75;
 	private bool isPlat;
 	private bool isObstacle;
@@ -80,6 +83,7 @@ public class TankEnemy : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate ()
 	{
+		if (player.currentFace != enemyFace) return;
 		Physics.IgnoreLayerCollision(9, 14, true);
 		distance = Vector3.Distance(playerTransform.position, transform.position);
 		spriteRenderer = GetComponent<SpriteRenderer>();
@@ -170,6 +174,7 @@ public class TankEnemy : MonoBehaviour {
 	
 	private void FlipR()
 	{
+		if (player.currentFace != enemyFace) return;
 		facingRight = true;
 		// Multiply the player's x local scale by -1.
 		Vector3 theScale = transform.localScale;
@@ -178,6 +183,7 @@ public class TankEnemy : MonoBehaviour {
 	}
 	private void FlipL()
 	{
+		if (player.currentFace != enemyFace) return;
 		facingRight = false;
 		// Multiply the player's x local scale by -1.
 		Vector3 theScale = transform.localScale;
