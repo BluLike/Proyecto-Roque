@@ -7,11 +7,11 @@ public class End : MonoBehaviour
 {
     public void Exit()
     {
-        Application.Quit();
+        SceneManager.LoadScene("Menu", LoadSceneMode.Single);
     }
     public void StartAgain()
     {
-        SceneManager.LoadScene("Nivel Tutorial", LoadSceneMode.Single);
+        SceneManager.LoadScene("Nivel_P_1", LoadSceneMode.Single);
     }
 }
 

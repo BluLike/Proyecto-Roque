@@ -27,6 +27,7 @@ public class ThrowableWeapon : MonoBehaviour
     {
 	    Physics.IgnoreLayerCollision(12,9); 
 	    Physics.IgnoreLayerCollision(12,10);
+	    Physics.IgnoreLayerCollision(9,12);
 		if ( !hasHit)
 			GetComponent<Rigidbody>().velocity = direction * speed;
 		
@@ -55,6 +56,10 @@ public class ThrowableWeapon : MonoBehaviour
 			StartCoroutine(ProjectileImpact());
 		}
 		else if (collision.gameObject.layer == 13 )
+		{
+			StartCoroutine(ProjectileImpact());
+		}
+		else if (collision.gameObject.layer == 6 )
 		{
 			StartCoroutine(ProjectileImpact());
 		}

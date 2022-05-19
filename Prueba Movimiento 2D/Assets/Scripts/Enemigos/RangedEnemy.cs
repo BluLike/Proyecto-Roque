@@ -186,7 +186,7 @@ public class RangedEnemy : MonoBehaviour {
 	private void OnTriggerStay(Collider other)
 	{
 		if (player.currentFace != enemyFace) return;
-		if (other.gameObject.tag == "Player" && life > 0)
+		if (other.gameObject.tag == "Player" && life > 0 && isHitted == false)
 		{
 			
 			if (canShoot && !isHitted)
