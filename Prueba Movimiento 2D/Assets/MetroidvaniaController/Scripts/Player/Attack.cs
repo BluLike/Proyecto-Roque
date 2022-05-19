@@ -112,6 +112,16 @@ public class Attack : MonoBehaviour
 				CinemachineShake.Instance.ShakeCamera(1.5f,0.2f);
 
 			}
+			if (collidersEnemies[i].gameObject.tag == "Enemy")
+			{
+				if (collidersEnemies[i].transform.position.x - transform.position.x < 0)
+				{
+					dmgValue = -dmgValue;
+				}
+				collidersEnemies[i].gameObject.SendMessage("ApplyDamage", dmgValue);
+				CinemachineShake.Instance.ShakeCamera(1.5f,0.2f);
+
+			}
 		}
 	}
 	

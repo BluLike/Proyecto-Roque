@@ -207,7 +207,7 @@ public class CharacterControllerNonUnity : MonoBehaviour
 			// If crouching, check to see if the character can stand up
 			if (isDashing)
 			{
-				StartCoroutine(MakeInvincible(0.2f));
+				StartCoroutine(MakeInvincible(0.4f));
 				m_Rigidbody.velocity = new Vector2(transform.localScale.x * m_DashForce, 0);
 				Physics.IgnoreLayerCollision(8,9, true);
 				Physics.IgnoreLayerCollision(8,12, true);

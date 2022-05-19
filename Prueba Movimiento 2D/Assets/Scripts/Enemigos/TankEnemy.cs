@@ -279,7 +279,7 @@ public class TankEnemy : MonoBehaviour {
 		
 		if (distanceCheck && !isHitted)
 		{
-			Debug.Log("estoy funcionando");
+			
 			player.ApplyDamage(Dmg,transform.position);
 
 		}
@@ -325,7 +325,7 @@ public class TankEnemy : MonoBehaviour {
 	IEnumerator AttackCooldown()
 	{
 		canAttack=false;
-		yield return new WaitForSeconds(0.65f);
+		yield return new WaitForSeconds(1f);
 		canAttack = true;
 		
 	}
