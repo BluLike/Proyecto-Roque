@@ -54,6 +54,10 @@ public class ThrowableWeapon : MonoBehaviour
 		{
 			StartCoroutine(ProjectileImpact());
 		}
+		else if (collision.gameObject.layer == 13 )
+		{
+			StartCoroutine(ProjectileImpact());
+		}
 	}
 	public void EndProjectileLifetime()
 	{

@@ -16,8 +16,8 @@ public class TankEnemy : MonoBehaviour {
 	const float k_GroundedRadius = .2f;
 	private Rigidbody rb;
 	private Transform playerTransform;
-	public BoxCollider boxCollider;
 	[SerializeField] private Transform m_GroundCheck;
+	[SerializeField] private Transform m_GroundCheckFrontEnemy;
 	[SerializeField] private LayerMask m_WhatIsGround;
 	[SerializeField] private float Dmg;
 	[SerializeField] private float speed;
@@ -32,6 +32,7 @@ public class TankEnemy : MonoBehaviour {
 	public bool trigger; 
 	public bool isDead = false;
 	public bool isAttacking = false;
+	public bool canAttack = true;
 	
 	
 
@@ -40,7 +41,7 @@ public class TankEnemy : MonoBehaviour {
 
 	//Animation states
 	private const string IDLE = "Idle";
-	private const string RUN = "Run";
+	private const string WALK = "Walk";
 	private const string ATTACK1 = "Attack1";
 	private const string ATTACK2 = "Attack2";
 	private const string ATTACKTOIDLE = "AttackToIdle";
@@ -67,10 +68,11 @@ public class TankEnemy : MonoBehaviour {
 		fallCheck = transform.Find("FallCheck");
 		wallCheck = transform.Find("WallCheck");
 		rb = GetComponent<Rigidbody>();
-		boxCollider = GetComponent<BoxCollider>();
 		playerTransform = GameObject.Find("DrawCharacter").GetComponent<Transform>();
 		player = GameObject.Find("DrawCharacter").GetComponent<CharacterControllerNonUnity>();
 		animator = GetComponent<Animator>();
+		canAttack = true;
+		
 
 
 	}
@@ -91,7 +93,16 @@ public class TankEnemy : MonoBehaviour {
 		}
 		bool wasGrounded = m_Grounded;
 		m_Grounded = false;
+		m_GroundedFront = false;
 		
+		Collider[] FrontColliders = Physics.OverlapSphere(m_GroundCheckFrontEnemy.position, k_GroundedRadius, m_WhatIsGround);
+		for (int i = 0; i < FrontColliders.Length; i++)
+		{
+			if (FrontColliders[i].gameObject != gameObject)
+			{
+				m_GroundedFront = true;
+			}
+		}
 
 		// The player is grounded if a circlecast to the groundcheck position hits anything designated as ground
 		// This can be done using layers instead but Sample Assets will not overwrite your project settings.
@@ -119,12 +130,12 @@ public class TankEnemy : MonoBehaviour {
 		}
 		
 		
-		if (distanceCheck && isAttacking == false && !isDead && transform.position.x<playerTransform.position.x && facingRight)
+		if (distanceCheck && isAttacking == false && !isDead && transform.position.x<playerTransform.position.x && facingRight && canAttack && !isHitted)
 		{
 			StartCoroutine(StartAtacking());
 		}
 		
-		if (distanceCheck && isAttacking == false && !isDead && transform.position.x>playerTransform.position.x && !facingRight)
+		if (distanceCheck && isAttacking == false && !isDead && transform.position.x>playerTransform.position.x && !facingRight && canAttack && !isHitted)
 		{
 			StartCoroutine(StartAtacking());
 		}
@@ -145,14 +156,16 @@ public class TankEnemy : MonoBehaviour {
 			}
 		}
 		
-		if (m_GroundedFront == true && trigger == true && isAttacking == false && distanceCheck == false && isHitted == false)
+		if (transform.position.x!=playerTransform.position.x && m_GroundedFront == true && trigger == true && isAttacking == false && distanceCheck == false && isHitted == false && !isDead)
 		{
-			ChangeAnimationState(RUN);
+			ChangeAnimationState(WALK);
 			transform.position = Vector3.MoveTowards (transform.position, new Vector3(player.transform.position.x, transform.position.y,player.transform.position.z), speed * Time.deltaTime);
 		}
-		else if (m_GroundedFront == false && trigger == true && isAttacking == false && distanceCheck == false && isDead == false && isHitted == false)
+		else if (m_GroundedFront == false && trigger == true && isAttacking == false && distanceCheck == false && isDead == false && isHitted == false && !isDead)
 			ChangeAnimationState(IDLE);
 	}
+	
+	
 
 	
 	private void FlipR()
@@ -173,7 +186,7 @@ public class TankEnemy : MonoBehaviour {
 	}
 
 	public void ApplyDamage(float damage) {
-		if (!isInvincible && life > 0) 
+		if (!isInvincible && life > 0 && !isDead) 
 		{
 			
 			ChangeAnimationState(HURT);
@@ -212,13 +225,13 @@ public class TankEnemy : MonoBehaviour {
 		
 		yield return new WaitForSeconds(0.4f);
 		
-		if (distanceCheck && transform.position.x<playerTransform.position.x && facingRight)
+		if (distanceCheck && transform.position.x<playerTransform.position.x && facingRight && !isHitted)
 		{
 			player.ApplyDamage(Dmg,transform.position/2);
 
 		}
 		
-		if (distanceCheck && transform.position.x>playerTransform.position.x && !facingRight)
+		if (distanceCheck && transform.position.x>playerTransform.position.x && !facingRight && !isHitted)
 		{
 			player.ApplyDamage(Dmg,transform.position);
 
@@ -226,13 +239,13 @@ public class TankEnemy : MonoBehaviour {
 
 		yield return new WaitForSeconds(0.4f);
 		
-		if (distanceCheck && transform.position.x<playerTransform.position.x && facingRight)
+		if (distanceCheck && transform.position.x<playerTransform.position.x && facingRight && !isDead && isHitted == false)
 		{
 			StartCoroutine(ContinueAtacking());
 
 		}
 		
-		if (distanceCheck && transform.position.x>playerTransform.position.x && !facingRight)
+		if (distanceCheck && transform.position.x>playerTransform.position.x && !facingRight && !isDead && isHitted == false)
 		{
 			StartCoroutine(ContinueAtacking());
 
@@ -245,6 +258,7 @@ public class TankEnemy : MonoBehaviour {
 			yield return new WaitForSeconds(0.3f);
 			ChangeAnimationState(IDLE);	
 			isAttacking = false;
+			StartCoroutine(AttackCooldown());
 		}
 		
 
@@ -257,14 +271,14 @@ public class TankEnemy : MonoBehaviour {
 		ChangeAnimationState(ATTACK2);
 		yield return new WaitForSeconds(0.4f);
 		
-		if (distanceCheck)
+		if (distanceCheck && !isHitted)
 		{
 			Debug.Log("estoy funcionando");
 			player.ApplyDamage(Dmg,transform.position);
 
 		}
 		
-		if (distanceCheck)
+		if (distanceCheck && !isHitted)
 		{
 			player.ApplyDamage(Dmg,transform.position);
 
@@ -275,6 +289,7 @@ public class TankEnemy : MonoBehaviour {
 			ChangeAnimationState(IDLE);	
 		
 		isAttacking = false;
+		StartCoroutine(AttackCooldown());
 		
 
 	}
@@ -283,7 +298,7 @@ public class TankEnemy : MonoBehaviour {
 	{
 		isHitted = true;
 		isInvincible = true;
-		yield return new WaitForSeconds(0.1f);
+		yield return new WaitForSeconds(0.3f);
 		isHitted = false;
 		isInvincible = false;
 		if (!isDead)
@@ -299,6 +314,14 @@ public class TankEnemy : MonoBehaviour {
 		rb.velocity = new Vector2(0, rb.velocity.y);
 		yield return new WaitForSeconds(3f);
 		Destroy(gameObject);
+	}
+	
+	IEnumerator AttackCooldown()
+	{
+		canAttack=false;
+		yield return new WaitForSeconds(0.65f);
+		canAttack = true;
+		
 	}
 	
 

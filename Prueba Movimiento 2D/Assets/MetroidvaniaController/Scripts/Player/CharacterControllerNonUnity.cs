@@ -53,6 +53,8 @@ public class CharacterControllerNonUnity : MonoBehaviour
 	public Color mColor;
 	private HealthBar_smooth healthbar;
 
+	public int currentFace = 1;
+
 	[Header("Events")]
 	[Space]
 
@@ -81,6 +83,8 @@ public class CharacterControllerNonUnity : MonoBehaviour
 	private void FixedUpdate()
 	{
 		Physics.IgnoreLayerCollision(8,10);
+		Physics.IgnoreLayerCollision(8,13);
+		Physics.IgnoreLayerCollision(9,9);
 		
 		if(!isDashing)
 		{

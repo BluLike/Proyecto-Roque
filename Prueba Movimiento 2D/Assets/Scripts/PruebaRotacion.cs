@@ -12,7 +12,7 @@ public class PruebaRotacion : MonoBehaviour
     public GameObject Jugador;
     public GameObject StartRight;
     public GameObject StartLeft;
-    public CharacterController characterController;
+    public CharacterControllerNonUnity player;
 
 
     private bool hasEnter;
@@ -31,7 +31,7 @@ public class PruebaRotacion : MonoBehaviour
 
     private void Awake()
     {
-        characterController = GetComponent<CharacterController>();
+        player = GameObject.Find("DrawCharacter").GetComponent<CharacterControllerNonUnity>();
     }
 
     private void Update()
@@ -41,12 +41,14 @@ public class PruebaRotacion : MonoBehaviour
 
             StartCoroutine(Rotate(90f));
             hasEnter = false;
+            player.currentFace++;
         }
 
         if (hasEnter == true && left == true)
         {
             StartCoroutine(Rotate(-90f));
             hasEnter = false;
+            player.currentFace--;
         }
 
 

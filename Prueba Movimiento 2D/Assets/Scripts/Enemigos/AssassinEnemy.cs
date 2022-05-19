@@ -160,7 +160,7 @@ public class AssassinEnemy : MonoBehaviour {
 			}
 		}
 
-		if (m_GroundedFront == true && trigger == true && isAttacking == false && distanceCheck == false && isHitted == false)
+		if (transform.position.x!=playerTransform.position.x && m_GroundedFront == true && trigger == true && isAttacking == false && distanceCheck == false && isHitted == false && !isDead)
 		{
 			ChangeAnimationState(RUN);
 			transform.position = Vector3.MoveTowards (transform.position, new Vector3(player.transform.position.x, transform.position.y,player.transform.position.z), speed * Time.deltaTime);
@@ -191,7 +191,7 @@ public class AssassinEnemy : MonoBehaviour {
 	}
 
 	public void ApplyDamage(float damage) {
-		if (!isInvincible && life > 0) 
+		if (!isInvincible && life > 0 && !isDead) 
 		{
 			
 			ChangeAnimationState(HURT);
