@@ -103,7 +103,6 @@ public class CharacterControllerNonUnity : MonoBehaviour
 		
 		if (Input.GetKeyDown(KeyCode.F) && canHeal|| Input.GetMouseButtonDown(2) && canHeal)
 		{
-			
 			healthbar.healHP(healValue);
 			life += healValue;
 			StartCoroutine(HealCooldown());
@@ -214,7 +213,7 @@ public class CharacterControllerNonUnity : MonoBehaviour
 		if (!m_Grounded)
 		{
 			OnFallEvent.Invoke();
-			if (collisionInfo.gameObject != null && collisionInfo.gameObject.layer== 3 )
+			if (collisionInfo.gameObject != null && collisionInfo.gameObject.layer == 3 )
 			{
 				isDashing = false;
 				m_IsWall = true;
