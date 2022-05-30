@@ -23,6 +23,7 @@ public class Grapple : MonoBehaviour
 	{
 		Physics.IgnoreLayerCollision(15,9);
 		Physics.IgnoreLayerCollision(9,15);
+		Physics.IgnoreLayerCollision(9,10);
 		
 		if (!hasHit) GetComponent<Rigidbody>().velocity = direction * speed;
 

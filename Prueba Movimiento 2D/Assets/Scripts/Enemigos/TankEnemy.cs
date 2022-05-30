@@ -89,9 +89,8 @@ public class TankEnemy : MonoBehaviour {
 		spriteRenderer = GetComponent<SpriteRenderer>();
 		groundLayerMask = LayerMask.GetMask("Ground");
 
-		if (life <= 0 && !isDead) {
+		if (life <= 0 && isDead == false) {
 			ChangeAnimationState(DEATH);
-			transform.GetComponent<Animator>().SetBool("IsDead", true);
 			StartCoroutine(DestroyEnemy());
 			isDead = true;
 		}
@@ -132,6 +131,7 @@ public class TankEnemy : MonoBehaviour {
 		{
 			distanceCheck = false;
 		}
+
 		
 		
 		if (distanceCheck && isAttacking == false && !isDead && transform.position.x<playerTransform.position.x && facingRight && canAttack && !isHitted)
@@ -195,15 +195,18 @@ public class TankEnemy : MonoBehaviour {
 		if (!isInvincible && life > 0 && !isDead) 
 		{
 			
-			ChangeAnimationState(HURT);
-			float direction = damage / Mathf.Abs(damage);
-			damage = Mathf.Abs(damage);
-			transform.GetComponent<Animator>().SetBool("Hit", true);
-			life -= damage;
-			rb.velocity = Vector2.zero;
-			rb.AddForce(new Vector2(direction * 400f, 100f));
-			StartCoroutine(HitTime());
+			
+				ChangeAnimationState(HURT);
+                float direction = damage / Mathf.Abs(damage);
+                damage = Mathf.Abs(damage);
+                transform.GetComponent<Animator>().SetBool("Hit", true);
+                life -= damage;
+                rb.velocity = Vector2.zero;
+                rb.AddForce(new Vector2(direction * 400f, 100f));
+                StartCoroutine(HitTime());
 
+			
+			
 		}
 	}
 
@@ -228,6 +231,12 @@ public class TankEnemy : MonoBehaviour {
 		isAttacking = true;
 		
 		ChangeAnimationState(ATTACK1);
+		
+		if (isHitted || isDead)
+		{
+			yield break;
+		}
+
 		
 		yield return new WaitForSeconds(0.4f);
 		
@@ -274,6 +283,10 @@ public class TankEnemy : MonoBehaviour {
 	{
 		isAttacking = true;
 		
+		if (isHitted || isDead)
+		{
+			yield break;
+		}
 		ChangeAnimationState(ATTACK2);
 		yield return new WaitForSeconds(0.4f);
 		
@@ -307,7 +320,7 @@ public class TankEnemy : MonoBehaviour {
 		yield return new WaitForSeconds(0.3f);
 		isHitted = false;
 		isInvincible = false;
-		if (!isDead)
+		if (isDead == false)
 			ChangeAnimationState(IDLE);
 
 	}

@@ -93,7 +93,6 @@ public class AssassinEnemy : MonoBehaviour
     
 		if (life <= 0 && !isDead) {
 			ChangeAnimationState(DEATH);
-			transform.GetComponent<Animator>().SetBool("IsDead", true);
 			StartCoroutine(DestroyEnemy());
 			isDead = true;
 		}
@@ -198,7 +197,7 @@ public class AssassinEnemy : MonoBehaviour
 
 	public void ApplyDamage(float damage)
 	{
-		if (!isInvincible && life > 0 && !isDead) 
+		if (!isInvincible && life > 0 && isDead == false) 
 		{
             	
 			ChangeAnimationState(HURT);
@@ -244,18 +243,23 @@ public class AssassinEnemy : MonoBehaviour
 		isAttacking = true;
 		
 		ChangeAnimationState(ATTACK);
+		if  (isHitted || isDead)
+		{
+			yield break;
+		} 
+			
 		
 		yield return new WaitForSeconds(0.65f);
 		
-		if (distanceCheck && transform.position.x<playerTransform.position.x && facingRight && !isHitted)
+		if (distanceCheck && transform.position.x<playerTransform.position.x && facingRight && !isHitted && !isDead)
 		{
 			player.ApplyDamage(Dmg,transform.position/2);
 
 		}
 		
-		if (distanceCheck && transform.position.x>playerTransform.position.x && !facingRight && !isHitted)
+		if (distanceCheck && transform.position.x>playerTransform.position.x && !facingRight && isHitted == false && isDead == false)
 		{
-			player.ApplyDamage(Dmg,transform.position);
+			player.ApplyDamage(Dmg,transform.position/2);
 
 		}
 
@@ -270,12 +274,14 @@ public class AssassinEnemy : MonoBehaviour
 	IEnumerator HitTime()
 	{
 		isHitted = true;
+		
 		isInvincible = true;
 		yield return new WaitForSeconds(0.1f);
 		isHitted = false;
 		isInvincible = false;
 		if (!isDead)
 			ChangeAnimationState(IDLE);
+		
 
 	}
 
