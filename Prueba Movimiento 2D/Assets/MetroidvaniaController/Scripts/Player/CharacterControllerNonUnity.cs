@@ -198,7 +198,7 @@ public class CharacterControllerNonUnity : MonoBehaviour
 		if (!m_Grounded)
 		{
 			OnFallEvent.Invoke();
-			if (collisionInfo.gameObject != null)
+			if (collisionInfo.gameObject != null && collisionInfo.gameObject.layer== 3 )
 			{
 				isDashing = false;
 				m_IsWall = true;

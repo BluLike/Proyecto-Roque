@@ -2,12 +2,15 @@ using System;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.Common;
+using UnityEngine.UIElements;
 
-public class TankEnemy : MonoBehaviour {
-
+public class TentacleEnemy : MonoBehaviour
+{
 	[Header("Cara en la que se encuenrtra el enemigo:")]
 	[SerializeField, Range(1, 4)] int enemyFace;
 	
+	[Header("El resto de cosas XD")]
 	public float life = 75;
 	private bool isPlat;
 	private bool isObstacle;
@@ -19,24 +22,25 @@ public class TankEnemy : MonoBehaviour {
 	const float k_GroundedRadius = .2f;
 	private Rigidbody rb;
 	private Transform playerTransform;
+	public BoxCollider boxCollider;
 	[SerializeField] private Transform m_GroundCheck;
 	[SerializeField] private Transform m_GroundCheckFrontEnemy;
 	[SerializeField] private LayerMask m_WhatIsGround;
 	[SerializeField] private float Dmg;
-	[SerializeField] private float speed;
+	[SerializeField] private float speed = 15;
+	public bool m_GroundedFront;
 	private bool distanceCheck;
 	private float distance;
 	private CharacterControllerNonUnity player;
-	
+												            
 
 	private bool facingRight = false;
 	private bool m_Grounded;
-	public bool m_GroundedFront;
-	public bool trigger; 
 	public bool isDead = false;
 	public bool isAttacking = false;
+	public bool isTwisted = false;
+	public bool trigger = false ;
 	public bool canAttack = true;
-	
 	
 
 	public bool isInvincible = false;
@@ -44,10 +48,10 @@ public class TankEnemy : MonoBehaviour {
 
 	//Animation states
 	private const string IDLE = "Idle";
-	private const string WALK = "Walk";
-	private const string ATTACK1 = "Attack1";
-	private const string ATTACK2 = "Attack2";
-	private const string ATTACKTOIDLE = "AttackToIdle";
+	private const string RUN = "Walk";
+	private const string ATTACK = "Attack";
+	private const string TWISTED = "Twisted";
+	private const string cIDLE = "CultistIdle";
 	private const string HURT = "Hurt";
 	private const string DEATH = "Death";
 
@@ -71,11 +75,11 @@ public class TankEnemy : MonoBehaviour {
 		fallCheck = transform.Find("FallCheck");
 		wallCheck = transform.Find("WallCheck");
 		rb = GetComponent<Rigidbody>();
+		boxCollider = GetComponent<BoxCollider>();
 		playerTransform = GameObject.Find("DrawCharacter").GetComponent<Transform>();
 		player = GameObject.Find("DrawCharacter").GetComponent<CharacterControllerNonUnity>();
 		animator = GetComponent<Animator>();
-		canAttack = true;
-		
+		ChangeAnimationState(cIDLE);
 
 
 	}
@@ -88,8 +92,8 @@ public class TankEnemy : MonoBehaviour {
 		distance = Vector3.Distance(playerTransform.position, transform.position);
 		spriteRenderer = GetComponent<SpriteRenderer>();
 		groundLayerMask = LayerMask.GetMask("Ground");
-
-		if (life <= 0 && isDead == false) {
+    
+		if (life <= 0 && !isDead) {
 			ChangeAnimationState(DEATH);
 			StartCoroutine(DestroyEnemy());
 			isDead = true;
@@ -97,16 +101,8 @@ public class TankEnemy : MonoBehaviour {
 		bool wasGrounded = m_Grounded;
 		m_Grounded = false;
 		m_GroundedFront = false;
-		
-		Collider[] FrontColliders = Physics.OverlapSphere(m_GroundCheckFrontEnemy.position, k_GroundedRadius, m_WhatIsGround);
-		for (int i = 0; i < FrontColliders.Length; i++)
-		{
-			if (FrontColliders[i].gameObject != gameObject)
-			{
-				m_GroundedFront = true;
-			}
-		}
-
+            
+    
 		// The player is grounded if a circlecast to the groundcheck position hits anything designated as ground
 		// This can be done using layers instead but Sample Assets will not overwrite your project settings.
 		Collider[] colliders = Physics.OverlapSphere(m_GroundCheck.position, k_GroundedRadius, m_WhatIsGround);
@@ -117,33 +113,43 @@ public class TankEnemy : MonoBehaviour {
 			if (!wasGrounded)
 			{
 			}
-
+    
 		}
-
+    
 		isPlat = Physics2D.OverlapCircle(fallCheck.position, .2f, 1 << groundLayerMask);
 		isObstacle = Physics2D.OverlapCircle(wallCheck.position, .2f, turnLayerMask);
-
-		if (distance <= 2.3f)
+    
+            
+    
+		Collider[] FrontColliders = Physics.OverlapSphere(m_GroundCheckFrontEnemy.position, k_GroundedRadius, m_WhatIsGround);
+		for (int i = 0; i < FrontColliders.Length; i++)
+		{
+			if (FrontColliders[i].gameObject != gameObject)
+			{
+				m_GroundedFront = true;
+			}
+		}
+    
+		if (distance <= 3f)
 		{
 			distanceCheck = true;
 		}
-		if (distance > 2.3f)
+		if (distance > 3f)
 		{
 			distanceCheck = false;
 		}
-
-		
-		
-		if (distanceCheck && isAttacking == false && !isDead && transform.position.x<playerTransform.position.x && facingRight && canAttack && !isHitted)
+            
+            
+		if (distanceCheck && isAttacking == false && !isDead && transform.position.x<playerTransform.position.x && facingRight && isTwisted && canAttack)
 		{
 			StartCoroutine(StartAtacking());
 		}
-		
-		if (distanceCheck && isAttacking == false && !isDead && transform.position.x>playerTransform.position.x && !facingRight && canAttack && !isHitted)
+            
+		if (distanceCheck && isAttacking == false && !isDead && transform.position.x>playerTransform.position.x && !facingRight&& isTwisted && canAttack)
 		{
 			StartCoroutine(StartAtacking());
 		}
-
+    
 		if (transform.position.x>playerTransform.position.x && !isDead && !isAttacking)
 		{
 			if (facingRight)
@@ -151,7 +157,7 @@ public class TankEnemy : MonoBehaviour {
 				FlipL();
 			}
 		}
-		
+            
 		if (transform.position.x<playerTransform.position.x && !isDead && !isAttacking)
 		{
 			if (!facingRight)
@@ -159,17 +165,15 @@ public class TankEnemy : MonoBehaviour {
 				FlipR();
 			}
 		}
-		
-		if (transform.position.x!=playerTransform.position.x && m_GroundedFront == true && trigger == true && isAttacking == false && distanceCheck == false && isHitted == false && !isDead)
+    
+		if (transform.position.x!=playerTransform.position.x && m_GroundedFront == true && trigger == true && isAttacking == false && distanceCheck == false && isHitted == false && !isDead && isTwisted== true )
 		{
-			ChangeAnimationState(WALK);
+			ChangeAnimationState(RUN);
 			transform.position = Vector3.MoveTowards (transform.position, new Vector3(player.transform.position.x, transform.position.y,player.transform.position.z), speed * Time.deltaTime);
 		}
-		else if (m_GroundedFront == false && trigger == true && isAttacking == false && distanceCheck == false && isDead == false && isHitted == false && !isDead)
+		else if (m_GroundedFront == false && trigger == true && isAttacking == false && distanceCheck == false  && isDead == false && isHitted == false && isTwisted == true)
 			ChangeAnimationState(IDLE);
 	}
-	
-	
 
 	
 	private void FlipR()
@@ -180,6 +184,7 @@ public class TankEnemy : MonoBehaviour {
 		Vector3 theScale = transform.localScale;
 		theScale.x = 1;
 		transform.localScale = theScale;
+
 	}
 	private void FlipL()
 	{
@@ -189,139 +194,109 @@ public class TankEnemy : MonoBehaviour {
 		Vector3 theScale = transform.localScale;
 		theScale.x = -1;
 		transform.localScale = theScale;
+
 	}
 
-	public void ApplyDamage(float damage) {
-		if (!isInvincible && life > 0 && !isDead) 
+	public void ApplyDamage(float damage)
+	{
+		if (!isInvincible && life > 0 && isDead == false) 
 		{
-			
-			
-				ChangeAnimationState(HURT);
-                float direction = damage / Mathf.Abs(damage);
-                damage = Mathf.Abs(damage);
-                transform.GetComponent<Animator>().SetBool("Hit", true);
-                life -= damage;
-                rb.velocity = Vector2.zero;
-                rb.AddForce(new Vector2(direction * 400f, 100f));
-                StartCoroutine(HitTime());
-
-			
-			
+            	
+			ChangeAnimationState(HURT);
+			float direction = damage / Mathf.Abs(damage);
+			damage = Mathf.Abs(damage);
+			transform.GetComponent<Animator>().SetBool("Hit", true);
+			life -= damage;
+			rb.velocity = Vector2.zero;
+			rb.AddForce(new Vector2(direction * 400f, 100f));
+			StartCoroutine(HitTime());
+    
 		}
+
 	}
 
 	void OnCollisionStay(Collision collision)
 	{
 		if (collision.gameObject.tag == "Player" && life > 0)
 		{
-			collision.gameObject.GetComponent<CharacterControllerNonUnity>().ApplyDamage(Dmg/2, transform.position);
+			collision.gameObject.GetComponent<CharacterControllerNonUnity>().ApplyDamage(Dmg, transform.position);
 		}
+	}
+
+	private void OnTriggerEnter(Collider other)
+	{
+		if (other.gameObject.tag == "Player" && life > 0 && isTwisted == false )
+			StartCoroutine(Twist());
 	}
 
 	private void OnTriggerStay(Collider other)
 	{
 		if (other.gameObject.tag == "Player" && life > 0)
 			trigger = true;
-		
-		
+
+	}
+
+	private void OnTriggerExit(Collider other)
+	{
+		if (other.gameObject.tag == "Player" && life > 0)
+			trigger = false;
+	}
+
+	IEnumerator Twist()
+	{
+		if(isTwisted == false )
+			ChangeAnimationState(TWISTED);
+		yield return new WaitForSeconds(1.2f);
+		isTwisted = true;
+		ChangeAnimationState(IDLE);
 	}
 
 	IEnumerator StartAtacking()
 	{
 		isAttacking = true;
 		
-		ChangeAnimationState(ATTACK1);
-		
-		if (isHitted || isDead)
+		ChangeAnimationState(ATTACK);
+		if  (isHitted || isDead)
 		{
 			yield break;
-		}
-
+		} 
+			
 		
-		yield return new WaitForSeconds(0.4f);
+		yield return new WaitForSeconds(0.3f);
 		
-		if (distanceCheck && transform.position.x<playerTransform.position.x && facingRight && !isHitted)
+		if (distanceCheck && transform.position.x<playerTransform.position.x && facingRight && !isHitted && !isDead)
 		{
 			player.ApplyDamage(Dmg,transform.position/2);
 
 		}
 		
-		if (distanceCheck && transform.position.x>playerTransform.position.x && !facingRight && !isHitted)
+		if (distanceCheck && transform.position.x>playerTransform.position.x && !facingRight && isHitted == false && isDead == false)
 		{
-			player.ApplyDamage(Dmg,transform.position);
+			player.ApplyDamage(Dmg,transform.position/2);
 
 		}
 
-		yield return new WaitForSeconds(0.4f);
-		
-		if (distanceCheck && transform.position.x<playerTransform.position.x && facingRight && !isDead && isHitted == false)
-		{
-			StartCoroutine(ContinueAtacking());
-
-		}
-		
-		if (distanceCheck && transform.position.x>playerTransform.position.x && !facingRight && !isDead && isHitted == false)
-		{
-			StartCoroutine(ContinueAtacking());
-
-		}
-		
-		
-		else if (!isDead)
-		{
-			ChangeAnimationState(ATTACKTOIDLE);
-			yield return new WaitForSeconds(0.3f);
-			ChangeAnimationState(IDLE);	
-			isAttacking = false;
-			StartCoroutine(AttackCooldown());
-		}
-		
-
-	}
-	
-	IEnumerator ContinueAtacking()
-	{
-		isAttacking = true;
-		
-		if (isHitted || isDead)
-		{
-			yield break;
-		}
-		ChangeAnimationState(ATTACK2);
-		yield return new WaitForSeconds(0.4f);
-		
-		if (distanceCheck && !isHitted)
-		{
-			
-			player.ApplyDamage(Dmg,transform.position);
-
-		}
-		
-		if (distanceCheck && !isHitted)
-		{
-			player.ApplyDamage(Dmg,transform.position);
-
-		}
-		
-		yield return new WaitForSeconds(0.7f);
-		if (!isDead)
-			ChangeAnimationState(IDLE);	
-		
-		isAttacking = false;
+		yield return new WaitForSeconds(0.55f);
 		StartCoroutine(AttackCooldown());
+		if (!isDead && isTwisted)
+			ChangeAnimationState(IDLE);
+		isAttacking = false;
 		
+
 
 	}
 
 	IEnumerator HitTime()
 	{
 		isHitted = true;
+		
 		isInvincible = true;
-		yield return new WaitForSeconds(0.3f);
+		yield return new WaitForSeconds(0.1f);
 		isHitted = false;
 		isInvincible = false;
-		if (isDead == false)
+		if (!isDead)
 			ChangeAnimationState(IDLE);
+		
 
 	}
 
@@ -334,15 +309,13 @@ public class TankEnemy : MonoBehaviour {
 		yield return new WaitForSeconds(3f);
 		Destroy(gameObject);
 	}
-	
+
+
 	IEnumerator AttackCooldown()
 	{
-		canAttack=false;
-		yield return new WaitForSeconds(1.5f);
+		canAttack = false;
+		yield return new WaitForSeconds(1f);
 		canAttack = true;
 		
 	}
-	
-
-
 }

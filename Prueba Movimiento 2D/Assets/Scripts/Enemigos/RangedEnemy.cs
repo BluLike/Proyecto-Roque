@@ -244,7 +244,7 @@ public class RangedEnemy : MonoBehaviour {
 	IEnumerator FireBallCooldown()
 	{
 		canShoot = false;
-		yield return new WaitForSeconds(1f);
+		yield return new WaitForSeconds(1.5f);
 		canShoot = true;
 		if(!isDead)
 			ChangeAnimationState(IDLE);
