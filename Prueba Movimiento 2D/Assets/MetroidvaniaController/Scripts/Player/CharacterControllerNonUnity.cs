@@ -15,6 +15,8 @@ public class CharacterControllerNonUnity : MonoBehaviour
 	[SerializeField] public Transform m_TpGroundCheckFront;					
 	[SerializeField] public Transform m_TpGroundCheckBack;						
 	[SerializeField] private Transform m_WallCheck;								//Posicion que controla si el personaje toca una pared
+	[SerializeField] private int healValue = 30;
+	public bool canHeal = true;
 								
 
 	const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
@@ -91,7 +93,16 @@ public class CharacterControllerNonUnity : MonoBehaviour
 		Physics.IgnoreLayerCollision(8,11);
 		Physics.IgnoreLayerCollision(8,13);
 		Physics.IgnoreLayerCollision(9,9);
+
+		if (life > 100)
+			life = 100;
 		
+		if (Input.GetKeyDown(KeyCode.F) && canHeal|| Input.GetMouseButtonDown(2) && canHeal)
+		{
+			healthbar.healHP(healValue);
+			life += healValue;
+			StartCoroutine(HealCooldown());
+		}
 		
 		if(!isDashing)
 		{
@@ -455,6 +466,13 @@ public class CharacterControllerNonUnity : MonoBehaviour
 			}
 		}
 	}
+	
+	IEnumerator HealCooldown()
+	{
+		canHeal=false;
+		yield return new WaitForSeconds(0.15f);
+		canHeal = true;
+	}
 	IEnumerator DashCooldown()
 	{
 		animator.SetBool("IsDashing", true);
@@ -514,4 +532,6 @@ public class CharacterControllerNonUnity : MonoBehaviour
 		yield return new WaitForSeconds(1.1f);
 		SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
 	}
+	
+	
 }

@@ -18,6 +18,7 @@ public class Attack : MonoBehaviour
 	public Animator animator;
 	public bool canAttack = true;
 	public bool canGrapple = true;
+	public bool canHeal = true;
 	public bool isTimeToCheck = false;
 	public SpriteRenderer spriteRenderer;
 	public CharacterControllerNonUnity characterController;
@@ -25,6 +26,10 @@ public class Attack : MonoBehaviour
 	public Collider coll;
 	public GameObject grappling;
 	public Grapple grapple;
+	public HealthBar_smooth healthbar;
+	[SerializeField] private int healValue = 30;
+	
+	
 
 	public GameObject cam;
 
@@ -34,7 +39,9 @@ public class Attack : MonoBehaviour
 		spriteRenderer = GetComponent<SpriteRenderer>();
 		m_Rigidbody = GetComponent<Rigidbody>();
 		coll = GetComponent<Collider>();
+		healthbar = GetComponent<HealthBar_smooth>();
 		
+
 
 	}
 
@@ -72,6 +79,8 @@ public class Attack : MonoBehaviour
 
 
 		}
+
+		
 	}
 
 	IEnumerator AttackCooldown()
@@ -97,6 +106,7 @@ public class Attack : MonoBehaviour
 
 
 	}
+	
 	
 	public void DoDashDamage()
 	{

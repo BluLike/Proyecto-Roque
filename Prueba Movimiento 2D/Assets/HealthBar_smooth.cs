@@ -42,4 +42,9 @@ public class HealthBar_smooth : MonoBehaviour
         currHP -= damage;
         t = 0;
     }
+    public void healHP(float heal)
+    {
+        currHP += heal;
+        t = 0;
+    }
 }

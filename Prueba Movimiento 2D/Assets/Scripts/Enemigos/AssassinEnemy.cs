@@ -206,7 +206,7 @@ public class AssassinEnemy : MonoBehaviour
 			transform.GetComponent<Animator>().SetBool("Hit", true);
 			life -= damage;
 			rb.velocity = Vector2.zero;
-			rb.AddForce(new Vector2(direction * 400f, 100f));
+			rb.AddForce(new Vector2(direction * 400f, 150f));
 			StartCoroutine(HitTime());
     
 		}
