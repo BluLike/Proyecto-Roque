@@ -47,6 +47,7 @@ public class CharacterControllerNonUnity : MonoBehaviour
 	private Animator animator;
 	public ParticleSystem particleJumpUp; //Trail particles
 	public ParticleSystem particleJumpDown; //Explosion particles
+	public ParticleSystem healParticle;	//particulas curación.
 
 	private float jumpWallStartX = 0;
 	private float jumpWallDistX = 0; //Distance between player and wall
@@ -83,6 +84,9 @@ public class CharacterControllerNonUnity : MonoBehaviour
 		if (OnLandEvent == null)
 			OnLandEvent = new UnityEvent();
 		
+		
+
+
 	}
 
 
@@ -99,6 +103,7 @@ public class CharacterControllerNonUnity : MonoBehaviour
 		
 		if (Input.GetKeyDown(KeyCode.F) && canHeal|| Input.GetMouseButtonDown(2) && canHeal)
 		{
+			
 			healthbar.healHP(healValue);
 			life += healValue;
 			StartCoroutine(HealCooldown());
@@ -469,9 +474,11 @@ public class CharacterControllerNonUnity : MonoBehaviour
 	
 	IEnumerator HealCooldown()
 	{
+		
 		canHeal=false;
-		yield return new WaitForSeconds(0.15f);
+		yield return new WaitForSeconds(0.25f);
 		canHeal = true;
+		
 	}
 	IEnumerator DashCooldown()
 	{
