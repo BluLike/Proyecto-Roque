@@ -60,6 +60,7 @@ public class Attack : MonoBehaviour
 
 		if (Input.GetMouseButtonDown(1) && canGrapple||Input.GetKeyDown(KeyCode.K) && canGrapple)
 		{
+			characterController.isGrapplePulling = true;
 			grappling = Instantiate(grapplingHook, transform.position + new Vector3(transform.localScale.x * 0.5f,0,0), Quaternion.identity) as GameObject;
 			Vector3 direction = new Vector3(transform.localScale.x, 0, 0);
             grappling.GetComponent<Grapple>().direction = direction; 
@@ -89,6 +90,7 @@ public class Attack : MonoBehaviour
 		yield return new WaitUntil( () => grappling == null);
 		canGrapple = true;
 		m_Rigidbody.constraints = ~RigidbodyConstraints.FreezePositionX & ~RigidbodyConstraints.FreezePositionY & ~RigidbodyConstraints.FreezePositionZ; ;
+		characterController.isGrapplePulling = false;
 		characterController.canMove = true;
 		
 

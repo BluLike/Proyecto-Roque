@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -18,9 +19,10 @@ public class PlayerMovement : MonoBehaviour {
 	//bool dashAxis = false;
 	
 	// Update is called once per frame
-	void Update () {
-
-		horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
+	void Update () 
+	{
+		if(controller.isGrapplePulling==false)
+			horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
 
 		animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
 

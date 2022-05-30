@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 using System.Collections;
@@ -28,7 +29,7 @@ public class CharacterControllerNonUnity : MonoBehaviour
 
 	public bool canDoubleJump = true; //If player can double jump
 	[SerializeField] private float m_DashForce = 25f;
-	[SerializeField] private float m_GrappleForce = 2000000f;
+	[SerializeField] public float m_GrappleForce = 2000000f;
 	private bool canDash = true;
 	private bool isDashing = false; //If player is dashing
 	private bool m_IsWall = false; //If there is a wall in front of the player
@@ -52,6 +53,8 @@ public class CharacterControllerNonUnity : MonoBehaviour
 	public SpriteRenderer spriteRenderer;
 	public Color mColor;
 	private HealthBar_smooth healthbar;
+	public bool isGrapplePulling = false;
+	public PlayerMovement player;
 
 	public int currentFace = 1;
 
@@ -70,7 +73,8 @@ public class CharacterControllerNonUnity : MonoBehaviour
 		animator = GetComponent<Animator>();
 		spriteRenderer = GetComponent<SpriteRenderer>();
 		healthbar = GetComponent<HealthBar_smooth>();
-
+		player = gameObject.GetComponent<PlayerMovement>();
+		
 		if (OnFallEvent == null)
 			OnFallEvent = new UnityEvent();
 
@@ -84,8 +88,10 @@ public class CharacterControllerNonUnity : MonoBehaviour
 	{
 		Physics.IgnoreLayerCollision(8,14);
 		Physics.IgnoreLayerCollision(8,10);
+		Physics.IgnoreLayerCollision(8,11);
 		Physics.IgnoreLayerCollision(8,13);
 		Physics.IgnoreLayerCollision(9,9);
+		
 		
 		if(!isDashing)
 		{
@@ -149,21 +155,14 @@ public class CharacterControllerNonUnity : MonoBehaviour
 		}
 
 		m_IsWall = false;
-
+		
 		if (!m_Grounded)
 		{
 			OnFallEvent.Invoke();
 			
-			Collider[] collidersWall = Physics.OverlapSphere(m_WallCheck.position,k_wallCheckRadius , m_WhatIsGround);
-			for (int i = 0; i < collidersWall.Length; i++)
-			{
-				if (collidersWall[i].gameObject != null)
-				{
-					isDashing = false;
-					m_IsWall = true;
-					m_Grounded = false;
-				}
-			}
+			
+
+
 			prevVelocityX = m_Rigidbody.velocity.x;
 		}
 
@@ -192,6 +191,21 @@ public class CharacterControllerNonUnity : MonoBehaviour
 				m_Rigidbody.velocity = new Vector2(0, m_Rigidbody.velocity.y);
 			}
 		}
+	}
+
+	private void OnTriggerStay(Collider collisionInfo)
+	{
+		if (!m_Grounded)
+		{
+			OnFallEvent.Invoke();
+			if (collisionInfo.gameObject != null)
+			{
+				isDashing = false;
+				m_IsWall = true;
+				m_Grounded = false;
+			}
+		}
+		
 	}
 
 
@@ -245,7 +259,7 @@ public class CharacterControllerNonUnity : MonoBehaviour
 				animator.SetBool("JumpUp", true);
 				m_Grounded = false;
 				
-				//m_Rigidbody.AddForce(new Vector3(0f, m_JumpForce,0f));
+				
 				m_Rigidbody.AddForce(new Vector3(0f, m_JumpForce,0f));
 				
 				
@@ -361,33 +375,56 @@ public class CharacterControllerNonUnity : MonoBehaviour
 
 	}
 
-	public float secs = 0.015f;
+	public float secs = 0.01f;
+	public float grappleY = 0.7f;
 	IEnumerator GrapplePull()
 	{
-		m_Rigidbody.AddForce(new Vector3(transform.localScale.x*m_GrappleForce, 1f, 0f), ForceMode.Impulse);
+		isGrapplePulling = true;
+		player.runSpeed = 0;
+		
+		m_Rigidbody.AddForce(new Vector3(transform.localScale.x*m_GrappleForce, grappleY, 0f), ForceMode.Impulse);
 		yield return new WaitForSeconds(secs);
 		
-		m_Rigidbody.AddForce(new Vector3(transform.localScale.x*m_GrappleForce, 1f, 0f), ForceMode.Impulse);
+		m_Rigidbody.AddForce(new Vector3(transform.localScale.x*m_GrappleForce, grappleY, 0f), ForceMode.Impulse);
 		yield return new WaitForSeconds(secs);
 		
-		m_Rigidbody.AddForce(new Vector3(transform.localScale.x*m_GrappleForce, 1f, 0f), ForceMode.Impulse);
+		m_Rigidbody.AddForce(new Vector3(transform.localScale.x*m_GrappleForce, grappleY, 0f), ForceMode.Impulse);
 		yield return new WaitForSeconds(secs);
 		
-		m_Rigidbody.AddForce(new Vector3(transform.localScale.x*m_GrappleForce, 1f, 0f), ForceMode.Impulse);
+		m_Rigidbody.AddForce(new Vector3(transform.localScale.x*m_GrappleForce, grappleY, 0f), ForceMode.Impulse);
 		yield return new WaitForSeconds(secs);
 		
-		m_Rigidbody.AddForce(new Vector3(transform.localScale.x*m_GrappleForce, 1f, 0f), ForceMode.Impulse);
+		m_Rigidbody.AddForce(new Vector3(transform.localScale.x*m_GrappleForce, grappleY, 0f), ForceMode.Impulse);
 		yield return new WaitForSeconds(secs);
 		
-		m_Rigidbody.AddForce(new Vector3(transform.localScale.x*m_GrappleForce, 1f, 0f), ForceMode.Impulse);
+		m_Rigidbody.AddForce(new Vector3(transform.localScale.x*m_GrappleForce, grappleY, 0f), ForceMode.Impulse);
 		yield return new WaitForSeconds(secs);
 		
-		m_Rigidbody.AddForce(new Vector3(transform.localScale.x*m_GrappleForce, 1f, 0f), ForceMode.Impulse);
+		m_Rigidbody.AddForce(new Vector3(transform.localScale.x*m_GrappleForce, grappleY, 0f), ForceMode.Impulse);
 		yield return new WaitForSeconds(secs);
 		
-		m_Rigidbody.AddForce(new Vector3(transform.localScale.x*m_GrappleForce, 1f, 0f), ForceMode.Impulse);
+		m_Rigidbody.AddForce(new Vector3(transform.localScale.x*m_GrappleForce, grappleY, 0f), ForceMode.Impulse);
 		yield return new WaitForSeconds(secs);
+		
+		m_Rigidbody.AddForce(new Vector3(transform.localScale.x*m_GrappleForce, grappleY, 0f), ForceMode.Impulse);
+		yield return new WaitForSeconds(secs);
+		
+		m_Rigidbody.AddForce(new Vector3(transform.localScale.x*m_GrappleForce, grappleY, 0f), ForceMode.Impulse);
+		yield return new WaitForSeconds(secs);
+		
+		m_Rigidbody.AddForce(new Vector3(transform.localScale.x*m_GrappleForce, grappleY, 0f), ForceMode.Impulse);
+		yield return new WaitForSeconds(secs);
+		
+		m_Rigidbody.AddForce(new Vector3(transform.localScale.x*m_GrappleForce, grappleY, 0f), ForceMode.Impulse);
+		yield return new WaitForSeconds(secs);
+		
+		
+
+		
+		yield return new WaitUntil(() => m_Grounded == true);
+		player.runSpeed = 40;
 		canDoubleJump = true;
+		isGrapplePulling = false;
 
 
 
