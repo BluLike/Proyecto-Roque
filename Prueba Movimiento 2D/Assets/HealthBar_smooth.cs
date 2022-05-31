@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -27,13 +28,15 @@ public class HealthBar_smooth : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
+        if (currHP > maxHP)
+            currHP = maxHP;
         if (currHPSLow != currHP)
         {
             currHPSLow = Mathf.Lerp(currHPSLow, currHP, t);
             t += 1.0f * Time.deltaTime;
         }
-        sphereRender.material.SetFloat("_Progress", currHPSLow*0.01f);
+       sphereRender.material.SetFloat("_Progress", currHPSLow*0.01f);
+        
        
     }
 

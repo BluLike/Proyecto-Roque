@@ -3,6 +3,8 @@ using UnityEngine;
 using UnityEngine.Events;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine.SceneManagement;
 
 public class CharacterControllerNonUnity : MonoBehaviour
@@ -16,6 +18,8 @@ public class CharacterControllerNonUnity : MonoBehaviour
 	[SerializeField] public Transform m_TpGroundCheckBack;						
 	[SerializeField] private Transform m_WallCheck;								//Posicion que controla si el personaje toca una pared
 	[SerializeField] private int healValue = 30;
+	[SerializeField] private int potionsNumber = 3;
+	
 	public bool canHeal = true;
 								
 
@@ -58,6 +62,9 @@ public class CharacterControllerNonUnity : MonoBehaviour
 	private HealthBar_smooth healthbar;
 	public bool isGrapplePulling = false;
 	public PlayerMovement player;
+	public TextMeshPro potionIndicator;
+	public AudioSource audioSource;
+	public AudioClip audioClip;
 
 	public int currentFace = 1;
 
@@ -77,7 +84,9 @@ public class CharacterControllerNonUnity : MonoBehaviour
 		spriteRenderer = GetComponent<SpriteRenderer>();
 		healthbar = GetComponent<HealthBar_smooth>();
 		player = gameObject.GetComponent<PlayerMovement>();
+		audioSource = GetComponent<AudioSource>();
 		
+
 		if (OnFallEvent == null)
 			OnFallEvent = new UnityEvent();
 
@@ -100,11 +109,18 @@ public class CharacterControllerNonUnity : MonoBehaviour
 
 		if (life > 100)
 			life = 100;
-		
+		potionIndicator.text = Convert.ToString(potionsNumber);
+		//heal function
 		if (Input.GetKeyDown(KeyCode.F) && canHeal|| Input.GetMouseButtonDown(2) && canHeal)
 		{
+			if (life >= 100f || potionsNumber < 1)
+				return;
+			audioSource.PlayOneShot( audioClip, 0.5f);
+			healParticle.Play();
 			healthbar.healHP(healValue);
 			life += healValue;
+			potionsNumber--;
+			
 			StartCoroutine(HealCooldown());
 		}
 		
@@ -358,7 +374,7 @@ public class CharacterControllerNonUnity : MonoBehaviour
 		theScale.x *= -1;
 		transform.localScale = theScale;
 	}
-
+	
 	public void ApplyDamage(float damage, Vector3 position)
 	{
 		StartCoroutine(DamagePlayer(damage, position));
@@ -475,8 +491,9 @@ public class CharacterControllerNonUnity : MonoBehaviour
 	{
 		
 		canHeal=false;
-		yield return new WaitForSeconds(0.25f);
+		yield return new WaitForSeconds(0.5f);
 		canHeal = true;
+		healParticle.Stop();
 		
 	}
 	IEnumerator DashCooldown()
