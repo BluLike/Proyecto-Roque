@@ -9,7 +9,18 @@ public class PauseMenu : MonoBehaviour
 
     public GameObject PauseMenuUI;
 
+    CharacterControllerNonUnity characterControllerNonUnity;
+
+    string Life = "Life";
+
+    int SaveLife;
+
     // Update is called once per frame
+
+    private void Awake()
+    {
+        characterControllerNonUnity = GameObject.Find("DrawCharacter").GetComponent<CharacterControllerNonUnity>();
+    }
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -38,6 +49,8 @@ public class PauseMenu : MonoBehaviour
     }
     public void Exit()
     {
+        //SaveLife = Mathf.RoundToInt(characterControllerNonUnity.life);
+        //PlayerPrefs.SetInt(Life, SaveLife);
         Time.timeScale = 1;
         GameIsPaused = false;
         SceneManager.LoadScene("Menu");

@@ -77,7 +77,7 @@ public class CharacterControllerNonUnity : MonoBehaviour
 	[System.Serializable]
 	public class BoolEvent : UnityEvent<bool> { }
 
-	private void Awake()
+    private void Awake()
 	{
 		m_Rigidbody = GetComponent<Rigidbody>();
 		animator = GetComponent<Animator>();
@@ -92,8 +92,17 @@ public class CharacterControllerNonUnity : MonoBehaviour
 
 		if (OnLandEvent == null)
 			OnLandEvent = new UnityEvent();
-		
-		
+
+		if (SavingScript.instance.hasLoaded)
+		{
+			life = SavingScript.instance.activeSave.saveLife;
+			potionsNumber = SavingScript.instance.activeSave.saveNumberOfPotions;
+		}
+		else
+		{
+			SavingScript.instance.activeSave.saveLife = life;
+			SavingScript.instance.activeSave.saveNumberOfPotions = potionsNumber;
+		}
 
 
 	}
@@ -120,7 +129,9 @@ public class CharacterControllerNonUnity : MonoBehaviour
 			healthbar.healHP(healValue);
 			life += healValue;
 			potionsNumber--;
-			
+			SavingScript.instance.activeSave.saveLife = life;
+			SavingScript.instance.activeSave.saveNumberOfPotions = potionsNumber;
+
 			StartCoroutine(HealCooldown());
 		}
 		
@@ -387,7 +398,9 @@ public class CharacterControllerNonUnity : MonoBehaviour
 			animator.SetBool("Hit", true);
 			life -= damage;
 			healthbar.loseHP(damage);
-			
+			SavingScript.instance.activeSave.saveLife = life;
+			SavingScript.instance.activeSave.saveNumberOfPotions = potionsNumber;
+
 			if (life <= 0)
 			{
 				StartCoroutine(WaitToDead());
@@ -475,6 +488,8 @@ public class CharacterControllerNonUnity : MonoBehaviour
 			m_Rigidbody.velocity = Vector3.zero;
 			m_Rigidbody.AddForce(damageDir * 15);
 			healthbar.loseHP(damage);
+			SavingScript.instance.activeSave.saveLife = life;
+			SavingScript.instance.activeSave.saveNumberOfPotions = potionsNumber;
 			if (life <= 0)
 			{
 				StartCoroutine(WaitToDead());
