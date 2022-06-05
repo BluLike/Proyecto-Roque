@@ -233,6 +233,7 @@ public class CharacterControllerNonUnity : MonoBehaviour
 				m_Rigidbody.velocity = new Vector2(0, m_Rigidbody.velocity.y);
 			}
 		}
+		
 	}
 
 	private void OnTriggerStay(Collider collisionInfo)
@@ -240,7 +241,7 @@ public class CharacterControllerNonUnity : MonoBehaviour
 		if (!m_Grounded)
 		{
 			OnFallEvent.Invoke();
-			if (collisionInfo.gameObject != null && collisionInfo.gameObject.layer == 3 )
+			if (collisionInfo.gameObject.layer == 3 )
 			{
 				isDashing = false;
 				m_IsWall = true;
