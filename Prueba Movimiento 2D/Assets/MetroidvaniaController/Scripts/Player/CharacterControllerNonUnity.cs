@@ -110,6 +110,7 @@ public class CharacterControllerNonUnity : MonoBehaviour
 
 	private void FixedUpdate()
 	{
+		SavingScript.instance.activeSave.CharacterPosition = transform.position;
 		Physics.IgnoreLayerCollision(8,14);
 		Physics.IgnoreLayerCollision(8,10);
 		Physics.IgnoreLayerCollision(8,11);

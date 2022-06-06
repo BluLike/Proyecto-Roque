@@ -7,20 +7,25 @@ using System.Xml.Serialization;
 
 public class SavingScript : MonoBehaviour
 {
+    private CharacterControllerNonUnity player;
 
     public static SavingScript instance;
 
     public bool hasLoaded;
 
     int numberOfSaves;
+
     private void Awake()
     {
+        player = GameObject.Find("DrawCharacter").GetComponent<CharacterControllerNonUnity>();
         instance = this;
         Load();
+        System.DateTime dateToDisplay = System.DateTime.Now;
     }
     public SaveData activeSave;
     private void Update()
     {
+
         if (Input.GetKeyDown(KeyCode.G))
         {
             Save();
@@ -33,20 +38,23 @@ public class SavingScript : MonoBehaviour
         {
             DeleteSaveData();
         }
+
     }
     public void Save()
     {
-        if (numberOfSaves < 3)
-        {
             string dataPath = Application.persistentDataPath;
 
+            if (System.IO.File.Exists(dataPath + "/" + activeSave.saveName + ".save"))
+            {
+                File.Delete(dataPath + "/" + activeSave.saveName + ".save");
+                numberOfSaves--;
+                Debug.Log("Deleted!");
+            }
             var serializer = new XmlSerializer(typeof(SaveData));
             var stream = new FileStream(dataPath + "/" + activeSave.saveName + ".save", FileMode.Create);
             serializer.Serialize(stream, activeSave);
             stream.Close();
-            numberOfSaves++;
             Debug.Log("Saved!");
-        }
         
     }
 
@@ -71,7 +79,6 @@ public class SavingScript : MonoBehaviour
         if (System.IO.File.Exists(dataPath + "/" + activeSave.saveName  + ".save"))
         {
             File.Delete(dataPath + "/" + activeSave.saveName + ".save");
-            numberOfSaves--;
             Debug.Log("Deleted!");
         }
     }
@@ -87,4 +94,8 @@ public class SaveData
     public float saveLife;
 
     public int saveNumberOfPotions;
+
+    public Vector3 CharacterPosition;
+
+    public Quaternion TowerPosition;
 }
