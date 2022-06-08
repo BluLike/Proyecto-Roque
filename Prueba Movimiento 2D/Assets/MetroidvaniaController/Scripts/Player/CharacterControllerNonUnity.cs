@@ -92,7 +92,7 @@ public class CharacterControllerNonUnity : MonoBehaviour, IDataPersistence
 		this.coins = data.coins;
 		this.currentScene = data.currentScene;
 		this.currentFace = data.currentFace;
-		if (LastCheckpointTransform != null)
+		if (data.LastCheckpointCoord != new Vector3(0,0,0))
 		{
 			this.LastCheckpointCoord = data.LastCheckpointCoord;
 			Debug.Log("te he puesto las coordenadas manitou");
@@ -119,8 +119,7 @@ public class CharacterControllerNonUnity : MonoBehaviour, IDataPersistence
 		player = gameObject.GetComponent<PlayerMovement>();
 		audioSource = GetComponent<AudioSource>();
 		SaveManager = GameObject.Find("DataPersistenceManager").GetComponent<DataPersistenceManager>();
-		if (LastCheckpointTransform != null)
-			transform.position = LastCheckpointCoord;
+		
 
 		if (OnFallEvent == null)
 			OnFallEvent = new UnityEvent();
@@ -129,8 +128,16 @@ public class CharacterControllerNonUnity : MonoBehaviour, IDataPersistence
 			OnLandEvent = new UnityEvent();
 	}
 
+    private void Start()
+    {
+		if (LastCheckpointCoord != new Vector3(0, 0, 0))
+        {
+			transform.position = new Vector3(LastCheckpointCoord.x, LastCheckpointCoord.y, transform.position.z);
+		}
+			
+	}
 
-	private void FixedUpdate()
+    private void FixedUpdate()
 	{
 		Physics.IgnoreLayerCollision(8,14);
 		Physics.IgnoreLayerCollision(8,10);
