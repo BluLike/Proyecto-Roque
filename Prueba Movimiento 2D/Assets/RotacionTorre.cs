@@ -8,30 +8,38 @@ public class RotacionTorre : MonoBehaviour, IDataPersistence
 {
     [SerializeField] Quaternion rotation;
     [SerializeField] int caraTorre;
+
+    CharacterControllerNonUnity characterController;
     public void LoadData(GameData data)
     {
-        caraTorre = data.currentFace;
+        //caraTorre = data.currentFace;
     }
     public void SaveData(GameData data)
     {
     }
+    private void Update()
+    {
+        caraTorre = characterController.currentFace;
+    }
     private void Start()
     {
-        if (caraTorre == 1)
+        characterController = GameObject.Find("DrawCharacter").GetComponent<CharacterControllerNonUnity>();
+
+        if (characterController.currentFace == 1)
         {
-            transform.localRotation = new Quaternion(0,0,0,0);
+            transform.rotation = Quaternion.Euler(0,0,0);
         }
-        else if (caraTorre == 2)
+        else if (characterController.currentFace == 2)
         {
-            transform.localRotation = new Quaternion(0, 90, 0, 90);
+            transform.rotation = Quaternion.Euler(0, 90, 0);
         }
-        else if (caraTorre == 3)
+        else if (characterController.currentFace == 3)
         {
-            transform.localRotation = new Quaternion(0, 180, 0, 180);
+            transform.rotation = Quaternion.Euler(0, 180, 0);
         }
-        else if (caraTorre == 4)
+        else if (characterController.currentFace == 4)
         {
-            transform.localRotation = new Quaternion(0, 360, 0, 360);
+            transform.rotation = Quaternion.Euler(0, 270, 0);
         }
     }
     

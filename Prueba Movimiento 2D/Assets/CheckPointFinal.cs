@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Checkpoint : MonoBehaviour
+public class CheckPointFinal : MonoBehaviour
 {
 
     //Animation states
@@ -15,7 +15,7 @@ public class Checkpoint : MonoBehaviour
 
 
     //Animator parameters
-	
+
     [SerializeField] private Animator animator1;
     [SerializeField] private Animator animator2;
     private string currentState;
@@ -27,12 +27,12 @@ public class Checkpoint : MonoBehaviour
 
     void ChangeAnimationState(string newState)
     {
-        //evita que se quede en bucle la animaciÃ³n
+        //evita que se quede en bucle la animación
         if (currentState == newState) return;
-        //hace la animaciÃ³n 
+        //hace la animación 
         animator1.Play(newState);
         animator2.Play(newState);
-        //asignar nuevo valor de la animaciÃ³n
+        //asignar nuevo valor de la animación
         currentState = newState;
     }
     private void OnTriggerEnter(Collider other)
@@ -41,10 +41,11 @@ public class Checkpoint : MonoBehaviour
         {
             if (apagado)
             {
-                ChangeAnimationState(ON); 
+                ChangeAnimationState(ON);
             }
             SaveManager.SaveGame();
-            other.gameObject.GetComponent<CharacterControllerNonUnity>().LastCheckpointCoord = gameObject.transform.position;
+            other.gameObject.GetComponent<CharacterControllerNonUnity>().currentFace = 1;
+            other.gameObject.GetComponent<CharacterControllerNonUnity>().LastCheckpointCoord = new Vector3(0,0,0);
             Debug.Log(other.gameObject.GetComponent<CharacterControllerNonUnity>().LastCheckpointCoord);
         }
     }
