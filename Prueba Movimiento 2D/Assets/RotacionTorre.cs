@@ -14,7 +14,6 @@ public class RotacionTorre : MonoBehaviour, IDataPersistence
     }
     public void SaveData(GameData data)
     {
-        data.towerRotation = this.transform.localRotation;
     }
     private void Start()
     {
@@ -35,9 +34,5 @@ public class RotacionTorre : MonoBehaviour, IDataPersistence
             transform.localRotation = new Quaternion(0, 360, 0, 360);
         }
     }
-
-    void OnDestroy()
-    {
-        caraTorre = 1;
-    }
+    
 }

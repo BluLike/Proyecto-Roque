@@ -14,7 +14,7 @@ public class DataPersistenceManager : MonoBehaviour
     [SerializeField] private bool useEncryption;
 
     private GameData gameData;
-    private List<IDataPersistence> dataPersistenceObjects;
+    public List<IDataPersistence> dataPersistenceObjects;
     private FileDataHandler dataHandler;
     
 
@@ -106,6 +106,7 @@ public class DataPersistenceManager : MonoBehaviour
 
         // save that data to a file using the data handler
         dataHandler.Save(gameData);
+        Debug.Log("amogus");
     }
 
     private void OnApplicationQuit()
@@ -113,7 +114,7 @@ public class DataPersistenceManager : MonoBehaviour
         SaveGame();
     }
 
-    private List<IDataPersistence> FindAllDataPersistenceObjects()
+    public List<IDataPersistence> FindAllDataPersistenceObjects()
     {
         IEnumerable<IDataPersistence> dataPersistenceObjects = FindObjectsOfType<MonoBehaviour>()
             .OfType<IDataPersistence>();

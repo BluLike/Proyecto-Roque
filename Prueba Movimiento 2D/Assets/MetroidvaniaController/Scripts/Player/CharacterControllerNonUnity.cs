@@ -20,6 +20,7 @@ public class CharacterControllerNonUnity : MonoBehaviour, IDataPersistence
 	[SerializeField] private int healValue = 30;
 	[SerializeField] private int potionsNumber;
 	[SerializeField] private int coins;
+	private DataPersistenceManager SaveManager;
 	
 	public bool canHeal = true;
 								
@@ -69,7 +70,9 @@ public class CharacterControllerNonUnity : MonoBehaviour, IDataPersistence
 	Scene m_Scene;
 	string currentScene;
 
-	public Vector3 LastCheckpointTransform;
+	public Transform LastCheckpointTransform = null;
+	public Vector3 LastCheckpointCoord;
+	
 
 	public int currentFace = 1;
 
@@ -89,6 +92,11 @@ public class CharacterControllerNonUnity : MonoBehaviour, IDataPersistence
 		this.coins = data.coins;
 		this.currentScene = data.currentScene;
 		this.currentFace = data.currentFace;
+		if (LastCheckpointTransform != null)
+		{
+			this.LastCheckpointCoord = data.LastCheckpointCoord;
+			Debug.Log("te he puesto las coordenadas manitou");
+		}
     }
 
 	public void SaveData(GameData data)
@@ -99,6 +107,8 @@ public class CharacterControllerNonUnity : MonoBehaviour, IDataPersistence
 		data.coins = this.coins;
 		data.currentScene = this.currentScene;
 		data.currentFace = this.currentFace;
+		data.LastCheckpointTransform = this.LastCheckpointTransform;
+		data.LastCheckpointCoord = this.LastCheckpointCoord;
     }
     private void Awake()
 	{
@@ -108,7 +118,9 @@ public class CharacterControllerNonUnity : MonoBehaviour, IDataPersistence
 		healthbar = GetComponent<HealthBar_smooth>();
 		player = gameObject.GetComponent<PlayerMovement>();
 		audioSource = GetComponent<AudioSource>();
-		
+		SaveManager = GameObject.Find("DataPersistenceManager").GetComponent<DataPersistenceManager>();
+		if (LastCheckpointTransform != null)
+			transform.position = LastCheckpointCoord;
 
 		if (OnFallEvent == null)
 			OnFallEvent = new UnityEvent();
@@ -591,7 +603,9 @@ public class CharacterControllerNonUnity : MonoBehaviour, IDataPersistence
 		yield return new WaitForSeconds(0.4f);
 		m_Rigidbody.velocity = new Vector3(0, m_Rigidbody.velocity.y, 0);
 		yield return new WaitForSeconds(1.1f);
-		life = 100f;
+		
+		SaveManager.dataPersistenceObjects = SaveManager.FindAllDataPersistenceObjects();
+		SaveManager.LoadGame();
 		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 	}
 	
