@@ -69,6 +69,8 @@ public class CharacterControllerNonUnity : MonoBehaviour, IDataPersistence
 	Scene m_Scene;
 	string currentScene;
 
+	public Vector3 LastCheckpointTransform;
+
 	public int currentFace = 1;
 
 	[Header("Events")]
@@ -210,8 +212,6 @@ public class CharacterControllerNonUnity : MonoBehaviour, IDataPersistence
 		{
 			OnFallEvent.Invoke();
 			
-			
-
 
 			prevVelocityX = m_Rigidbody.velocity.x;
 		}
@@ -335,13 +335,14 @@ public class CharacterControllerNonUnity : MonoBehaviour, IDataPersistence
 			{
 				if (!oldWallSlidding && m_Rigidbody.velocity.y < 0 || isDashing)
 				{
-					isWallSliding = true;
+					StartCoroutine(WallSlide());
+					/*isWallSliding = true;
 					m_WallCheck.localPosition = new Vector3(-m_WallCheck.localPosition.x, m_WallCheck.localPosition.y, 0);
 					Flip();
 					spriteRenderer.flipX = true;
 					StartCoroutine(WaitToCheck(0.1f));
 					canDoubleJump = true;
-					animator.SetBool("IsWallSliding", true);
+					animator.SetBool("IsWallSliding", true);*/
 				}
 				isDashing = false;
 				
@@ -432,6 +433,19 @@ public class CharacterControllerNonUnity : MonoBehaviour, IDataPersistence
 
 	public float secs = 0.01f;
 	public float grappleY = 0.7f;
+
+	IEnumerator WallSlide()
+	{
+		isWallSliding = true;
+		m_WallCheck.localPosition = new Vector3(-m_WallCheck.localPosition.x, m_WallCheck.localPosition.y, 0);
+		Flip();
+		spriteRenderer.flipX = true;
+		StartCoroutine(WaitToCheck(0.1f));
+		canDoubleJump = true;
+		animator.SetBool("IsWallSliding", true);
+		yield return new WaitForSeconds(0f);
+		
+	}
 	IEnumerator GrapplePull()
 	{
 		isGrapplePulling = true;
