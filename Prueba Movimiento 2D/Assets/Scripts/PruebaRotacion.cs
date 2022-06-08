@@ -57,7 +57,7 @@ public class PruebaRotacion : MonoBehaviour
     IEnumerator Rotate(float rotateAmount)
     {
         //Esta es la rutina que hace que gire. Está dividida en dos partes: La rotacion de la torre y la traslación de la cámara (mediante el jugador oculto).
-        Jugador.SetActive(false);
+        player.canMove = false;
         var oldRotation = BaseTorre.transform.rotation;
         BaseTorre.transform.Rotate(0, rotateAmount, 0);
         var newRotation = BaseTorre.transform.rotation;
@@ -82,9 +82,7 @@ public class PruebaRotacion : MonoBehaviour
         //characterController.canMove = false;
         BaseTorre.transform.rotation = newRotation;
         Jugador.transform.position = newTransformPlayer;
-        Jugador.SetActive(true);
-        //yield return new WaitForSeconds(0.5f);
-        //characterController.canMove = true;
+        player.canMove = true;
 
     }
 
