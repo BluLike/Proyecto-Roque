@@ -4,27 +4,37 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class HealthBar_smooth : MonoBehaviour
+public class HealthBar_smooth : MonoBehaviour, IDataPersistence
 {
     // Start is called before the first frame update
-    private float maxHP = 100, currHP, currHPSLow;
+    [SerializeField] private float maxHP = 100, currHP, currHPSLow;
+    float loadHP;
     public GameObject HealthSphere;
     
     private Renderer sphereRender;
 
-    private Attack player;
-    void Start()
+    [SerializeField] float materialFloat;
+
+    public void LoadData(GameData data)
     {
-        currHP = maxHP;
-        currHPSLow = maxHP;
-        player = GetComponent<Attack>();
-        sphereRender = HealthSphere.GetComponent<Renderer>();
-        
+        this.currHPSLow = data.currHPSLow;
+        loadHP = this.currHPSLow;
+    }
+
+    public void SaveData(GameData data)
+    {
     }
 
     private float t;
     private float a;
-    
+
+    void Start()
+    {
+        currHP = loadHP;
+        currHPSLow = loadHP;
+        sphereRender = HealthSphere.GetComponent<Renderer>();
+        sphereRender.material.SetFloat("_Progress", currHPSLow * 0.01f);
+    }
     // Update is called once per frame
     void Update()
     {
@@ -35,9 +45,11 @@ public class HealthBar_smooth : MonoBehaviour
             currHPSLow = Mathf.Lerp(currHPSLow, currHP, t);
             t += 1.0f * Time.deltaTime;
         }
-       sphereRender.material.SetFloat("_Progress", currHPSLow*0.01f);
-        
-       
+       sphereRender.material.SetFloat("_Progress", currHPSLow * 0.01f);
+       materialFloat = sphereRender.material.GetFloat("_Progress");
+
+
+
     }
 
     public void loseHP(float damage)

@@ -66,6 +66,8 @@ public class CharacterControllerNonUnity : MonoBehaviour, IDataPersistence
 	public TextMeshPro potionIndicator;
 	public AudioSource audioSource;
 	public AudioClip audioClip;
+	Scene m_Scene;
+	string currentScene;
 
 	public int currentFace = 1;
 
@@ -83,13 +85,18 @@ public class CharacterControllerNonUnity : MonoBehaviour, IDataPersistence
 		this.life = data.life;
 		this.potionsNumber = data.potionsNumber;
 		this.coins = data.coins;
+		this.currentScene = data.currentScene;
+		this.currentFace = data.currentFace;
     }
 
 	public void SaveData(GameData data)
     {
+		data.currHPSLow = this.life;
 		data.life = this.life;
 		data.potionsNumber = this.potionsNumber;
 		data.coins = this.coins;
+		data.currentScene = this.currentScene;
+		data.currentFace = this.currentFace;
     }
     private void Awake()
 	{
@@ -116,6 +123,8 @@ public class CharacterControllerNonUnity : MonoBehaviour, IDataPersistence
 		Physics.IgnoreLayerCollision(8,11);
 		Physics.IgnoreLayerCollision(8,13);
 		Physics.IgnoreLayerCollision(9,9);
+		m_Scene = SceneManager.GetActiveScene();
+		currentScene = m_Scene.name;
 
 		if (life > 100)
 			life = 100;
@@ -568,7 +577,8 @@ public class CharacterControllerNonUnity : MonoBehaviour, IDataPersistence
 		yield return new WaitForSeconds(0.4f);
 		m_Rigidbody.velocity = new Vector3(0, m_Rigidbody.velocity.y, 0);
 		yield return new WaitForSeconds(1.1f);
-		SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
+		life = 100f;
+		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 	}
 	
 	

@@ -49,8 +49,6 @@ public class PauseMenu : MonoBehaviour
     }
     public void Exit()
     {
-        //SaveLife = Mathf.RoundToInt(characterControllerNonUnity.life);
-        //PlayerPrefs.SetInt(Life, SaveLife);
         Time.timeScale = 1;
         GameIsPaused = false;
         SceneManager.LoadScene("Menu");

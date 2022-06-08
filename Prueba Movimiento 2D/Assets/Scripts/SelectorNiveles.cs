@@ -1,32 +1,43 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 using UnityEngine.SceneManagement;
 
-public class SelectorNiveles : MonoBehaviour
+public class SelectorNiveles : MonoBehaviour, IDataPersistence
 {
-    public void Tutorial()
+    public DataPersistenceManager dataPersistenceManager;
+    GameData gameData;
+    [SerializeField] string currentScene;
+    private void Start()
     {
-        SceneManager.LoadScene("Nivel Tutorial", LoadSceneMode.Single);
+        HALO();
     }
-    public void PrimerNivel()
+    public void LoadData(GameData data)
     {
-        SceneManager.LoadScene("Nivel_P_1", LoadSceneMode.Single);
+        this.currentScene = data.currentScene;
     }
-    public void SegundoNivel()
+    public void SaveData(GameData data)
     {
-        SceneManager.LoadScene("Nivel_C_1", LoadSceneMode.Single);
-    } 
-    public void TercerNivel()
-    {
-        SceneManager.LoadScene("Nivel_P_2", LoadSceneMode.Single);
+
     }
-    public void CuartoNivel()
+    void HALO()
     {
-        SceneManager.LoadScene("Nivel_C_2", LoadSceneMode.Single);
+        Debug.Log("Cargando Escena Guardada");
+        dataPersistenceManager = GetComponent<DataPersistenceManager>();
+        dataPersistenceManager = GameObject.Find("DataPersistenceManager").GetComponent<DataPersistenceManager>();
+        dataPersistenceManager.LoadGame();
+        StartCoroutine(CargarEscenaCorrespondiente());
+        }
+    IEnumerator CargarEscenaCorrespondiente()
+    {
+        yield return new WaitForSeconds(2f);
+        SCENA();
     }
-    public void Menu()
+    void SCENA()
     {
-        SceneManager.LoadScene("Menu", LoadSceneMode.Single);
+        Debug.Log("Escena cargada");
+        SceneManager.LoadSceneAsync(this.currentScene);
     }
 }
+

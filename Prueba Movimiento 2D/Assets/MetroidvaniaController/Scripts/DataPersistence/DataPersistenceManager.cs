@@ -16,6 +16,7 @@ public class DataPersistenceManager : MonoBehaviour
     private GameData gameData;
     private List<IDataPersistence> dataPersistenceObjects;
     private FileDataHandler dataHandler;
+    
 
     public static DataPersistenceManager instance { get; private set; }
 
@@ -70,6 +71,7 @@ public class DataPersistenceManager : MonoBehaviour
         if (this.gameData == null && initializeDataIfNull)
         {
             NewGame();
+            Debug.Log("New Game because of no data");
         }
 
         // if no data can be loaded, don't continue
@@ -83,6 +85,7 @@ public class DataPersistenceManager : MonoBehaviour
         foreach (IDataPersistence dataPersistenceObj in dataPersistenceObjects)
         {
             dataPersistenceObj.LoadData(gameData);
+            Debug.Log("Data loaded");
         }
     }
 
