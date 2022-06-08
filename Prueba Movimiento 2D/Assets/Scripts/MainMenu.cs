@@ -9,12 +9,18 @@ public class MainMenu : MonoBehaviour
     [Header("Menu Buttons")]
     [SerializeField] private Button newGameButton;
     [SerializeField] private Button continueGameButton;
+    public GameObject warningText;
 
     private void Start()
     {
         if (!DataPersistenceManager.instance.HasGameData())
         {
+            warningText.SetActive(false);
             continueGameButton.interactable = false;
+        }
+        if (DataPersistenceManager.instance.HasGameData())
+        {
+            warningText.SetActive(true);
         }
     }
 
@@ -25,7 +31,7 @@ public class MainMenu : MonoBehaviour
         DataPersistenceManager.instance.NewGame();
         // load the gameplay scene - which will in turn save the game because of
         // OnSceneUnloaded() in the DataPersistenceManager
-        SceneManager.LoadSceneAsync("SampleScene");
+        SceneManager.LoadScene("Selector");
     }
 
     public void OnContinueGameClicked()
@@ -33,7 +39,7 @@ public class MainMenu : MonoBehaviour
         DisableMenuButtons();
         // load the next scene - which will in turn load the game because of 
         // OnSceneLoaded() in the DataPersistenceManager
-        SceneManager.LoadSceneAsync("Tutorial");
+        SceneManager.LoadScene("Loading");
     }
 
     private void DisableMenuButtons()
