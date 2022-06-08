@@ -6,19 +6,19 @@ using UnityEngine.SceneManagement;
 
 public class Door : MonoBehaviour
 {
-    private Transform LastCheckpoint;
+    private Vector3 LastCheckpoint;
 
     private void Awake()
     {
-        LastCheckpoint = GameObject.Find("DrawCharacter").GetComponent<CharacterControllerNonUnity>().LastCheckpointTransform;
+        LastCheckpoint = GameObject.Find("DrawCharacter").GetComponent<CharacterControllerNonUnity>().LastCheckpointCoord;
     }
 
     void OnTriggerStay(Collider collider)
-
     {
-        if (collider.gameObject.tag == "Player" && Input.GetKeyDown(KeyCode.E))
+        if (collider.gameObject.tag == "Player" && Input.GetKey(KeyCode.E))
         {
-            LastCheckpoint = null;
+            LastCheckpoint = new Vector3(0,0,0);
+            DataPersistenceManager.instance.SaveGame();
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
             
         }
