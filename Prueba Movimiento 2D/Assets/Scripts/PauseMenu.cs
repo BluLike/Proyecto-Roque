@@ -11,9 +11,9 @@ public class PauseMenu : MonoBehaviour
 
     CharacterControllerNonUnity characterControllerNonUnity;
 
-    string Life = "Life";
+    //string Life = "Life";
 
-    int SaveLife;
+    //int SaveLife;
 
     // Update is called once per frame
 

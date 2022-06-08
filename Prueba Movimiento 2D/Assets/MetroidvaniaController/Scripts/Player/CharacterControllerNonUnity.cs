@@ -7,7 +7,7 @@ using TMPro;
 using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine.SceneManagement;
 
-public class CharacterControllerNonUnity : MonoBehaviour
+public class CharacterControllerNonUnity : MonoBehaviour, IDataPersistence
 {
 	[SerializeField] private float m_JumpForce = 920f;							// Amount of force added when the player jumps.
 	[Range(0, .3f)] [SerializeField] private float m_MovementSmoothing = .05f;	// How much to smooth out the movement
@@ -18,7 +18,8 @@ public class CharacterControllerNonUnity : MonoBehaviour
 	[SerializeField] public Transform m_TpGroundCheckBack;						
 	[SerializeField] private Transform m_WallCheck;								//Posicion que controla si el personaje toca una pared
 	[SerializeField] private int healValue = 30;
-	[SerializeField] private int potionsNumber = 3;
+	[SerializeField] private int potionsNumber;
+	[SerializeField] private int coins;
 	
 	public bool canHeal = true;
 								
@@ -44,7 +45,7 @@ public class CharacterControllerNonUnity : MonoBehaviour
 	private float prevVelocityX = 0f;
 	private bool canCheck = false; //For check if player is wallsliding
 
-	public float life = 100f; //Life of the player
+	public float life; //Life of the player
 	public bool invincible = false; //If player can die
 	public bool canMove = true; //If player can move
 
@@ -77,6 +78,19 @@ public class CharacterControllerNonUnity : MonoBehaviour
 	[System.Serializable]
 	public class BoolEvent : UnityEvent<bool> { }
 
+	public void LoadData(GameData data)
+    {
+		this.life = data.life;
+		this.potionsNumber = data.potionsNumber;
+		this.coins = data.coins;
+    }
+
+	public void SaveData(GameData data)
+    {
+		data.life = this.life;
+		data.potionsNumber = this.potionsNumber;
+		data.coins = this.coins;
+    }
     private void Awake()
 	{
 		m_Rigidbody = GetComponent<Rigidbody>();
@@ -92,25 +106,11 @@ public class CharacterControllerNonUnity : MonoBehaviour
 
 		if (OnLandEvent == null)
 			OnLandEvent = new UnityEvent();
-
-		if (SavingScript.instance.hasLoaded)
-		{
-			life = SavingScript.instance.activeSave.saveLife;
-			potionsNumber = SavingScript.instance.activeSave.saveNumberOfPotions;
-		}
-		else
-		{
-			SavingScript.instance.activeSave.saveLife = life;
-			SavingScript.instance.activeSave.saveNumberOfPotions = potionsNumber;
-		}
-
-
 	}
 
 
 	private void FixedUpdate()
 	{
-		SavingScript.instance.activeSave.CharacterPosition = transform.position;
 		Physics.IgnoreLayerCollision(8,14);
 		Physics.IgnoreLayerCollision(8,10);
 		Physics.IgnoreLayerCollision(8,11);
@@ -130,8 +130,6 @@ public class CharacterControllerNonUnity : MonoBehaviour
 			healthbar.healHP(healValue);
 			life += healValue;
 			potionsNumber--;
-			SavingScript.instance.activeSave.saveLife = life;
-			SavingScript.instance.activeSave.saveNumberOfPotions = potionsNumber;
 
 			StartCoroutine(HealCooldown());
 		}
@@ -373,6 +371,10 @@ public class CharacterControllerNonUnity : MonoBehaviour
 				canDoubleJump = true;
 				spriteRenderer.flipX = false;
 			}
+			if (Input.GetButtonUp("Jump") && m_Rigidbody.velocity.y > 0)
+			{
+				m_Rigidbody.velocity = new Vector3(m_Rigidbody.velocity.x, m_Rigidbody.velocity.y * .5f, 0);
+			}
 		}
 	}
 
@@ -400,8 +402,6 @@ public class CharacterControllerNonUnity : MonoBehaviour
 			animator.SetBool("Hit", true);
 			life -= damage;
 			healthbar.loseHP(damage);
-			SavingScript.instance.activeSave.saveLife = life;
-			SavingScript.instance.activeSave.saveNumberOfPotions = potionsNumber;
 
 			if (life <= 0)
 			{
@@ -490,8 +490,6 @@ public class CharacterControllerNonUnity : MonoBehaviour
 			m_Rigidbody.velocity = Vector3.zero;
 			m_Rigidbody.AddForce(damageDir * 15);
 			healthbar.loseHP(damage);
-			SavingScript.instance.activeSave.saveLife = life;
-			SavingScript.instance.activeSave.saveNumberOfPotions = potionsNumber;
 			if (life <= 0)
 			{
 				StartCoroutine(WaitToDead());
