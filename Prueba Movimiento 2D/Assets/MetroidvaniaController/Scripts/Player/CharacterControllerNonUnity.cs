@@ -16,8 +16,8 @@ public class CharacterControllerNonUnity : MonoBehaviour, IDataPersistence
     [SerializeField] public Transform m_TpGroundCheckBack;
     [SerializeField] private Transform m_WallCheck;                             //Posicion que controla si el personaje toca una pared
     [SerializeField] private int healValue = 30;
-    [SerializeField] private int potionsNumber;
-    [SerializeField] private int coins;
+    [SerializeField] public int potionsNumber;
+    [SerializeField] public int coins;
     private DataPersistenceManager SaveManager;
 
     public bool canHeal = true;

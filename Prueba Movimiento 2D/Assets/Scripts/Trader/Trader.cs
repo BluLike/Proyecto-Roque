@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data.Common;
+using TMPro;
 using UnityEngine.UIElements;
 
 public class Trader : MonoBehaviour
@@ -11,7 +12,7 @@ public class Trader : MonoBehaviour
 	
 	[Header("El resto de cosas XD")]
 	public float life = 75;
-	public int coins = 3;
+	public int price = 15;
 	private bool isPlat;
 	private bool isObstacle;
 	private Transform fallCheck;
@@ -23,9 +24,8 @@ public class Trader : MonoBehaviour
 	private Rigidbody rb;
 	private Transform playerTransform;
 	public BoxCollider boxCollider;
-	[SerializeField] private Transform m_GroundCheck;
+	private TextMeshPro CanBuyIndicator;
 	
-	[SerializeField] private LayerMask m_WhatIsGround;
 	
 	private bool distanceCheck;
 	private float distance;
@@ -33,9 +33,9 @@ public class Trader : MonoBehaviour
 												            
 
 	private bool facingRight = false;
-	private bool m_Grounded;
+
 	
-	public bool trigger = false ;
+	
 	
 
 	public bool isInvincible = false;
@@ -80,21 +80,7 @@ public class Trader : MonoBehaviour
 		groundLayerMask = LayerMask.GetMask("Ground");
     
 		
-		bool wasGrounded = m_Grounded;
-		m_Grounded = false;
 		
-            
-		
-		Collider[] colliders = Physics.OverlapSphere(m_GroundCheck.position, k_GroundedRadius, m_WhatIsGround);
-		for (int i = 0; i < colliders.Length; i++)
-		{
-			if (colliders[i].gameObject != gameObject)
-				m_Grounded = true;
-			if (!wasGrounded)
-			{
-			}
-    
-		}
     
 		isPlat = Physics2D.OverlapCircle(fallCheck.position, .2f, 1 << groundLayerMask);
 		isObstacle = Physics2D.OverlapCircle(wallCheck.position, .2f, turnLayerMask);
@@ -159,8 +145,15 @@ public class Trader : MonoBehaviour
 
 	private void OnTriggerStay(Collider other)
 	{
-		if (other.gameObject.tag == "Player" && life > 0)
-			trigger = true;
+		if (other.gameObject.tag == "Player")
+		{
+			if (Input.GetKey(KeyCode.E) && price <= other.gameObject.GetComponent<CharacterControllerNonUnity>().coins && other.gameObject.GetComponent<CharacterControllerNonUnity>().potionsNumber < 3)
+			{
+				CanBuyIndicator
+				other.gameObject.GetComponent<CharacterControllerNonUnity>().potionsNumber = 3;
+				other.gameObject.GetComponent<CharacterControllerNonUnity>().QuitCoins(price);
+			}
+		}
 
 	}
 	
