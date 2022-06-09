@@ -21,7 +21,7 @@ public class GameData
         this.life = 100f;
         this.potionsNumber = 3;
         this.coins = 0;
-        this.currentScene = "Tutorial";
+        this.currentScene = "Nivel Tutorial";
         this.currentFace = 1;
         this.towerRotation = new Quaternion(0, 0, 0, 1);
         this.currHPSLow = 100;

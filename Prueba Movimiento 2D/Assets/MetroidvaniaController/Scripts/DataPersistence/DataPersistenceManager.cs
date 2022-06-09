@@ -37,13 +37,13 @@ public class DataPersistenceManager : MonoBehaviour
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
-        SceneManager.sceneUnloaded += OnSceneUnloaded;
+        
     }
 
     private void OnDisable()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
-        SceneManager.sceneUnloaded -= OnSceneUnloaded;
+        
     }
 
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -52,10 +52,7 @@ public class DataPersistenceManager : MonoBehaviour
         LoadGame();
     }
 
-    public void OnSceneUnloaded(Scene scene)
-    {
-        SaveGame();
-    }
+   
 
     public void NewGame()
     {
@@ -108,11 +105,7 @@ public class DataPersistenceManager : MonoBehaviour
         dataHandler.Save(gameData);
         Debug.Log("amogus");
     }
-
-    private void OnApplicationQuit()
-    {
-        SaveGame();
-    }
+    
 
     public List<IDataPersistence> FindAllDataPersistenceObjects()
     {
