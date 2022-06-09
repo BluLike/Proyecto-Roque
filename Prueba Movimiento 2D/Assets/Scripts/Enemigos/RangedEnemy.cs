@@ -9,6 +9,7 @@ public class RangedEnemy : MonoBehaviour {
 	[SerializeField, Range(1, 4)] int enemyFace;
 
 	public float life = 75;
+	public int coins = 3;
 	public GameObject FireBall;
 	private bool isPlat;
 	private bool isObstacle;
@@ -214,6 +215,7 @@ public class RangedEnemy : MonoBehaviour {
 	IEnumerator DestroyEnemy()
 	{
 		gameObject.layer = 10;
+		player.AddCoins(coins);
 		yield return new WaitForSeconds(0.25f);
 		rb.velocity = new Vector2(0, rb.velocity.y);
 		yield return new WaitForSeconds(3f);

@@ -12,6 +12,7 @@ public class AssassinEnemy : MonoBehaviour
 	
 	[Header("El resto de cosas XD")]
 	public float life = 75;
+	public int coins = 3;
 	private bool isPlat;
 	private bool isObstacle;
 	private Transform fallCheck;
@@ -289,6 +290,7 @@ public class AssassinEnemy : MonoBehaviour
 	{
 		
 		gameObject.layer = 10;
+		player.AddCoins(coins);
 		yield return new WaitForSeconds(0.25f);
 		rb.velocity = new Vector2(0, rb.velocity.y);
 		yield return new WaitForSeconds(3f);

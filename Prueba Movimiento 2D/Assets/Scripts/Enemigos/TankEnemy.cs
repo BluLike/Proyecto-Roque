@@ -9,6 +9,7 @@ public class TankEnemy : MonoBehaviour {
 	[SerializeField, Range(1, 4)] int enemyFace;
 	
 	public float life = 75;
+	public int coins = 3;
 	private bool isPlat;
 	private bool isObstacle;
 	private Transform fallCheck;
@@ -329,6 +330,7 @@ public class TankEnemy : MonoBehaviour {
 	{
 		
 		gameObject.layer = 10;
+		player.AddCoins(coins);
 		yield return new WaitForSeconds(0.25f);
 		rb.velocity = new Vector2(0, rb.velocity.y);
 		yield return new WaitForSeconds(3f);
