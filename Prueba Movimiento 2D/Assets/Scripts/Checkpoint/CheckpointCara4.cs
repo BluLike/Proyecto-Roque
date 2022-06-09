@@ -9,6 +9,9 @@ public class CheckpointCara4 : MonoBehaviour
     //Animation states
     private const string OFF = "Apagado";
     private const string ON = "Encendido";
+    public AudioSource audioSource;
+    public AudioClip audiofire;
+    
 
     private bool apagado = true;
     private DataPersistenceManager SaveManager;
@@ -22,6 +25,7 @@ public class CheckpointCara4 : MonoBehaviour
 
     public void Awake()
     {
+        audioSource = GetComponent<AudioSource>();
         SaveManager = GameObject.Find("DataPersistenceManager").GetComponent<DataPersistenceManager>();
     }
 
@@ -41,8 +45,10 @@ public class CheckpointCara4 : MonoBehaviour
         {
             if (apagado)
             {
+                audioSource.PlayOneShot(audiofire, 0.5f);
                 ChangeAnimationState(ON); 
             }
+            apagado = false;
             SaveManager.SaveGame();
             other.gameObject.GetComponent<CharacterControllerNonUnity>().LastCheckpointCoord = gameObject.transform.position;
             Debug.Log(other.gameObject.GetComponent<CharacterControllerNonUnity>().LastCheckpointCoord);

@@ -43,6 +43,10 @@ public class TentacleEnemy : MonoBehaviour
 	public bool trigger = false ;
 	public bool canAttack = true;
 	
+	public AudioSource audioSource;
+	public AudioClip audioHit;
+	public AudioClip audioCoin;
+	
 
 	public bool isInvincible = false;
 	private bool isHitted = false;
@@ -81,6 +85,7 @@ public class TentacleEnemy : MonoBehaviour
 		player = GameObject.Find("DrawCharacter").GetComponent<CharacterControllerNonUnity>();
 		animator = GetComponent<Animator>();
 		ChangeAnimationState(cIDLE);
+		audioSource = GetComponent<AudioSource>();
 
 
 	}
@@ -202,7 +207,7 @@ public class TentacleEnemy : MonoBehaviour
 	{
 		if (!isInvincible && life > 0 && isDead == false) 
 		{
-            	
+			audioSource.PlayOneShot(audioHit, 0.5f);	
 			ChangeAnimationState(HURT);
 			float direction = damage / Mathf.Abs(damage);
 			damage = Mathf.Abs(damage);
@@ -303,7 +308,7 @@ public class TentacleEnemy : MonoBehaviour
 
 	IEnumerator DestroyEnemy()
 	{
-		
+		audioSource.PlayOneShot(audioCoin, 0.5f);
 		gameObject.layer = 10;
 		player.AddCoins(coins);
 		yield return new WaitForSeconds(0.25f);

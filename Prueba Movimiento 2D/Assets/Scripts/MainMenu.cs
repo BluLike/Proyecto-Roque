@@ -22,10 +22,19 @@ public class MainMenu : MonoBehaviour
         {
             warningText.SetActive(true);
         }
+
+        SceneManager.sceneUnloaded += OnSceneUnloaded;
+    }
+
+    private void OnSceneUnloaded(Scene current)
+    {
+        DataPersistenceManager.instance.SaveGame();
+        Debug.Log("funciono puta");
     }
 
     public void OnNewGameClicked()
     {
+        
         DisableMenuButtons();
         // create a new game - which will initialize our game data
         DataPersistenceManager.instance.NewGame();
@@ -47,7 +56,7 @@ public class MainMenu : MonoBehaviour
         DisableMenuButtons();
         Application.Quit();
     }
-
+    
     private void DisableMenuButtons()
     {
         newGameButton.interactable = false;

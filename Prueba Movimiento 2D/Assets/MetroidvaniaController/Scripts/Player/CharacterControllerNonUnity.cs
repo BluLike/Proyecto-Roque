@@ -67,6 +67,7 @@ public class CharacterControllerNonUnity : MonoBehaviour, IDataPersistence
     public TextMeshPro coinIndicator;
     public AudioSource audioSource;
     public AudioClip audioClip;
+    public AudioClip audioCoin;
     Scene m_Scene;
     string currentScene;
 
@@ -427,6 +428,7 @@ public class CharacterControllerNonUnity : MonoBehaviour, IDataPersistence
 
     public void AddCoins(int number)
     {
+        
         int v = coins + number;
         coins = v;
         bool addCoins = true;

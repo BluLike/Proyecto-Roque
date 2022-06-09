@@ -33,6 +33,10 @@ public class RangedEnemy : MonoBehaviour {
 	public GameObject proyectile;
 	public ThrowableWeapon Weapon;
 	
+	public AudioSource audioSource;
+	public AudioClip audioHit;
+	public AudioClip audioFire;
+	public AudioClip audioCoin;
 
 	private bool facingRight = false;
 	private bool m_Grounded;
@@ -64,6 +68,7 @@ public class RangedEnemy : MonoBehaviour {
 		currentState = newState;
 	}
 	void Awake () {
+		audioSource = GetComponent<AudioSource>();
 		player = GameObject.Find("DrawCharacter").GetComponent<CharacterControllerNonUnity>();
 		fallCheck = transform.Find("FallCheck");
 		wallCheck = transform.Find("WallCheck");
@@ -158,6 +163,7 @@ public class RangedEnemy : MonoBehaviour {
 			life -= damage;
 			rb.velocity = Vector2.zero;
 			rb.AddForce(new Vector2(direction * 400f, 100f));
+			audioSource.PlayOneShot(audioHit, 0.5f);
 			StartCoroutine(HitTime());
 
 		}
@@ -214,6 +220,7 @@ public class RangedEnemy : MonoBehaviour {
 
 	IEnumerator DestroyEnemy()
 	{
+		audioSource.PlayOneShot(audioCoin, 0.5f);
 		gameObject.layer = 10;
 		player.AddCoins(coins);
 		yield return new WaitForSeconds(0.25f);
@@ -224,6 +231,7 @@ public class RangedEnemy : MonoBehaviour {
 	
 	IEnumerator SpellCast()
 	{
+		audioSource.PlayOneShot(audioFire, 0.5f);
 		Vector3 position;
 		yield return new WaitForSeconds(0.4f);
 		if (transform.localScale.x < 0)

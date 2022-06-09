@@ -38,7 +38,9 @@ public class TankEnemy : MonoBehaviour {
 	public bool isAttacking = false;
 	public bool canAttack = true;
 	
-	
+	public AudioSource audioSource;
+	public AudioClip audioHit;
+	public AudioClip audioCoin;
 
 	public bool isInvincible = false;
 	private bool isHitted = false;
@@ -76,6 +78,7 @@ public class TankEnemy : MonoBehaviour {
 		player = GameObject.Find("DrawCharacter").GetComponent<CharacterControllerNonUnity>();
 		animator = GetComponent<Animator>();
 		canAttack = true;
+		audioSource = GetComponent<AudioSource>();
 		
 
 
@@ -196,15 +199,15 @@ public class TankEnemy : MonoBehaviour {
 		if (!isInvincible && life > 0 && !isDead) 
 		{
 			
-			
-				ChangeAnimationState(HURT);
-                float direction = damage / Mathf.Abs(damage);
-                damage = Mathf.Abs(damage);
-                transform.GetComponent<Animator>().SetBool("Hit", true);
-                life -= damage;
-                rb.velocity = Vector2.zero;
-                rb.AddForce(new Vector2(direction * 400f, 150f));
-                StartCoroutine(HitTime());
+			audioSource.PlayOneShot(audioHit, 0.5f);
+			ChangeAnimationState(HURT);
+            float direction = damage / Mathf.Abs(damage);
+            damage = Mathf.Abs(damage);
+            transform.GetComponent<Animator>().SetBool("Hit", true);
+            life -= damage;
+            rb.velocity = Vector2.zero;
+            rb.AddForce(new Vector2(direction * 400f, 150f));
+            StartCoroutine(HitTime());
 
 			
 			
@@ -328,7 +331,7 @@ public class TankEnemy : MonoBehaviour {
 
 	IEnumerator DestroyEnemy()
 	{
-		
+		audioSource.PlayOneShot(audioCoin, 0.5f);
 		gameObject.layer = 10;
 		player.AddCoins(coins);
 		yield return new WaitForSeconds(0.25f);

@@ -33,6 +33,11 @@ public class AssassinEnemy : MonoBehaviour
 	private bool distanceCheck;
 	private float distance;
 	private CharacterControllerNonUnity player;
+	
+	public AudioSource audioSource;
+	public AudioClip audioHit;
+	public AudioClip audioCoin;
+	
 												            
 
 	private bool facingRight = false;
@@ -79,7 +84,7 @@ public class AssassinEnemy : MonoBehaviour
 		playerTransform = GameObject.Find("DrawCharacter").GetComponent<Transform>();
 		player = GameObject.Find("DrawCharacter").GetComponent<CharacterControllerNonUnity>();
 		animator = GetComponent<Animator>();
-
+		audioSource = GetComponent<AudioSource>();
 
 	}
 	
@@ -208,6 +213,7 @@ public class AssassinEnemy : MonoBehaviour
 			life -= damage;
 			rb.velocity = Vector2.zero;
 			rb.AddForce(new Vector2(direction * 400f, 150f));
+			audioSource.PlayOneShot(audioHit, 0.5f);
 			StartCoroutine(HitTime());
     
 		}
@@ -288,7 +294,7 @@ public class AssassinEnemy : MonoBehaviour
 
 	IEnumerator DestroyEnemy()
 	{
-		
+		audioSource.PlayOneShot(audioCoin, 0.5f);
 		gameObject.layer = 10;
 		player.AddCoins(coins);
 		yield return new WaitForSeconds(0.25f);
