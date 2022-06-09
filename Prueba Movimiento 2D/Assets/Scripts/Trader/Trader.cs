@@ -26,8 +26,8 @@ public class Trader : MonoBehaviour
 	public BoxCollider boxCollider;
 	[SerializeField] private TextMeshPro CanBuyIndicator;
 	[SerializeField] private TextMeshPro Dialog;
-	
-	
+
+
 	private bool distanceCheck;
 	private float distance;
 	private CharacterControllerNonUnity player;
