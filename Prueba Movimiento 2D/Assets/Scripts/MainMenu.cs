@@ -42,6 +42,12 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene("Loading");
     }
 
+    public void ExitGame()
+    {
+        DisableMenuButtons();
+        Application.Quit();
+    }
+
     private void DisableMenuButtons()
     {
         newGameButton.interactable = false;

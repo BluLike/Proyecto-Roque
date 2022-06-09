@@ -146,20 +146,12 @@ public class CharacterControllerNonUnity : MonoBehaviour, IDataPersistence
         Physics.IgnoreLayerCollision(9, 9);
         m_Scene = SceneManager.GetActiveScene();
         currentScene = m_Scene.name;
-        if (Input.GetKey(KeyCode.B))
-        {
-            QuitCoins(1);
-        }
-        if (Input.GetKey(KeyCode.N))
-        {
-            AddCoins(1);
-        }
         if (life > 100)
             life = 100;
         potionIndicator.text = Convert.ToString(potionsNumber);
         coinIndicator.text = Convert.ToString(coins);
-        //heal function
-        if (Input.GetKeyDown(KeyCode.F) && canHeal || Input.GetMouseButtonDown(2) && canHeal)
+        
+        if (Input.GetKey(KeyCode.F) && canHeal || Input.GetMouseButton(2) && canHeal)
         {
             if (life >= 100f || potionsNumber < 1)
                 return;
@@ -443,10 +435,14 @@ public class CharacterControllerNonUnity : MonoBehaviour, IDataPersistence
 
     public void QuitCoins(int number)
     {
-        int v = coins - number;
-        coins = v;
-        bool addCoins = false;
-        StartCoroutine(VFXCoinsCooldown(addCoins));
+        if (coins > number)
+        {
+            int v = coins - number;
+            coins = v;
+            bool addCoins = false;
+            StartCoroutine(VFXCoinsCooldown(addCoins));
+        }
+       
     }
     IEnumerator VFXCoinsCooldown(bool addCoins)
     {
