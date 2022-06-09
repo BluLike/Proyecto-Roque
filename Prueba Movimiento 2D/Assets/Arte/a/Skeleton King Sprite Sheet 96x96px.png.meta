@@ -1,12 +1,189 @@
 fileFormatVersion: 2
 guid: e840716c654fce34da880f33c4bdce13
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: 36034293899740424
+    second: Skeleton King Sprite Sheet 96x96px_0
+  - first:
+      213: 1849836745953149817
+    second: Skeleton King Sprite Sheet 96x96px_1
+  - first:
+      213: -7582237689930123557
+    second: Skeleton King Sprite Sheet 96x96px_2
+  - first:
+      213: -637273679761650138
+    second: Skeleton King Sprite Sheet 96x96px_3
+  - first:
+      213: -611332459480542060
+    second: Skeleton King Sprite Sheet 96x96px_4
+  - first:
+      213: -3795941458585290024
+    second: Skeleton King Sprite Sheet 96x96px_5
+  - first:
+      213: -3328904812011327778
+    second: Skeleton King Sprite Sheet 96x96px_6
+  - first:
+      213: -5442793718189140926
+    second: Skeleton King Sprite Sheet 96x96px_7
+  - first:
+      213: -6222614866820511200
+    second: Skeleton King Sprite Sheet 96x96px_8
+  - first:
+      213: 7723901774437382923
+    second: Skeleton King Sprite Sheet 96x96px_9
+  - first:
+      213: -1038955614427754154
+    second: Skeleton King Sprite Sheet 96x96px_10
+  - first:
+      213: 5467628486252035158
+    second: Skeleton King Sprite Sheet 96x96px_11
+  - first:
+      213: 1127472300950717760
+    second: Skeleton King Sprite Sheet 96x96px_12
+  - first:
+      213: -2019230362095124213
+    second: Skeleton King Sprite Sheet 96x96px_13
+  - first:
+      213: 7927582934973891971
+    second: Skeleton King Sprite Sheet 96x96px_14
+  - first:
+      213: -1268950790954478453
+    second: Skeleton King Sprite Sheet 96x96px_15
+  - first:
+      213: 3465187918617081331
+    second: Skeleton King Sprite Sheet 96x96px_16
+  - first:
+      213: -7116717775274324442
+    second: Skeleton King Sprite Sheet 96x96px_17
+  - first:
+      213: 5203549794222241347
+    second: Skeleton King Sprite Sheet 96x96px_18
+  - first:
+      213: 8116389155122154704
+    second: Skeleton King Sprite Sheet 96x96px_19
+  - first:
+      213: 4743268957860294144
+    second: Skeleton King Sprite Sheet 96x96px_20
+  - first:
+      213: -24259007046898267
+    second: Skeleton King Sprite Sheet 96x96px_21
+  - first:
+      213: -109275292690731373
+    second: Skeleton King Sprite Sheet 96x96px_22
+  - first:
+      213: -8016836634412784901
+    second: Skeleton King Sprite Sheet 96x96px_23
+  - first:
+      213: -8021708454522817765
+    second: Skeleton King Sprite Sheet 96x96px_24
+  - first:
+      213: -2174383820266962072
+    second: Skeleton King Sprite Sheet 96x96px_25
+  - first:
+      213: 1219052772032169610
+    second: Skeleton King Sprite Sheet 96x96px_26
+  - first:
+      213: -8953206386440517781
+    second: Skeleton King Sprite Sheet 96x96px_27
+  - first:
+      213: -3851710066553838332
+    second: Skeleton King Sprite Sheet 96x96px_28
+  - first:
+      213: 2439224949125683594
+    second: Skeleton King Sprite Sheet 96x96px_29
+  - first:
+      213: 8961567522474852241
+    second: Skeleton King Sprite Sheet 96x96px_30
+  - first:
+      213: -278987288456871446
+    second: Skeleton King Sprite Sheet 96x96px_31
+  - first:
+      213: 8906192501168583652
+    second: Skeleton King Sprite Sheet 96x96px_32
+  - first:
+      213: -4688641530926096894
+    second: Skeleton King Sprite Sheet 96x96px_33
+  - first:
+      213: -5153214142245751219
+    second: Skeleton King Sprite Sheet 96x96px_34
+  - first:
+      213: -3003603411114668249
+    second: Skeleton King Sprite Sheet 96x96px_35
+  - first:
+      213: 8355276401629923783
+    second: Skeleton King Sprite Sheet 96x96px_36
+  - first:
+      213: 2292691332451314292
+    second: Skeleton King Sprite Sheet 96x96px_37
+  - first:
+      213: 3840707213629705402
+    second: Skeleton King Sprite Sheet 96x96px_38
+  - first:
+      213: -3615500007438661908
+    second: Skeleton King Sprite Sheet 96x96px_39
+  - first:
+      213: 1762497736687740676
+    second: Skeleton King Sprite Sheet 96x96px_40
+  - first:
+      213: 7058377569166458365
+    second: Skeleton King Sprite Sheet 96x96px_41
+  - first:
+      213: -1812859895640343163
+    second: Skeleton King Sprite Sheet 96x96px_42
+  - first:
+      213: -2028506381633851071
+    second: Skeleton King Sprite Sheet 96x96px_43
+  - first:
+      213: 1540198388632874877
+    second: Skeleton King Sprite Sheet 96x96px_44
+  - first:
+      213: -7114193254177288605
+    second: Skeleton King Sprite Sheet 96x96px_45
+  - first:
+      213: 4421806589933769311
+    second: Skeleton King Sprite Sheet 96x96px_46
+  - first:
+      213: -5220400790579255884
+    second: Skeleton King Sprite Sheet 96x96px_47
+  - first:
+      213: 5166451594356088901
+    second: Skeleton King Sprite Sheet 96x96px_48
+  - first:
+      213: 2067824179503243305
+    second: Skeleton King Sprite Sheet 96x96px_49
+  - first:
+      213: 1370317060149356781
+    second: Skeleton King Sprite Sheet 96x96px_50
+  - first:
+      213: -4085040085687686498
+    second: Skeleton King Sprite Sheet 96x96px_51
+  - first:
+      213: 4376621485618508560
+    second: Skeleton King Sprite Sheet 96x96px_52
+  - first:
+      213: 695335763499927148
+    second: Skeleton King Sprite Sheet 96x96px_53
+  - first:
+      213: -7890326888838823370
+    second: Skeleton King Sprite Sheet 96x96px_54
+  - first:
+      213: 182065794644650414
+    second: Skeleton King Sprite Sheet 96x96px_55
+  - first:
+      213: 6218768089550848491
+    second: Skeleton King Sprite Sheet 96x96px_56
+  - first:
+      213: -4657886956393015407
+    second: Skeleton King Sprite Sheet 96x96px_57
+  - first:
+      213: 6856583711556325137
+    second: Skeleton King Sprite Sheet 96x96px_58
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 1
+    enableMipMap: 0
     sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
@@ -32,27 +209,27 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
-    wrapU: 0
-    wrapV: 0
+    wrapU: 1
+    wrapV: 1
     wrapW: 0
-  nPOTScale: 1
+  nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 0
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 10
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
-  alphaIsTransparency: 0
+  alphaIsTransparency: 1
   spriteTessellationDetail: -1
-  textureType: 0
+  textureType: 8
   textureShape: 1
   singleChannelComponent: 0
   flipbookRows: 1
@@ -75,13 +252,1264 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Skeleton King Sprite Sheet 96x96px_0
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 603
+        width: 27
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 80540a7dff4008000800000000000000
+      internalID: 36034293899740424
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skeleton King Sprite Sheet 96x96px_1
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 604
+        width: 27
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 973800738b0fba910800000000000000
+      internalID: 1849836745953149817
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skeleton King Sprite Sheet 96x96px_2
+      rect:
+        serializedVersion: 2
+        x: 212
+        y: 604
+        width: 27
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd6f2215efa76c690800000000000000
+      internalID: -7582237689930123557
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skeleton King Sprite Sheet 96x96px_3
+      rect:
+        serializedVersion: 2
+        x: 308
+        y: 604
+        width: 27
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 62ec915f6f2f727f0800000000000000
+      internalID: -637273679761650138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skeleton King Sprite Sheet 96x96px_4
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 548
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4941ff8fd5c1487f0800000000000000
+      internalID: -611332459480542060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skeleton King Sprite Sheet 96x96px_5
+      rect:
+        serializedVersion: 2
+        x: 788
+        y: 508
+        width: 29
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8da78dcea5b125bc0800000000000000
+      internalID: -3795941458585290024
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skeleton King Sprite Sheet 96x96px_6
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 534
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: edee9f4f5ba5dc1d0800000000000000
+      internalID: -3328904812011327778
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skeleton King Sprite Sheet 96x96px_7
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 533
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 244db9153ff4774b0800000000000000
+      internalID: -5442793718189140926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skeleton King Sprite Sheet 96x96px_8
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 512
+        width: 20
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 02a49195fb4d4a9a0800000000000000
+      internalID: -6222614866820511200
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skeleton King Sprite Sheet 96x96px_9
+      rect:
+        serializedVersion: 2
+        x: 500
+        y: 512
+        width: 28
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b0b7959adbfc03b60800000000000000
+      internalID: 7723901774437382923
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skeleton King Sprite Sheet 96x96px_10
+      rect:
+        serializedVersion: 2
+        x: 595
+        y: 511
+        width: 29
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 651d2a09f53e491f0800000000000000
+      internalID: -1038955614427754154
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skeleton King Sprite Sheet 96x96px_11
+      rect:
+        serializedVersion: 2
+        x: 693
+        y: 508
+        width: 27
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65cfbd6b32be0eb40800000000000000
+      internalID: 5467628486252035158
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skeleton King Sprite Sheet 96x96px_12
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 526
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0458248851695af00800000000000000
+      internalID: 1127472300950717760
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skeleton King Sprite Sheet 96x96px_13
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 512
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b0103ab1fa04af3e0800000000000000
+      internalID: -2019230362095124213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skeleton King Sprite Sheet 96x96px_14
+      rect:
+        serializedVersion: 2
+        x: 43
+        y: 527
+        width: 5
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 385419e5dae640e60800000000000000
+      internalID: 7927582934973891971
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skeleton King Sprite Sheet 96x96px_15
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 512
+        width: 27
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b8415b39af7c36ee0800000000000000
+      internalID: -1268950790954478453
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skeleton King Sprite Sheet 96x96px_16
+      rect:
+        serializedVersion: 2
+        x: 154
+        y: 523
+        width: 5
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f575297d02d61030800000000000000
+      internalID: 3465187918617081331
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skeleton King Sprite Sheet 96x96px_17
+      rect:
+        serializedVersion: 2
+        x: 212
+        y: 512
+        width: 18
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 62ec01ea3e65c3d90800000000000000
+      internalID: -7116717775274324442
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skeleton King Sprite Sheet 96x96px_18
+      rect:
+        serializedVersion: 2
+        x: 308
+        y: 512
+        width: 24
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3467cafd7f8b63840800000000000000
+      internalID: 5203549794222241347
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skeleton King Sprite Sheet 96x96px_19
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 512
+        width: 10
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0dc83e12fe433a070800000000000000
+      internalID: 8116389155122154704
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skeleton King Sprite Sheet 96x96px_20
+      rect:
+        serializedVersion: 2
+        x: 333
+        y: 513
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00e666b7cf973d140800000000000000
+      internalID: 4743268957860294144
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skeleton King Sprite Sheet 96x96px_21
+      rect:
+        serializedVersion: 2
+        x: 434
+        y: 512
+        width: 8
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5adad56cf80d9aff0800000000000000
+      internalID: -24259007046898267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skeleton King Sprite Sheet 96x96px_22
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 412
+        width: 27
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39e217443b6cb7ef0800000000000000
+      internalID: -109275292690731373
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skeleton King Sprite Sheet 96x96px_23
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 415
+        width: 28
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf2ec775e897eb090800000000000000
+      internalID: -8016836634412784901
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skeleton King Sprite Sheet 96x96px_24
+      rect:
+        serializedVersion: 2
+        x: 212
+        y: 417
+        width: 28
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b137b6459aa2da090800000000000000
+      internalID: -8021708454522817765
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skeleton King Sprite Sheet 96x96px_25
+      rect:
+        serializedVersion: 2
+        x: 308
+        y: 416
+        width: 28
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 86381a39f6903d1e0800000000000000
+      internalID: -2174383820266962072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skeleton King Sprite Sheet 96x96px_26
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 412
+        width: 27
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a86ce6f8902fae010800000000000000
+      internalID: 1219052772032169610
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skeleton King Sprite Sheet 96x96px_27
+      rect:
+        serializedVersion: 2
+        x: 500
+        y: 414
+        width: 27
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b6744774a32dfb380800000000000000
+      internalID: -8953206386440517781
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skeleton King Sprite Sheet 96x96px_28
+      rect:
+        serializedVersion: 2
+        x: 596
+        y: 417
+        width: 27
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 40523490a1afb8ac0800000000000000
+      internalID: -3851710066553838332
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skeleton King Sprite Sheet 96x96px_29
+      rect:
+        serializedVersion: 2
+        x: 692
+        y: 414
+        width: 27
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a8918ebea2ed9d120800000000000000
+      internalID: 2439224949125683594
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skeleton King Sprite Sheet 96x96px_30
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 316
+        width: 27
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19f7ac76e22ed5c70800000000000000
+      internalID: 8961567522474852241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skeleton King Sprite Sheet 96x96px_31
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 316
+        width: 42
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae1cdae0a86d02cf0800000000000000
+      internalID: -278987288456871446
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skeleton King Sprite Sheet 96x96px_32
+      rect:
+        serializedVersion: 2
+        x: 201
+        y: 320
+        width: 38
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e3b66d84e6299b70800000000000000
+      internalID: 8906192501168583652
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skeleton King Sprite Sheet 96x96px_33
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 320
+        width: 31
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 20e910e7e599eeeb0800000000000000
+      internalID: -4688641530926096894
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skeleton King Sprite Sheet 96x96px_34
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 320
+        width: 40
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d463cef5a0b1c78b0800000000000000
+      internalID: -5153214142245751219
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skeleton King Sprite Sheet 96x96px_35
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 320
+        width: 39
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 72fcb528c9e0156d0800000000000000
+      internalID: -3003603411114668249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skeleton King Sprite Sheet 96x96px_36
+      rect:
+        serializedVersion: 2
+        x: 601
+        y: 320
+        width: 38
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c90b5f7e97e3f370800000000000000
+      internalID: 8355276401629923783
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skeleton King Sprite Sheet 96x96px_37
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 219
+        width: 27
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 47aa062ae9641df10800000000000000
+      internalID: 2292691332451314292
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skeleton King Sprite Sheet 96x96px_38
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 224
+        width: 33
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: abccda2acdeec4530800000000000000
+      internalID: 3840707213629705402
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skeleton King Sprite Sheet 96x96px_39
+      rect:
+        serializedVersion: 2
+        x: 218
+        y: 224
+        width: 41
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce6423326e923ddc0800000000000000
+      internalID: -3615500007438661908
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skeleton King Sprite Sheet 96x96px_40
+      rect:
+        serializedVersion: 2
+        x: 314
+        y: 224
+        width: 41
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 407e3b87a56a57810800000000000000
+      internalID: 1762497736687740676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skeleton King Sprite Sheet 96x96px_41
+      rect:
+        serializedVersion: 2
+        x: 410
+        y: 224
+        width: 41
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dfd70c4900564f160800000000000000
+      internalID: 7058377569166458365
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skeleton King Sprite Sheet 96x96px_42
+      rect:
+        serializedVersion: 2
+        x: 506
+        y: 224
+        width: 41
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58d3ec4a78d67d6e0800000000000000
+      internalID: -1812859895640343163
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skeleton King Sprite Sheet 96x96px_43
+      rect:
+        serializedVersion: 2
+        x: 602
+        y: 224
+        width: 41
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 141f912813c49d3e0800000000000000
+      internalID: -2028506381633851071
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skeleton King Sprite Sheet 96x96px_44
+      rect:
+        serializedVersion: 2
+        x: 698
+        y: 224
+        width: 41
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d7f671e2642ef5510800000000000000
+      internalID: 1540198388632874877
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skeleton King Sprite Sheet 96x96px_45
+      rect:
+        serializedVersion: 2
+        x: 792
+        y: 224
+        width: 32
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36e484d8dee454d90800000000000000
+      internalID: -7114193254177288605
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skeleton King Sprite Sheet 96x96px_46
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 124
+        width: 28
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f52db727aa96d5d30800000000000000
+      internalID: 4421806589933769311
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skeleton King Sprite Sheet 96x96px_47
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 124
+        width: 28
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b5ea5cc3296d87b0800000000000000
+      internalID: -5220400790579255884
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skeleton King Sprite Sheet 96x96px_48
+      rect:
+        serializedVersion: 2
+        x: 211
+        y: 123
+        width: 28
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54068de1a5ce2b740800000000000000
+      internalID: 5166451594356088901
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skeleton King Sprite Sheet 96x96px_49
+      rect:
+        serializedVersion: 2
+        x: 307
+        y: 124
+        width: 28
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 920214da22362bc10800000000000000
+      internalID: 2067824179503243305
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skeleton King Sprite Sheet 96x96px_50
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 28
+        width: 28
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: de82cdf1b18540310800000000000000
+      internalID: 1370317060149356781
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skeleton King Sprite Sheet 96x96px_51
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 28
+        width: 28
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e9aaa5f7fa50f47c0800000000000000
+      internalID: -4085040085687686498
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skeleton King Sprite Sheet 96x96px_52
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 30
+        width: 30
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 01332a68d02ecbc30800000000000000
+      internalID: 4376621485618508560
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skeleton King Sprite Sheet 96x96px_53
+      rect:
+        serializedVersion: 2
+        x: 305
+        y: 29
+        width: 30
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c66c90f513456a900800000000000000
+      internalID: 695335763499927148
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skeleton King Sprite Sheet 96x96px_54
+      rect:
+        serializedVersion: 2
+        x: 401
+        y: 28
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6328c05df7def7290800000000000000
+      internalID: -7890326888838823370
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skeleton King Sprite Sheet 96x96px_55
+      rect:
+        serializedVersion: 2
+        x: 497
+        y: 28
+        width: 30
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea92b8720e3d68200800000000000000
+      internalID: 182065794644650414
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skeleton King Sprite Sheet 96x96px_56
+      rect:
+        serializedVersion: 2
+        x: 593
+        y: 28
+        width: 32
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be1863601a08d4650800000000000000
+      internalID: 6218768089550848491
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skeleton King Sprite Sheet 96x96px_57
+      rect:
+        serializedVersion: 2
+        x: 689
+        y: 28
+        width: 33
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 197d440ed7cdb5fb0800000000000000
+      internalID: -4657886956393015407
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skeleton King Sprite Sheet 96x96px_58
+      rect:
+        serializedVersion: 2
+        x: 785
+        y: 28
+        width: 34
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 11f4b04de8a772f50800000000000000
+      internalID: 6856583711556325137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 77bcf0fae0fbf5b439230c5cc67ed4dc
     internalID: 0
     vertices: []
     indices: 
