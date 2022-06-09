@@ -9,7 +9,7 @@ public class TankEnemy : MonoBehaviour {
 	[SerializeField, Range(1, 4)] int enemyFace;
 	
 	public float life = 75;
-	public int coins = 3;
+	public int coins = 10;
 	private bool isPlat;
 	private bool isObstacle;
 	private Transform fallCheck;

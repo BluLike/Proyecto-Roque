@@ -12,7 +12,7 @@ public class AssassinEnemy : MonoBehaviour
 	
 	[Header("El resto de cosas XD")]
 	public float life = 75;
-	public int coins = 3;
+	public int coins = 10;
 	private bool isPlat;
 	private bool isObstacle;
 	private Transform fallCheck;
