@@ -45,8 +45,8 @@ public class HealthBar_smooth : MonoBehaviour, IDataPersistence
             currHPSLow = Mathf.Lerp(currHPSLow, currHP, t);
             t += 1.0f * Time.deltaTime;
         }
-       sphereRender.material.SetFloat("_Progress", currHPSLow * 0.01f);
-       materialFloat = sphereRender.material.GetFloat("_Progress");
+        sphereRender.material.SetFloat("_Progress", currHPSLow * 0.01f); 
+        materialFloat = sphereRender.material.GetFloat("_Progress");
 
 
 

@@ -24,7 +24,8 @@ public class Trader : MonoBehaviour
 	private Rigidbody rb;
 	private Transform playerTransform;
 	public BoxCollider boxCollider;
-	private TextMeshPro CanBuyIndicator;
+	[SerializeField] private TextMeshPro CanBuyIndicator;
+	[SerializeField] private TextMeshPro Dialog;
 	
 	
 	private bool distanceCheck;
@@ -35,7 +36,9 @@ public class Trader : MonoBehaviour
 	private bool facingRight = false;
 
 	
-	
+	private bool trigger = false;
+	private bool hasEntered = false;
+	float t;
 	
 
 	public bool isInvincible = false;
@@ -59,7 +62,8 @@ public class Trader : MonoBehaviour
 		currentState = newState;
 	}
 	
-	void Awake () {
+	void Awake ()
+	{
 		fallCheck = transform.Find("FallCheck");
 		wallCheck = transform.Find("WallCheck");
 		rb = GetComponent<Rigidbody>();
@@ -115,9 +119,40 @@ public class Trader : MonoBehaviour
 		}
 		else
 			ChangeAnimationState(IDLE);
+		
+		
 	}
 
-	
+	private void Update()
+	{
+		if (hasEntered == false)
+		{
+			Dialog.alpha = 0;
+			CanBuyIndicator.alpha = 0;
+		}
+		if (trigger)
+		{
+			hasEntered = true;
+			if (player.coins < price)
+			{
+				CanBuyIndicator.color = Color.red;
+			}
+			else if (player.potionsNumber >= 3 && player.coins > price)
+			{
+				CanBuyIndicator.color = Color.gray;
+			}
+			else
+			{
+				CanBuyIndicator.color = Color.white;
+			}
+			Dialog.alpha = Mathf.Lerp(0, 255, t);
+			CanBuyIndicator.alpha = Mathf.Lerp(0, 255, t);
+			t += 0.01f * Time.deltaTime;
+			
+		}
+		
+	}
+
 	private void FlipR()
 	{
 		
@@ -138,10 +173,18 @@ public class Trader : MonoBehaviour
 		transform.localScale = theScale;
 
 	}
-
 	
+	private void OnTriggerEnter(Collider other)
+	{
+		if (other.gameObject.tag == "Player")
+			trigger = true;
+	}
 
-	
+	private void OnTriggerExit(Collider other)
+	{
+		if (other.gameObject.tag == "Player")
+			trigger = false;
+	}
 
 	private void OnTriggerStay(Collider other)
 	{
@@ -149,7 +192,6 @@ public class Trader : MonoBehaviour
 		{
 			if (Input.GetKey(KeyCode.E) && price <= other.gameObject.GetComponent<CharacterControllerNonUnity>().coins && other.gameObject.GetComponent<CharacterControllerNonUnity>().potionsNumber < 3)
 			{
-				CanBuyIndicator
 				other.gameObject.GetComponent<CharacterControllerNonUnity>().potionsNumber = 3;
 				other.gameObject.GetComponent<CharacterControllerNonUnity>().QuitCoins(price);
 			}
