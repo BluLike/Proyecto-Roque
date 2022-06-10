@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
     public static bool GameIsPaused = false;
+    public static bool cursorVisible = true;
 
     public GameObject PauseMenuUI;
 
@@ -20,6 +22,7 @@ public class PauseMenu : MonoBehaviour
     private void Awake()
     {
         characterControllerNonUnity = GameObject.Find("DrawCharacter").GetComponent<CharacterControllerNonUnity>();
+        
     }
     void Update()
     {
@@ -27,13 +30,28 @@ public class PauseMenu : MonoBehaviour
         {
             if (GameIsPaused)
             {
-                Resume();
+                
             }
             else
             {
                 Pause();
             }
+            
         }
+
+        Cursor.visible = false;
+        if (GameIsPaused && cursorVisible == false)
+        {
+            Cursor.visible = true;
+            cursorVisible = true;
+            Debug.Log("cursor visible");
+        }
+        else if (GameIsPaused == false && cursorVisible == true)
+        {
+            Cursor.visible = false;
+            cursorVisible = false;
+            Debug.Log("cursor invisible");
+        }  
     }
     public void Resume()
     {
