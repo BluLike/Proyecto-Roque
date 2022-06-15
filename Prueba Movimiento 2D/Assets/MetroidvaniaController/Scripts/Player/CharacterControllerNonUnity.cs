@@ -140,7 +140,6 @@ public class CharacterControllerNonUnity : MonoBehaviour, IDataPersistence
 
     private void FixedUpdate()
     {
-        Cursor.visible = false;
         Physics.IgnoreLayerCollision(8, 14);
         Physics.IgnoreLayerCollision(8, 10);
         Physics.IgnoreLayerCollision(8, 11);

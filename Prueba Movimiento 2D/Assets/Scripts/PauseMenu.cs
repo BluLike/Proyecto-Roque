@@ -39,17 +39,16 @@ public class PauseMenu : MonoBehaviour
             
         }
 
-        Cursor.visible = false;
+        Cursor.visible = true; 
         if (GameIsPaused && cursorVisible == false)
         {
-            Cursor.visible = true;
-            cursorVisible = true;
+            
             Debug.Log("cursor visible");
         }
         else if (GameIsPaused == false && cursorVisible == true)
         {
-            Cursor.visible = false;
-            cursorVisible = false;
+            
+            
             Debug.Log("cursor invisible");
         }  
     }
